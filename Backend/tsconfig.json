@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Output */
+    "outDir": "./dist",
+    "rootDir": ".",
+
+    /* Module Resolution */
+    "module": "nodenext",              /* Supaya sesuai dengan "type": "module" di package.json */
+    "moduleResolution": "nodenext",  /* Paling cocok untuk Node.js ESM */
+    "target": "es2022",              /* Fitur modern JS */
+    "esModuleInterop": true,         /* Biar bisa import default dari CommonJS */
+    "allowSyntheticDefaultImports": true,
+
+    /* Strictness */
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    /* Debugging */
+    "sourceMap": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
