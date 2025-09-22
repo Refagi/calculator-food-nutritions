@@ -2,11 +2,13 @@ import express from "express";
 import type { Request, Response } from "express";
 import config from './config/config.js';
 import morgan from './config/morgan.js';
-import { jwtStrategy } from './config/passport.js';
+import { jwtStrategy, googleStrategy } from './config/passport.js';
 import xssSentinize from './middlewares/sentinize.js';
-import helmet from "helmet";
+import { errorHandler, errorConverter } from "./middlewares/error.js";
 import passport from "passport";
+import helmet from "helmet";
 import cors from 'cors';
+import compression from "compression";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -38,6 +40,11 @@ app.use(
   })
 );
 
+app.use(compression({
+  level: 6,
+  threshold: 1024 //compress > 1024
+}));
+
 // aktifin parsing json
 app.use(express.json());
 // aktifin urlencoded
@@ -46,11 +53,17 @@ app.use(express.urlencoded({ extended: true }));
 // jwt authentication
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
+passport.use('google', googleStrategy);
 
 // Route dasar
 app.get("/", (req: Request, res: Response) => {
   res.json({ message: "Hello from Express + TypeScript + ESM!" });
 });
 
+// convert error to ApiError, if needed
+app.use(errorConverter);
+
+// handle error
+app.use(errorHandler);
 
 export default app;

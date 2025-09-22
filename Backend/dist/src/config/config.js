@@ -16,7 +16,9 @@ const envSchema = z.object({
     SMTP_PORT: z.coerce.number().optional(),
     SMTP_USERNAME: z.string().optional(),
     SMTP_PASSWORD: z.string().optional(),
-    EMAIL_FROM: z.string().optional()
+    EMAIL_FROM: z.string().optional(),
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
 });
 const parsedEnv = envSchema.safeParse(process.env);
 if (!parsedEnv.success) {
@@ -47,6 +49,10 @@ export default {
             }
         },
         from: envVars.EMAIL_FROM
+    },
+    google: {
+        credentialId: envVars.GOOGLE_CLIENT_ID,
+        credentialSecret: envVars.GOOGLE_CLIENT_SECRET
     }
 };
 //# sourceMappingURL=config.js.map

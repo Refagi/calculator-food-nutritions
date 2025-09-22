@@ -18,6 +18,7 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.35.0",
+    "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "@types/dotenv": "^6.1.1",
     "@types/eslint": "^9.6.1",
@@ -41,7 +42,9 @@
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "@types/passport-google-oauth20": "^2.0.16",
     "bcryptjs": "^3.0.2",
+    "compression": "^1.8.1",
     "cors": "^2.8.5",
     "cross-env": "^10.0.0",
     "dotenv": "^17.2.2",
@@ -52,6 +55,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
     "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
     "uuid": "^13.0.0",
     "winston": "^3.17.0",

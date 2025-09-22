@@ -16,12 +16,13 @@ datasource db {
 
 model User {
   id              String       @id @default(uuid())
-  username        String
+  name            String
   email           String      @unique
   password        String
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   isEmailVerified Boolean      @default(false)
+  googleId        String?      @unique
   tokens          Token[]
 }
 
@@ -37,4 +38,17 @@ model Token {
   updatedAt   DateTime  @updatedAt
 }
 
+model Food {
+  id         Int      @id @default(autoincrement())
+  externalId Int?     @unique          // map dari CSV.id (optional)
+  name       String   @unique
+  calories   Float?
+  protein    Float?   // map dari CSV 'proteins'
+  carbs      Float?   // map dari CSV 'carbohydrate'
+  fat        Float?
+  image_url  String?  // map dari CSV 'image'
+  createdAt  DateTime @default(now())
 
+  @@map("foods")
+  @@index([name])
+}

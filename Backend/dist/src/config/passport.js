@@ -1,59 +1,50 @@
-import dotenv from 'dotenv';
-import { z } from 'zod';
-import path from 'path';
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-// Load environment variables
-dotenv.config({ path: path.join(__dirname, '../../.env') }); // Menggunakan __dirname
-// Define Zod schema
-const envSchema = z.object({
-    NODE_ENV: z.enum(['production', 'development', 'test']).default('development'),
-    PORT: z.coerce.number().default(5500),
-    FRONTEND_URL: z.string(),
-    DATABASE_URL: z.string().trim().min(1, { message: 'DATABASE_URL is required' }),
-    JWT_SECRET: z.string().trim().min(1, { message: 'JWT_SECRET is required' }),
-    JWT_ACCESS_EXPIRATION_MINUTES: z.coerce.number().default(30),
-    JWT_REFRESH_EXPIRATION_DAYS: z.coerce.number().default(30),
-    JWT_RESET_PASSWORD_EXPIRATION_MINUTES: z.coerce.number().default(10),
-    JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: z.coerce.number().default(10),
-    SMTP_HOST: z.string().optional(),
-    SMTP_PORT: z.coerce.number().optional(),
-    SMTP_USERNAME: z.string().optional(),
-    SMTP_PASSWORD: z.string().optional(),
-    EMAIL_FROM: z.string().optional()
-});
-// Parse and validate environment variables
-const parsedEnv = envSchema.safeParse(process.env);
-if (!parsedEnv.success) {
-    console.error('Environment variables validation failed:', parsedEnv.error.format());
-    throw new Error('Invalid environment variables');
-}
-// Extract validated environment variables
-const envVars = parsedEnv.data;
-// Config object
-export default {
-    env: envVars.NODE_ENV,
-    port: envVars.PORT,
-    FE: envVars.FRONTEND_URL,
-    database: {
-        url: envVars.DATABASE_URL + (envVars.NODE_ENV === 'test' ? '-test' : '')
-    },
-    jwt: {
-        secret: envVars.JWT_SECRET,
-        accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
-        refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
-        resetPasswordExpirationMinutes: envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
-        verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES
-    },
-    email: {
-        smtp: {
-            host: envVars.SMTP_HOST,
-            port: envVars.SMTP_PORT,
-            auth: {
-                user: envVars.SMTP_USERNAME,
-                pass: envVars.SMTP_PASSWORD
-            }
-        },
-        from: envVars.EMAIL_FROM
+import { Strategy, ExtractJwt } from 'passport-jwt';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import config from '../config/config.js';
+import prisma from '../../prisma/client.js';
+import { tokenTypes } from './token.js';
+import { generateRandomPassword } from "../utils/randomPassword.js";
+export const jwtStrategy = new Strategy({
+    secretOrKey: config.jwt.secret,
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+}, async (payload, done) => {
+    try {
+        if (payload.type !== tokenTypes.ACCESS) {
+            throw new Error('Invalid token type');
+        }
+        const user = await prisma.user.findUnique({ where: { id: payload.sub } });
+        if (!user) {
+            return done(null, false);
+        }
+        return done(null, user);
     }
-};
+    catch (err) {
+        return done(err, false);
+    }
+});
+export const googleStrategy = new GoogleStrategy({
+    clientID: config.google.credentialId,
+    clientSecret: config.google.credentialSecret,
+    callbackURL: `http://localhost:3000/v1/auth/google/callback`,
+}, async (accessToken, refreshToken, profile, done) => {
+    try {
+        let user = await prisma.user.findUnique({
+            where: { googleId: profile.id },
+        });
+        if (!user) {
+            user = await prisma.user.create({
+                data: {
+                    googleId: profile.id,
+                    email: profile.emails?.[0].value || "",
+                    password: generateRandomPassword(),
+                    name: profile.displayName,
+                },
+            });
+        }
+        return done(null, user);
+    }
+    catch (err) {
+        return done(err, false);
+    }
+});
 //# sourceMappingURL=passport.js.map
