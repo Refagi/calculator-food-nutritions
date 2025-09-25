@@ -22,15 +22,24 @@ export interface AuthUser {
 
 export interface AuthRequest extends Request {
   user?: User | any;
-  token?: unknown;
+  tokens?: unknown;
   cookies: Record<string, any>;
 }
 
 
 export interface RequestCreateUser {
-  username: string;
+  name: string;
   email: string;
   password: string;
+}
+
+export interface ResquestUpdateUser {
+  username?: string;
+  email?: string;
+  password?: string;
+  age?: number;
+  isEmailVerified?: boolean;
+  updatedAt?: Date;
 }
 
 export interface RequestLoginUser {

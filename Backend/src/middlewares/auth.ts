@@ -5,26 +5,58 @@ import { Request, Response, NextFunction } from 'express';
 import { AuthRequest } from '../models/index.js';
 import { User } from '@prisma/client';
 
-type Resolve = (value?: void) => void;
-type Reject = (reason?: any) => void;
+// export const attachTokenFromCookies = (req: Request, res: Response, next: NextFunction) => {
+//   const token = req.cookies.accessToken;
+//   if (token) {
+//     req.headers.authorization = `Bearer ${token}`;
+//   }
+//   next();
+// };
 
-const verifyCallback = (req: Request, resolve: Resolve, reject: Reject) => async (err: Error, user: User, info: unknown) => {
-  if (err || info || !user) {
-    return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
+// export const auth = async (req: AuthRequest, res: Response, next: NextFunction) => {
+//   try {
+//     attachTokenFromCookies(req, res, () => {
+//       passport.authenticate('jwt', { session: false }, (err: Error, user: User, info: unknown) => {
+//         if (err || info || !user) {
+//           return next(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
+//         }
+//         req.user = user;
+//         next();
+//       })(req, res, next);
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+
+export const attachTokenFromCookiesOrHeader = (req: Request) => {
+  const cookieToken = req.cookies?.accessToken;
+  const headerAuth = req.headers.authorization;
+
+  if (headerAuth && headerAuth.startsWith("Bearer ")) {
+    req.headers.authorization = headerAuth;
+  } else if (cookieToken) {
+    req.headers.authorization = `Bearer ${cookieToken}`;
   }
-  req.user = user;
-  resolve();
 };
 
-const auth = () => (req: Request, res: Response, next: NextFunction) =>
-  new Promise<void>((resolve, reject) => {
-    passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject))(
-      req,
-      res,
-      next
-    );
-  })
-    .then(() => next())
-    .catch((err) => next(err));
+export const auth = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    attachTokenFromCookiesOrHeader(req);
 
-export default auth;
+    passport.authenticate(
+      'jwt',
+      { session: false },
+      (err: Error, user: User, info: unknown) => {
+        if (err || info || !user) {
+          return next(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
+        }
+        req.user = user;
+        next();
+      }
+    )(req, res, next);
+  } catch (err) {
+    next(err);
+  }
+};
