@@ -4,7 +4,6 @@ import prisma from '../../prisma/client.js';
 import { ApiError } from '../utils/ApiErrors.js';
 import bcrypt from 'bcryptjs';
 import { tokenTypes } from '../config/token.js';
-import { User } from '@prisma/client';
 
 export const login = async (email: string, password: string) => {
   const user = await userServices.getUserByEmail(email);
@@ -55,7 +54,6 @@ export const refreshToken = async (tokens: string) => {
     const newToken = await tokenservices.generateAuthTokens(refreshTokenDoc.userId);
     return newToken;
   } catch (error) {
-    console.log('error refreshToken: ', error);
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate!');
   }
 };

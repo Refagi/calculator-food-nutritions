@@ -47,5 +47,33 @@ export interface RequestLoginUser {
   name: string;
   password?: string;
   googleID: string;
+}
 
+export interface RequestGetNutritions {
+  name: string;
+}
+
+export interface FormatDataNutrition {
+  name: string;
+  calories: number | null;
+  carbs: number | null;
+  fat: number | null;
+  protein: number | null;
+  porsi: number | string;
+  ingridient: string | string[];
+}
+
+export interface CreateDetailNutritions {
+  fiber: number | null;
+  sugar: number | null;
+  cholesterol: number | null;
+  sodium: number | null;
+  calcium: number | null;
+  iron: number | null;
+  potassium: number | null;
+  magnesium: number | null;
+  vitaminA: number | null;
+  vitaminC: number | null;
+  vitaminD: number | null;
+  vitaminB12: number | null;
 }

@@ -150,7 +150,6 @@ export const logout = catchAsync(async (req: AuthRequest, res: Response) => {
 });
 
 export const refreshToken = catchAsync(async (req: AuthRequest, res: Response) => {
-  console.log('refreshToken: ', req.cookies)
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {

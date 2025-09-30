@@ -39,16 +39,45 @@ model Token {
 }
 
 model Food {
-  id         Int      @id @default(autoincrement())
-  externalId Int?     @unique          // map dari CSV.id (optional)
+  id         Int   @id @default(autoincrement())
+  externalId Int?     @unique
   name       String   @unique
   calories   Float?
-  protein    Float?   // map dari CSV 'proteins'
-  carbs      Float?   // map dari CSV 'carbohydrate'
+  protein    Float?
+  carbs      Float?
   fat        Float?
-  image_url  String?  // map dari CSV 'image'
+  image_url  String?
   createdAt  DateTime @default(now())
+  foodDetails FoodNutritionDetail[]
 
   @@map("foods")
   @@index([name])
 }
+
+model FoodNutritionDetail {
+  id         String   @id @default(uuid())
+  foodId     Int   @unique
+  food       Food     @relation(fields: [foodId], references: [id], onDelete: Cascade)
+
+  // Makronutrien
+  fiber      Float?
+  sugar      Float?
+  cholesterol Float?
+  sodium     Float?
+
+  // Mikronutrien
+  calcium    Float?
+  iron       Float?
+  potassium  Float?
+  magnesium  Float?
+  vitaminA   Float?
+  vitaminC   Float?
+  vitaminD   Float?
+  vitaminB12 Float?
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("food_nutrition_details")
+}
+

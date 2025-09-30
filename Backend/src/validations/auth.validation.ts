@@ -1,4 +1,3 @@
-import { query } from 'winston';
 import { z } from 'zod';
 
 export const register = {

@@ -19,6 +19,8 @@ const envSchema = z.object({
     EMAIL_FROM: z.string().optional(),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    GEMINI_KEY: z.string(),
+    GROQ_KEY: z.string()
 });
 const parsedEnv = envSchema.safeParse(process.env);
 if (!parsedEnv.success) {
@@ -53,6 +55,12 @@ export default {
     google: {
         credentialId: envVars.GOOGLE_CLIENT_ID,
         credentialSecret: envVars.GOOGLE_CLIENT_SECRET
+    },
+    gemini: {
+        key: envVars.GEMINI_KEY
+    },
+    groq: {
+        key: envVars.GROQ_KEY
     }
 };
 //# sourceMappingURL=config.js.map

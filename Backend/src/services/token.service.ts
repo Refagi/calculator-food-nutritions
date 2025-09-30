@@ -7,7 +7,6 @@ import { tokenTypes } from '../config/token.js';
 import prisma from '../../prisma/client.js';
 import { Token, User } from '@prisma/client';
 import { ApiError } from '../utils/ApiErrors.js';
-import { AuthRequest } from '../models/index.js';
 
 const generateToken = async (userId: string, expires: Moment, type: string, secret: string = config.jwt.secret) => {
   const payload: PayloadType = {

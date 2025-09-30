@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import authRoutes from './auth.route.js';
+import foodRoutes from './food.route.js'
 import config from '../../config/config.js';
 
 const router = express.Router();
@@ -14,10 +15,10 @@ const defaultRoutes: Route[] = [
     path: '/auth',
     route: authRoutes,
   },
-  // {
-  //   path: '/users',
-  //   route: userRoute
-  // },
+  {
+    path: '/food',
+    route: foodRoutes
+  },
 ];
 
 // const devRoutes: Route[] = [

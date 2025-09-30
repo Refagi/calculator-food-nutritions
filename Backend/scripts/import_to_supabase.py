@@ -58,11 +58,11 @@ def prepare_df(path):
         else:
             df[c] = None
 
-    for opt in ["externalId","image_url","source","serving_size","slug"]:
+    for opt in ["externalId","image_url",]:
         if opt not in df.columns:
             df[opt] = None
 
-    cols_keep = ["externalId","name","slug","serving_size","calories","protein","carbs","fat","image_url","source"]
+    cols_keep = ["externalId","name","calories","protein","carbs","fat","image_url"]
     df = df[cols_keep]
     df = df.drop_duplicates(subset=["name"], keep="first")
     return df
@@ -84,19 +84,16 @@ def run(path):
         print("Running upsert into 'foods' ...")
 
         upsert_sql = text("""
-            INSERT INTO foods ("externalId", name, slug, serving_size, calories, protein, carbs, fat, image_url, source, "createdAt")
-            SELECT "externalId", name, slug, serving_size, calories, protein, carbs, fat, image_url, source, now()
+            INSERT INTO foods ("externalId", name, calories, protein, carbs, fat, image_url, "createdAt")
+            SELECT "externalId", name, calories, protein, carbs, fat, image_url, now()
             FROM foods_staging
             ON CONFLICT (name) DO UPDATE SET
               "externalId" = EXCLUDED."externalId",
-              slug = EXCLUDED.slug,
-              serving_size = EXCLUDED.serving_size,
               calories = EXCLUDED.calories,
               protein = EXCLUDED.protein,
               carbs = EXCLUDED.carbs,
               fat = EXCLUDED.fat,
-              image_url = EXCLUDED.image_url,
-              source = EXCLUDED.source;
+              image_url = EXCLUDED.image_url;
         """)
 
         conn.execute(upsert_sql)

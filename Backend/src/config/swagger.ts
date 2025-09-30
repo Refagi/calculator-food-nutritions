@@ -27,6 +27,11 @@ const options: swaggerJsdoc.Options = {
           in: 'cookie',
           name: 'refreshToken',
         },
+        accessCookie: {
+          type: 'apiKey',
+          in: 'cookie',
+          name: 'accessToken',
+        },
       },
     },
   },
@@ -34,6 +39,7 @@ const options: swaggerJsdoc.Options = {
   security: [
     { bearerAuth: [] },
     { refreshCookie: [] },
+    { accessCookie: [] }
   ],
 };
 
