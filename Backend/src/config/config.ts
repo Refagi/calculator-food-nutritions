@@ -9,6 +9,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['production', 'development', 'test']).default('development'),
   PORT: z.coerce.number().default(5500),
   DATABASE_URL: z.string().trim().min(1, { message: 'DATABASE_URL is required' }),
+  DIRECT_URL: z.string().trim().optional(),
   JWT_SECRET: z.string().trim().min(1, { message: 'JWT_SECRET is required' }),
   JWT_ACCESS_EXPIRATION_MINUTES: z.coerce.number().default(30),
   JWT_REFRESH_EXPIRATION_DAYS: z.coerce.number().default(30),
@@ -34,11 +35,21 @@ if (!parsedEnv.success) {
 
 const envVars = parsedEnv.data;
 
+const getDatabaseUrl = () => {
+  const baseUrl = envVars.NODE_ENV === "test" && envVars.DIRECT_URL
+    ? envVars.DIRECT_URL
+    : envVars.DATABASE_URL;
+
+  if (envVars.NODE_ENV !== "test") return baseUrl;
+
+  return baseUrl.replace(/\/[^/?]+/, "/testingDb");
+};
+
 export default {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   database: {
-    url: envVars.DATABASE_URL + (envVars.NODE_ENV === 'test' ? '-test' : '')
+    url: getDatabaseUrl()
   },
   jwt: {
     secret: envVars.JWT_SECRET,

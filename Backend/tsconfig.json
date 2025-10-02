@@ -18,8 +18,9 @@
 
     /* Debugging */
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["jest", "node"]
   },
-  "include": ["src"],
+  "include": ["src", "tests", "mock.ts", "jest.config.ts", "prisma/__mock__"],
   "exclude": ["node_modules", "dist"]
 }
