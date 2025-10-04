@@ -8,8 +8,8 @@ export const getNutritions = {
 export const createDetailNutritions = {
   body: z.object({
     name: z.string(),
-    porsi: z.number().or(z.string()),
-    ingridient: z.string().array().optional()
+    portion: z.number().or(z.string()),
+    ingridients: z.string().array().optional()
   })
 };
 

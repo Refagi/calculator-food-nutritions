@@ -180,12 +180,6 @@ export const sendVerificationEmail = catchAsync(async (req: AuthRequest, res: Re
   const verifyTokenDoc = await tokenservices.generateVerifyEmailToken(req.user);
 
   await emailServices.sendVerificationEmail(req.user.email, verifyTokenDoc);
-  // res.cookie('verifyEmail', verifyTokenDoc, {
-  //   httpOnly: true,
-  //   secure: process.env.NODE_ENV === 'production',
-  //   sameSite: 'lax',
-  //   maxAge: 15 * 60 * 1000 // 15 menit
-  // });
   res.send({
     status: httpStatus.OK,
     message: `Verify email link has been sent to ${req.user.email}`,

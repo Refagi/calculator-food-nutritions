@@ -69,10 +69,10 @@ Kalori: ${dataNutritions.calories} kcal
 Karbohidrat: ${dataNutritions.carbs} g
 Lemak: ${dataNutritions.fat} g
 Protein: ${dataNutritions.protein} g
-sebanyak ${dataNutritions.porsi}`;
+sebanyak ${dataNutritions.portion}`;
 
-  const ingredientInfo = dataNutritions.ingridient && dataNutritions.ingridient.length > 0
-    ? `\nMakanan ini dibuat dari: ${Array.isArray(dataNutritions.ingridient) ? dataNutritions.ingridient.join(', ') : dataNutritions.ingridient}`
+  const ingredientInfo = dataNutritions.ingredients && dataNutritions.ingredients.length > 0
+    ? `\nMakanan ini dibuat dari: ${Array.isArray(dataNutritions.ingredients) ? dataNutritions.ingredients.join(', ') : dataNutritions.ingredients}`
     : '';
 
   return `${baseInfo}${ingredientInfo}

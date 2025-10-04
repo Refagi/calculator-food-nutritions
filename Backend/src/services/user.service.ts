@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import prisma from '../../prisma/client.js';
 import { ApiError } from '../utils/ApiErrors.js';
 import bcrypt from 'bcryptjs';
-import { RequestCreateUser, ResquestUpdateUser } from '../models/index.js';
+import { RequestCreateUser, RequestUpdateUser } from '../models/index.js';
 import { User } from '@prisma/client';
 
 export const createUser = async (userBody: RequestCreateUser) => {
@@ -40,7 +40,7 @@ export const getUserByEmail = async (email: string) => {
   return user;
 };
 
-export const updateUserById = async (userId: string, updateBody: ResquestUpdateUser) => {
+export const updateUserById = async (userId: string, updateBody: RequestUpdateUser) => {
   const getUser = await getUserById(userId);
 
   if (!getUser) {

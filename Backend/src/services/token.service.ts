@@ -2,14 +2,14 @@ import jwt from 'jsonwebtoken';
 import moment, { Moment } from 'moment';
 import httpStatus from 'http-status';
 import config from '../config/config.js';
-import { PayloadType } from '../models/index.js';
+import { JwtPayload } from '../models/index.js';
 import { tokenTypes } from '../config/token.js';
 import prisma from '../../prisma/client.js';
 import { Token, User } from '@prisma/client';
 import { ApiError } from '../utils/ApiErrors.js';
 
-const generateToken = async (userId: string, expires: Moment, type: string, secret: string = config.jwt.secret) => {
-  const payload: PayloadType = {
+export const generateToken = async (userId: string, expires: Moment, type: string, secret: string = config.jwt.secret) => {
+  const payload: JwtPayload= {
     sub: userId,
     iat: moment().unix(),
     exp: expires.unix(),

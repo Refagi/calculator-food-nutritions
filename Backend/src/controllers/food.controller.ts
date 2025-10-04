@@ -26,8 +26,8 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
         carbs: food.carbs,
         fat: food.fat,
         protein: food.protein,
-        porsi: req.body.porsi,
-        ingridient: req.body.ingridient,
+        portion: req.body.portion,
+        ingredients: req.body.ingridients,
       };
       let aiResponse = await aiServices.geminiApiRequest(dataFood);
       if(!aiResponse) {

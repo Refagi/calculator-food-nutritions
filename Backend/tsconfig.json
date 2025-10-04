@@ -5,11 +5,12 @@
     "rootDir": ".",
 
     /* Module Resolution */
-    "module": "nodenext",              /* Supaya sesuai dengan "type": "module" di package.json */
-    "moduleResolution": "nodenext",  /* Paling cocok untuk Node.js ESM */
+    "module": "esnext",              /* Supaya sesuai dengan "type": "module" di package.json */
+    "moduleResolution": "node",  /* Paling cocok untuk Node.js ESM */
     "target": "es2022",              /* Fitur modern JS */
     "esModuleInterop": true,         /* Biar bisa import default dari CommonJS */
     "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
 
     /* Strictness */
     "strict": true,
@@ -19,8 +20,18 @@
     /* Debugging */
     "sourceMap": true,
     "resolveJsonModule": true,
-    "types": ["jest", "node"]
+    "types": ["vitest", "node"]
   },
-  "include": ["src", "tests", "mock.ts", "jest.config.ts", "prisma/__mock__"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src",
+    "prisma",
+    // "tests/**/*",
+    // "vitest.config.ts",
+    // "prisma/__mock__/**/*"
+  ],
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }

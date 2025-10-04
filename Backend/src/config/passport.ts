@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy, ExtractJwt, StrategyOptions, VerifiedCallback } from 'passport-jwt';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { PayloadType } from '../models/index.js';
+import { JwtPayload } from '../models/index.js';
 import config from '../config/config.js';
 import prisma from '../../prisma/client.js';
 import { tokenTypes } from './token.js';
@@ -12,7 +12,7 @@ export const jwtStrategy = new Strategy(
     secretOrKey: config.jwt.secret,
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   },
-  async (payload: PayloadType, done: VerifiedCallback) => {
+  async (payload: JwtPayload, done: VerifiedCallback) => {
     try {
       if (payload.type !== tokenTypes.ACCESS) {
         throw new Error('Invalid token type');

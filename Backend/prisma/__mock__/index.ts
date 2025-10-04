@@ -33,8 +33,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await prisma.token.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.token.deleteMany();
 });
 
 afterAll(async () => {
