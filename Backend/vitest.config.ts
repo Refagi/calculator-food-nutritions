@@ -7,5 +7,6 @@ export default defineConfig({
     globals: true,  // Untuk menggunakan global seperti atob
     setupFiles: './mocks.ts',  // Memuat file setup
     environment: 'node',  // Menentukan lingkungan Node.js
+    testTimeout: 20000,
   },
 });

@@ -24,10 +24,7 @@
   },
   "include": [
     "src",
-    "prisma",
-    // "tests/**/*",
-    // "vitest.config.ts",
-    // "prisma/__mock__/**/*"
+    // "prisma",
   ],
   "exclude": ["node_modules", "dist"],
   "ts-node": {

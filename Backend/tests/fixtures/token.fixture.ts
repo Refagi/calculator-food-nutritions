@@ -37,11 +37,20 @@ export const refreshTokeFixture: Omit<Token, "id"> = {
   updatedAt: new Date()
 };
 
+export const accessTokeFixture: Omit<Token, "id"> = {
+  token: userAccessToken,
+  userId: user.id,
+  expires: accessTokenExpires.toDate(),
+  type: tokenTypes.ACCESS,
+  blacklisted: false,
+  createdAt: new Date(),
+  updatedAt: new Date()
+};
+
 export const insertToken = async (tokens: Omit<Token, "id">[]) => {
   try {
     const result = await prisma.token.createMany({
       data: tokens,
-      skipDuplicates: true,
     });
     return result;
   } catch (err) {

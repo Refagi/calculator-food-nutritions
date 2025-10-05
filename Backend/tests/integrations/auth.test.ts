@@ -5,11 +5,11 @@ import app from "../../src/app.js";
 import { userFixture } from "../fixtures/index.js";
 import { tokenFixture } from "../fixtures/index.js";
 import prisma from "../../prisma/client.js";
-import { describe, test, expect, beforeEach, afterEach } from 'vitest';
+import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
 import { tokenservices } from "../../src/services/index.js";
-import { User } from "@prisma/client";
 import { generateRandomPassword } from "../../src/utils/randomPassword.js";
 import { user } from "../fixtures/user.fixture.js";
+
 
 describe("Auth routes", () => {
   beforeEach(async () => {
@@ -113,6 +113,31 @@ describe("Auth routes", () => {
         .post("/v1/auth/register")
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
+    });
+  });
+
+  describe('POST v1/auth/send-verification-email', async () => {
+    test('should retrurn 200 ok if send verification email successfully', async () => {
+      await userFixture.insertUsers(user);
+      const accessToken = (await tokenservices.generateAuthTokens(user.id)).access.token;
+      const res = await request(app).post('/v1/auth/send-verification-email')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send().expect(httpStatus.OK);
+
+      expect(res.body).toEqual(
+       expect.objectContaining({
+        status: httpStatus.OK,
+        message: expect.stringContaining(`Verify email link has been sent to ${user.email}`),
+        tokens: expect.anything(),
+      })
+    );
+  });
+
+    test('should retrurn 401 error if user is not authenticated', async () => {
+      await userFixture.insertUsers(user);
+      await request(app).post('/v1/auth/send-verification-email')
+      .send()
+      .expect(httpStatus.UNAUTHORIZED);
     });
   });
 });
