@@ -18,10 +18,10 @@ export const generateToken = async (userId: string, expires: Moment, type: strin
   return jwt.sign(payload, secret);
 };
 
-const saveToken = async (
+export const saveToken = async (
   token: string,
   userId: string,
-  expires: Moment,
+  expires: Moment | Date,
   type: string,
   blacklisted: boolean = false
 ): Promise<Token> => {
@@ -29,7 +29,7 @@ const saveToken = async (
     data: {
       token,
       userId: userId,
-      expires: expires.toDate(),
+      expires: expires instanceof Date ? expires : expires.toDate(),
       type,
       blacklisted
     }

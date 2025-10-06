@@ -140,4 +140,34 @@ describe("Auth routes", () => {
       .expect(httpStatus.UNAUTHORIZED);
     });
   });
+
+  describe('GET v1/auth/verify-email', async () => {
+    test('should return 200 ok if verify email successfully', async () => {
+      await userFixture.insertUsers(user);
+
+      const tokenData = await tokenFixture.generateVerifyEmailTokenFixture();
+      await tokenFixture.insertToken(tokenData);
+
+      const res = await request(app)
+        .get('/v1/auth/verify-email')
+        .query({ tokens: tokenData.token })
+        .expect(httpStatus.OK);
+
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        status: httpStatus.OK,
+        message: expect.stringContaining('Email has been verification!')
+      })
+    );
+  });
+
+    test('should return 401 error if token is not valid', async () => {
+      await userFixture.insertUsers(user);
+      const tokens = await tokenFixture.generateAccessTokenFixture();
+      await tokenFixture.insertToken(tokens);
+
+      await request(app).get('/v1/auth/verify-email').query({ tokens: tokens.token })
+      .expect(httpStatus.UNAUTHORIZED);
+    });
+  });
 });
