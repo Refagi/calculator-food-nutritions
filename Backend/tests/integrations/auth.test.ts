@@ -9,6 +9,9 @@ import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
 import { tokenservices } from "../../src/services/index.js";
 import { generateRandomPassword } from "../../src/utils/randomPassword.js";
 import { user } from "../fixtures/user.fixture.js";
+import { v4 } from "uuid";
+import bcrypt from 'bcryptjs';
+
 
 
 describe("Auth routes", () => {
@@ -32,14 +35,14 @@ describe("Auth routes", () => {
     beforeEach(() => {
       newUser = {
         name: faker.person.fullName(),
-        email: faker.internet.email({ provider: 'gmail.com' }).toLowerCase(),
+        email: faker.internet.email({ provider: 'gmail.com' }),
         password: generateRandomPassword(),
       };
     });
 
     test("should return 201 and successfully register user if request data is ok", async () => {
       const res = await request(app)
-        .post("/v1/auth/register/")
+        .post("/v1/auth/register")
         .send(newUser)
         .expect(httpStatus.CREATED);
 
@@ -48,7 +51,6 @@ describe("Auth routes", () => {
       expect(userData).toEqual({
         id: expect.anything(),
         name: newUser.name,
-        password: expect.anything(),
         email: newUser.email,
         createdAt: expect.anything(),
         updatedAt: expect.anything(),
@@ -170,4 +172,95 @@ describe("Auth routes", () => {
       .expect(httpStatus.UNAUTHORIZED);
     });
   });
+
+ describe('POST v1/auth/login', async () => {
+  const plainPassword = 'kipli123#';
+  const hashedPassword = await bcrypt.hash(plainPassword, 10);
+  test('should return 200 OK if login successfully', async () => {
+    await userFixture.insertUsers({ id: v4(), name: 'kipli kip', email: 'kipli@gmail.com', password: hashedPassword, isEmailVerified: true });
+    const loginData = {
+      email: 'kipli@gmail.com',
+      password: plainPassword,
+    };
+
+    const res = await request(app)
+      .post('/v1/auth/login')
+      .send(loginData)
+      .expect(httpStatus.OK);
+
+    const userData = res.body.data.user;
+
+    expect(userData).toEqual({
+      id: expect.anything(),
+      name: expect.anything(),
+      email: 'kipli@gmail.com',
+      isEmailVerified: true,
+      createdAt: expect.anything(),
+      updatedAt: expect.anything(),
+      googleId: null
+    });
+    expect(userData.password).toBeUndefined();
+
+    expect(res.body.data.tokens).toEqual({
+      access: { token: expect.anything(), expires: expect.anything() },
+      refresh: { token: expect.anything(), expires: expect.anything() },
+    });
+
+    const cookies = res.headers['set-cookie'];
+    expect(cookies).toBeDefined();
+    const cookieArray = Array.isArray(cookies) ? cookies : [cookies];
+    expect(cookieArray.some((cookie: string) => cookie.includes('accessToken'))).toBe(true);
+    expect(cookieArray.some((cookie: string) => cookie.includes('refreshToken'))).toBe(true);
+
+    const dbUser = await prisma.user.findUnique({
+      where: { id: userData.id },
+    });
+    expect(dbUser).toBeDefined();
+    expect(dbUser!.password).not.toBe(loginData.password);
+  });
+
+  test('should return 401 error if user does not exist', async () => {
+    const loginData = {
+      email: 'nonexistent@gmail.com',
+      password: plainPassword,
+    };
+
+    const res = await request(app)
+      .post('/v1/auth/login')
+      .send(loginData)
+      .expect(httpStatus.UNAUTHORIZED);
+
+    expect(res.body.message).toBe('wrong email or password!');
+  });
+
+  test('should return 401 error if password is wrong', async () => {
+    await userFixture.insertUsers({ id: v4(), name: 'kipli kip', email: 'kipli@gmail.com', password: hashedPassword, isEmailVerified: true });
+    const loginData = {
+      email: 'kipli@gmail.com',
+      password: 'wrongPw123#',
+    };
+
+    const res = await request(app)
+      .post('/v1/auth/login')
+      .send(loginData)
+      .expect(httpStatus.UNAUTHORIZED);
+
+    expect(res.body.message).toBe('wrong email or password!');
+  });
+
+  test('should return 401 error if email is not verified', async () => {
+    await userFixture.insertUsers({ ...user, isEmailVerified: false });
+    const loginData = {
+      email: user.email,
+      password: user.password,
+    };
+
+    const res = await request(app)
+      .post('/v1/auth/login')
+      .send(loginData)
+      .expect(httpStatus.UNAUTHORIZED);
+
+    expect(res.body.message).toBe('Email not verified, Please verify your email!');
+  });
+});
 });

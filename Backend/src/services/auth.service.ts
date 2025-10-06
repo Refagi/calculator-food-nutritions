@@ -9,7 +9,7 @@ export const login = async (email: string, password: string) => {
   const user = await userServices.getUserByEmail(email);
 
   if (!user) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'wrong email or password!');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'wrong email or password!');
   }
 
   if (user.isEmailVerified === false) {
@@ -22,7 +22,7 @@ export const login = async (email: string, password: string) => {
   const validPassword = await bcrypt.compare(password, user.password);
 
   if (!validPassword) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'wrong email or password!');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'wrong email or password!');
   }
   return user;
 };

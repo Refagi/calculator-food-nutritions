@@ -12,12 +12,15 @@ interface User {
   name: string;
   email: string;
   password: string;
+  isEmailVerified?: boolean;
 }
 
 export const user:User = {
   id: v4(),
   name: faker.person.fullName(),
-  email: faker.internet.email().toLowerCase(),
+  email: faker.internet.email({
+  provider: 'gmail.com'
+}).toLowerCase(),
   password: hashedPassword,
 }
 
@@ -26,11 +29,3 @@ export const insertUsers = async (users: User): Promise<void> => {
     data: users,
   })
 }
-
-
-// export const insertUsers = async (users: any) => {
-//   await prisma.user.createMany({
-//     data: users,
-//     skipDuplicates: true,
-//   });
-// };

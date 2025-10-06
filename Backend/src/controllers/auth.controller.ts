@@ -36,28 +36,19 @@ export const register = catchAsync(async (req: AuthRequest, res: Response) => {
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 
+  const { password: _, ...userWithoutPassword } = userCreated;
+
   res.status(httpStatus.CREATED).send({
     status: httpStatus.CREATED,
     message: 'Register is successfully',
-    data: { userCreated, tokens },
+    data: { userCreated: userWithoutPassword, tokens },
   });
 });
 
 export const login = catchAsync(async (req: AuthRequest, res: Response) => {
   const { email, password } = req.body;
 
-  const existingUser = await userServices.getUserByEmail(req.body.email);
-  if (!existingUser) {
-    throw new ApiError(
-      httpStatus.UNAUTHORIZED,
-      'You dont have an account yet, please register!'
-    );
-  }
-
   const user = await authServices.login(email, password);
-  if (!user) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to login!');
-  }
   const existingLoginUser = await prisma.token.findFirst({
     where: { userId: user.id, type: tokenTypes.REFRESH },
     orderBy: { createdAt: 'desc' },
@@ -86,10 +77,12 @@ export const login = catchAsync(async (req: AuthRequest, res: Response) => {
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 
+   const { password: _, ...userWithoutPassword } = user;
+
   res.send({
     status: httpStatus.OK,
     message: 'Login is successfully',
-    data: { user, tokens },
+    data: { user: userWithoutPassword, tokens },
   });
 });
 
