@@ -131,7 +131,7 @@ export default router;
  *     security:
  *       - refreshCookie: []
  *     responses:
- *       201:
+ *       200:
  *         description: Logout is successfully
  *       404:
  *         description: Token not found, you are logged out!
@@ -146,7 +146,7 @@ export default router;
  *     security:
  *       - refreshCookie: []
  *     responses:
- *       201:
+ *       200:
  *         description: Refresh Token is successfully
  *       400:
  *         description: Please authenticate!
@@ -161,7 +161,7 @@ export default router;
  *     security:
  *       - bearerAuth: []
  *     responses:
- *       201:
+ *       200:
  *         description: Verify email link has been sent to menak3421@gmail.com
  *       401:
  *         description: User not authenticated

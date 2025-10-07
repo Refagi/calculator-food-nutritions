@@ -24,8 +24,9 @@ export const user:User = {
   password: hashedPassword,
 }
 
-export const insertUsers = async (users: User): Promise<void> => {
-  await prisma.user.create({
+export const insertUsers = async (users: User): Promise<User> => {
+  const user = await prisma.user.create({
     data: users,
-  })
+  });
+  return user;
 }

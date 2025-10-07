@@ -263,4 +263,180 @@ describe("Auth routes", () => {
     expect(res.body.message).toBe('Email not verified, Please verify your email!');
   });
 });
+
+describe('POST v1/auth/refresh-token', async () => {
+    const plainPassword = 'kipli123#';
+    const hashedPassword = await bcrypt.hash(plainPassword, 10);
+  test('should return 200 OK and new tokens if refresh token is valid', async () => {
+    const insertedUSer = await userFixture.insertUsers({
+      id: v4(),
+      name: 'kipli kip',
+      email: 'kipli@gmail.com',
+      password: hashedPassword,
+      isEmailVerified: true,
+    });
+
+    const loginData = {
+      email: 'kipli@gmail.com',
+      password: plainPassword,
+    };
+
+    const resLogin = await request(app)
+      .post('/v1/auth/login')
+      .send(loginData)
+      .expect(httpStatus.OK);
+
+    const oldRefreshToken = resLogin.body.data.tokens.refresh.token;
+    const cookies = resLogin.headers['set-cookie'];
+
+    const cookieArray = Array.isArray(cookies) ? cookies : [cookies];
+    const refreshTokenCookie = cookieArray.find((cookie: string) =>
+      cookie.includes('refreshToken')
+    );
+
+    const res = await request(app)
+      .post('/v1/auth/refresh-token')
+      .set('Cookie', refreshTokenCookie!)
+      .expect(httpStatus.OK);
+
+    expect(res.body.message).toBe('Refresh Token is successfully');
+    expect(res.body.tokens).toEqual({
+      access: { token: expect.anything(), expires: expect.anything() },
+      refresh: { token: expect.anything(), expires: expect.anything() },
+    });
+
+    expect(res.body.tokens.refresh.token).not.toBe(oldRefreshToken);
+
+    const newCookies = res.headers['set-cookie'];
+    expect(newCookies).toBeDefined();
+    const newCookieArray = Array.isArray(cookies) ? cookies : [cookies];
+    expect(newCookieArray.some((cookie: string) => cookie.includes('accessToken'))).toBe(true);
+    expect(newCookieArray.some((cookie: string) => cookie.includes('refreshToken'))).toBe(true);
+
+    const oldTokenInDb = await prisma.token.findFirst({
+      where: { token: oldRefreshToken },
+    });
+    expect(oldTokenInDb).toBeNull();
+
+    const newTokenInDb = await prisma.token.findFirst({
+      where: { token: res.body.tokens.refresh.token },
+    });
+    expect(newTokenInDb).toBeDefined();
+    expect(newTokenInDb!.userId).toBe(insertedUSer.id);
+  });
+
+  test('should return 400 error if refresh token is not provided', async () => {
+    const res = await request(app)
+      .post('/v1/auth/refresh-token')
+      .expect(httpStatus.BAD_REQUEST);
+
+    expect(res.body.message).toBe('No refresh token provided!');
+  });
+
+  test('should return 401 error if refresh token is invalid', async () => {
+    const invalidToken = 'invalid.refresh.token';
+
+    const res = await request(app)
+      .post('/v1/auth/refresh-token')
+      .set('Cookie', `refreshToken=${invalidToken}`)
+      .expect(httpStatus.UNAUTHORIZED);
+
+    expect(res.body.message).toBe('Please authenticate!');
+  });
+});
+
+describe('POST v1/auth/logout', async () => {
+  const plainPassword = 'kipli123#';
+  const hashedPassword = await bcrypt.hash(plainPassword, 10);
+
+  test('should return 200 OK and clear cookies if logout successfully', async () => {
+    await userFixture.insertUsers({
+      id: v4(),
+      name: 'kipli kip',
+      email: 'kipli@gmail.com',
+      password: hashedPassword,
+      isEmailVerified: true,
+    });
+
+    const loginRes = await request(app)
+      .post('/v1/auth/login')
+      .send({
+        email: 'kipli@gmail.com',
+        password: plainPassword,
+      })
+      .expect(httpStatus.OK);
+
+    const refreshToken = loginRes.body.data.tokens.refresh.token;
+    const cookies = loginRes.headers['set-cookie'];
+    const cookieArray = Array.isArray(cookies) ? cookies : [cookies];
+    const refreshTokenCookie = cookieArray.find((cookie: string) =>
+      cookie.includes('refreshToken')
+    );
+
+    const res = await request(app)
+      .post('/v1/auth/logout')
+      .set('Cookie', refreshTokenCookie!)
+      .expect(httpStatus.OK);
+
+    expect(res.body.message).toBe('Logout is successfully');
+
+    const logoutCookies = res.headers['set-cookie'];
+    expect(logoutCookies).toBeDefined();
+    const cookieArrayLogout = Array.isArray(cookies) ? cookies : [cookies];
+    const accessTokenCleared = cookieArrayLogout.some((cookie: string) =>
+      cookie.includes('accessToken') && (cookie.includes('Max-Age=0') || cookie.includes('Expires='))
+    );
+    const refreshTokenCleared = cookieArrayLogout.some((cookie: string) =>
+      cookie.includes('refreshToken') && (cookie.includes('Max-Age=0') || cookie.includes('Expires='))
+    );
+
+    expect(accessTokenCleared).toBe(true);
+    expect(refreshTokenCleared).toBe(true);
+
+    const tokenInDb = await prisma.token.findFirst({
+      where: { token: refreshToken },
+    });
+    expect(tokenInDb).toBeNull();
+  });
+
+  test('should return 400 error if no refresh token provided', async () => {
+    const res = await request(app)
+      .post('/v1/auth/logout')
+      .expect(httpStatus.BAD_REQUEST);
+
+    expect(res.body.message).toBe('No refresh token provided!');
+  });
+
+  test('should not be able to use refresh token after logout', async () => {
+    await userFixture.insertUsers({
+      id: v4(),
+      name: 'Test User',
+      email: 'noreuse@gmail.com',
+      password: hashedPassword,
+      isEmailVerified: true,
+    });
+
+    const loginRes = await request(app)
+      .post('/v1/auth/login')
+      .send({
+        email: 'noreuse@gmail.com',
+        password: plainPassword,
+      })
+      .expect(httpStatus.OK);
+
+    const cookies = loginRes.headers['set-cookie'];
+    const cookieArray = Array.isArray(cookies) ? cookies : [cookies];
+    const refreshCookie = cookieArray.find((c: string) => c.includes('refreshToken'));
+
+    await request(app)
+      .post('/v1/auth/logout')
+      .set('Cookie', refreshCookie!)
+      .expect(httpStatus.OK);
+
+    await request(app)
+      .post('/v1/auth/refresh-token')
+      .set('Cookie', refreshCookie!)
+      .expect(httpStatus.UNAUTHORIZED);
+  });
+});
 });

@@ -137,7 +137,7 @@ export const logout = catchAsync(async (req: AuthRequest, res: Response) => {
   res.clearCookie('refreshToken');
   res.clearCookie('name');
   res.send({
-    status: httpStatus.NO_CONTENT,
+    status: httpStatus.OK,
     message: 'Logout is successfully'
   });
 });
