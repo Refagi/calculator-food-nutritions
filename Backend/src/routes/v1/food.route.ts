@@ -39,17 +39,17 @@ export default router;
  *             type: object
  *             required:
  *               - name
- *               - porsi
+ *               - portion
  *             properties:
  *               name:
  *                 type: string
  *                 example: nasi goreng
  *                 description: Nama makanan (harus ada di tabel foods)
- *               porsi:
+ *               portion:
  *                 type: string
  *                 example: "1 piring"
  *                 description: Porsi makanan
- *               ingridient:
+ *               ingridients:
  *                 type: array
  *                 items:
  *                   type: string
@@ -93,8 +93,8 @@ export default router;
  *                     details:
  *                       type: object
  *                       example:
- *                         vitamin_a: "10%"
- *                         vitamin_c: "8%"
+ *                         vitaminA: "10%"
+ *                         vitaminC: "8%"
  *                         fiber: "2g"
  *                         sodium: "500mg"
  *                         cholesterol: "50mg"

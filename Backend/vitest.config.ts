@@ -5,8 +5,10 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     globals: true,  // Untuk menggunakan global seperti atob
-    setupFiles: './mocks.ts',  // Memuat file setup
-    environment: 'node',  // Menentukan lingkungan Node.js
-    testTimeout: 20000,
+    setupFiles: './mocks.ts',
+    environment: 'node',
+    env: {NODE_ENV: 'test'},
+    testTimeout: 30000,
+    hookTimeout: 30000
   },
 });

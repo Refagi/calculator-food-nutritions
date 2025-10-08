@@ -4,13 +4,17 @@ import prisma from '../../prisma/client.js';
 import { ApiError } from '../utils/ApiErrors.js';
 import bcrypt from 'bcryptjs';
 import { CreateDetailNutritions, RequestGetNutritions } from '../models/index.js';
+import { equal } from 'assert';
 
 export const getNutritions = async (option: RequestGetNutritions) => {
   const { name } = option;
-  const food = await prisma.food.findUnique({
+  const food = await prisma.food.findFirst({
     where: {
-      name
-    }
+      name: {
+        equals: name,
+        mode: 'insensitive',
+      },
+    },
   });
   return food;
 };
@@ -18,7 +22,6 @@ export const getNutritions = async (option: RequestGetNutritions) => {
 export const getDetailNutritions = async (foodId: number) => {
   const food = await prisma.foodNutritionDetail.findUnique({
     where: {foodId},
-    include: {food: true}
   })
   return food
 };
@@ -30,6 +33,5 @@ export const createDetailNutritions = async (foodId: number, details: CreateDeta
       foodId,
       ...details,
     },
-    include: {food: true}
   });
 };

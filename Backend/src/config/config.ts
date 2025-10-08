@@ -10,6 +10,7 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(5500),
   DATABASE_URL: z.string().trim().min(1, { message: 'DATABASE_URL is required' }),
   DIRECT_URL: z.string().trim().optional(),
+  DATABASE_URL_TESTING: z.string().trim().optional(),
   JWT_SECRET: z.string().trim().min(1, { message: 'JWT_SECRET is required' }),
   JWT_ACCESS_EXPIRATION_MINUTES: z.coerce.number().default(30),
   JWT_REFRESH_EXPIRATION_DAYS: z.coerce.number().default(30),
@@ -36,14 +37,20 @@ if (!parsedEnv.success) {
 const envVars = parsedEnv.data;
 
 const getDatabaseUrl = () => {
-  const baseUrl = envVars.NODE_ENV === "test" && envVars.DIRECT_URL
-    ? envVars.DIRECT_URL
-    : envVars.DATABASE_URL;
+  if (envVars.NODE_ENV === 'test') {
+    if (!envVars.DATABASE_URL_TESTING) {
+      throw new Error('DATABASE_URL_TESTING is required for testing!');
+    }
+    // Replace /postgres dengan /testingDb
+    const testUrl = envVars.DATABASE_URL_TESTING.replace(/\/postgres(\?|$)/, '/testingDb$1');
+    console.log('🧪 Using test database:', testUrl);
+    return testUrl;
+  }
 
-  if (envVars.NODE_ENV !== "test") return baseUrl;
-
-  return baseUrl.replace(/\/[^/?]+/, "/testingDb");
+  console.log(`📦 Using ${envVars.NODE_ENV} database`);
+  return envVars.DATABASE_URL;
 };
+
 
 export default {
   env: envVars.NODE_ENV,
