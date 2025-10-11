@@ -1,0 +1,82 @@
+
+
+:root {
+  --base-color: #fffffe;
+  --text-color: #2d334a;
+  --text-color-second: #fffcf2;
+  --item-card: #272343;
+  --body-card: #fffffe;
+  --button-text: #272343;
+  --accent-color: #eff0f3;
+  --property-color: #0f0e17;
+}
+
+.darkmode {
+  --base-color: #0f0e17;
+  --text-color: #fffffe;
+  --text-color-second: #fffcf2;
+  --text-card: #0a090f;
+  --item-card: #0f0e17;
+  --body-card: #272343;
+  --button-text: #fffffe;
+  --accent-color: #0a090f;
+  --property-color: #fffffe;
+}
+
+*, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--base-color);
+  color: var(--text-color);
+  min-height: 100vh;
+
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 20px 25px 20px;
+}
+.headerIcon {
+  display: flex;
+  padding: auto;
+  justify-content: space-between;
+  gap: 10px;
+}
+.headerDesc {
+  display: flex;
+  color: var(--text-color-second);
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  gap: 20px;
+  min-height: 50vh;
+  background-image: url('../../public/indonesian-foods.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.containerBody {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.containerCards {
+  margin: 50px 0 50px 0;
+  padding: 20px 0 40px 0;
+  background-color: var(--accent-color);
+}
+.itemCards {
+  display: flex;
+  flex-direction: row;
+  margin: 50px;
+  gap: 20px;
+}
