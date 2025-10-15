@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import { Login, Register, SendVerifyEmail, VerifyEmail } from '@/pages/auth/index';
 // import AuthLayout from '@/layouts/AuthLayout';
-// import ProtectedRoute from '@/middlewares/ProtectRoute';
+import ProtectedRoute from '@/middlewares/ProtectRoute';
 import MainPage from '@/pages/main/MainPage';
+import NutritionPage from './pages/main/NutritionPage';
 import { ThemeProvider } from '@/context/ThemeContext'
 // import '@/styles/App.css';
 // import '@/styles/Main.css'
@@ -21,6 +22,9 @@ const App = () => {
 
          <Route>
            <Route path='/' element={<MainPage/>}/>
+         </Route>
+         <Route>
+           <Route path='/food' element={<NutritionPage/>}></Route>
          </Route>
         </Routes>
       </BrowserRouter>

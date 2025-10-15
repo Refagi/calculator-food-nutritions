@@ -5,31 +5,26 @@ import '@/style/Main.css'
 const cardContents = [
   {
     id: 1,
-    title: "Pantau Asupan Gizi Harian",
-    description: "Membantu pengguna menghitung kandungan kalori, protein, lemak, dan karbohidrat  dan sebagainya dari makanan yang dikonsumsi setiap hari.",
+    title: "1.",
+    description: "Masukan Nama, Bahan-bahan dan Porsi Makanan",
   },
   {
     id: 2,
-    title: "Khusus Makanan Khas Indonesia",
-    description: "Disesuaikan dengan data makanan khas Indonesia sehingga hasil perhitungan lebih relevan dengan kebiasaan makan masyarakat Indonesia.",
+    title: "2.",
+    description: "Click 'Analisis Makanan'",
   },
   { 
     id: 3,
-    title: "Mudah dan Praktis",
-    description:"Pengguna hanya perlu memasukkan nama makanan, porsi, dan bahan tambahan, lalu kalkulator akan otomatis menampilkan nutrisinya.",
-  },
-  {
-    id: 4,
-    title: "Mendukung Pola Hidup Sehat",
-    description:"Memudahkan pengguna merencanakan pola makan yang seimbang untuk menjaga kesehatan tubuh dan mencegah penyakit.",
-  },
+    title: "3.",
+    description:"Dapatkan Detail Nutritions",
+  }
 ];
 
-export default function CardBenefits () {
+export default function CardTutorial () {
   const [selectedCard, setSelectedCard] = useState(0)
   return(
     <>
-     <Box className='itemCards'>
+     <Box className='itemCardsTutorial'>
         {cardContents.map((card, index) => (
         <Card key={card.id} sx={{ borderRadius: '12px', boxShadow: 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em', backgroundColor: 'var(--body-card)'}}>
           <CardActionArea

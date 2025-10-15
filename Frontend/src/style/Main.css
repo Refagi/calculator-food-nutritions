@@ -8,7 +8,9 @@
   --body-card: #fffffe;
   --button-text: #272343;
   --accent-color: #eff0f3;
-  --property-color: #0f0e17;
+  --base-two-color: #fffffe;
+  --input-color-food: #2d334a;
+  --body-input-color: #fffcf2;
 }
 
 .darkmode {
@@ -20,7 +22,9 @@
   --body-card: #272343;
   --button-text: #fffffe;
   --accent-color: #0a090f;
-  --property-color: #fffffe;
+  --base-two-color: #0a090f;
+  --input-color-food: #fffffe;
+  --body-input-color: #0f0e17;
 }
 
 *, html {
@@ -79,4 +83,72 @@ body {
   flex-direction: row;
   margin: 50px;
   gap: 20px;
+}
+.contentCards {
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.containerStart {
+  margin: 50px 0 50px 0;
+  padding: 20px 0 20px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.containerFooter {
+  /* border: 1px solid red; */
+  padding: 25px 20px 25px 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.containerNutrition {
+  display: flex;
+}
+
+.containerFood {
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  margin: 10px 0 10px 0;
+  background-color: var(--base-two-color);
+  border-radius: 3px;
+  border: 2px solid var(--text-color);
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.itemCardsTutorial {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  gap: 20px;
+}
+
+.itemFood {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--body-input-color);
+  gap: 20px;
+  border-radius: 3px;
+  margin: 20px 0 20px 0;
+  padding: 30px 0 30px 0;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.itemButtonFood {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+  padding: 20px;
 }

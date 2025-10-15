@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import "@/style/Main.css";
 
-const CustomButtonLogin = styled(Button)({
+const CustomButton = styled(Button)({
   textTransform: "capitalize",
   color: 'var(--text-color)',
   fontWeight: 700,
@@ -12,7 +12,8 @@ const CustomButtonLogin = styled(Button)({
   borderRadius: '20px',
   "&:hover": {
     backgroundColor: "#272343",
-    border: 'none',
+    border: "2px solid transparent",
+    outline: "2px solid #272343",
     color:'#fffffe'
   },
   "&:disabled": {
@@ -21,4 +22,4 @@ const CustomButtonLogin = styled(Button)({
   },
 });
 
-export default CustomButtonLogin;
+export default CustomButton;

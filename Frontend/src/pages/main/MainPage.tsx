@@ -1,29 +1,19 @@
-import { useContext, useState } from "react";
-import ThemeContext from "@/context/ThemeContext";
-import { Container, Box, Typography, IconButton} from '@mui/material'
-import DarkModeSharpIcon from '@mui/icons-material/DarkModeSharp';
-import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
-import CustomButtonLogin from '@/components/customs/ButtonLogin'
+import { Container, Box, Typography } from '@mui/material';
 import CardBenefits from "@/components/CardsBenefits";
-import '@/style/Main.css'
+import NavbarMain from "@/components/Navbar";
+import CustomButton from '@/components/customs/Buttons';
+import { useNavigate } from 'react-router-dom';
+import '@/style/Main.css';
 
 
 export default function MainPage () {
-  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const navigate = useNavigate();
   return (
   <>
-    <Box component="header" className='header'>
-      <Typography variant="subtitle1" sx={{fontWeight: 700,}}>Calculator Food Nutrition</Typography>
-      <Box className='headerIcon'>
-        <CustomButtonLogin>Login</CustomButtonLogin>
-        <IconButton onClick={toggleDarkMode}>
-          {darkMode ? (<LightModeSharpIcon sx={{color: '#fffffe'}}/>) : (<DarkModeSharpIcon sx={{color: '#272343'}}/>)}
-        </IconButton>
-      </Box>
-    </Box>
-    <hr />
+   <NavbarMain/>
+
    <Container className="containerBody" maxWidth='xl'>
-     <Box sx={{border: '1px solid red', }} className='headerDesc'>
+     <Box className='headerDesc'>
       <Typography variant='h2' sx={{fontWeight: 700}}>Kalkulator Nutrisi Makanan</Typography>
       <Typography variant='subtitle1' sx={{textAlign: 'center', fontWeight: 550,}}>
         Kalkulator Nutrisi Makanan Indonesia adalah sebuah aplikasi berbasis web yang membantu 
@@ -34,10 +24,21 @@ export default function MainPage () {
       </Typography>
      </Box>
    </Container>
+
    <Container maxWidth='xl' className="containerCards">
     <Typography variant='h5' sx={{textAlign: 'center', fontWeight: 700,}}>Apa saja kegunaannya ?</Typography>
     <CardBenefits/>
    </Container>
+
+   <Box className='containerStart' component='div'>
+    <Typography variant='h5' sx={{textAlign: 'center', fontWeight: 700,}}>Ingin segera memulai ?</Typography>
+    <CustomButton sx={{padding: '7px 20px 7px 20px'}} onClick={() => navigate('/food')}>Lets Go!</CustomButton>
+   </Box>
+
+   <hr />
+   <Box className='containerFooter' component='div'>
+    <Typography variant='caption'>&copy; Calculator Food Nutritions. All Rights Reserved.</Typography>
+   </Box>
   </>
   )
 }
