@@ -16,7 +16,7 @@ export default function MainPage () {
      <Box className='headerDesc'>
       <Typography variant='h2' sx={{fontWeight: 700}}>Kalkulator Nutrisi Makanan</Typography>
       <Typography variant='subtitle1' sx={{textAlign: 'center', fontWeight: 550,}}>
-        Kalkulator Nutrisi Makanan Indonesia adalah sebuah aplikasi berbasis web yang membantu 
+        Kalkulator Nutrisi Makanan adalah sebuah aplikasi berbasis web yang membantu 
         pengguna mengetahui kandungan gizi dari berbagai makanan khas Indonesia. Dengan fitur ini, 
         pengguna dapat memasukkan nama makanan, porsi, serta bahan-bahan tambahan (jika ada), 
         dan sistem akan menampilkan estimasi kandungan nutrisi seperti kalori, protein, lemak, 

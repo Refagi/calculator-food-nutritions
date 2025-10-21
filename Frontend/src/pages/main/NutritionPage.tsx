@@ -31,7 +31,7 @@ export default function NutritionPage() {
             <CustomTextField
               label="Masukan nama makanan"
               id="outlined-size-normal"
-              sx={{ maxWidth: "700px" }}
+              sx={{ maxWidth: "750px" }}
             />
             <CustomTextField
               label="Masukan Bahan-Bahan makanan"
@@ -39,13 +39,19 @@ export default function NutritionPage() {
               id="outlined-size-normal"
               placeholder={`${exIngridient}`}
               minRows={4}
-              maxRows={20}
-              sx={{ maxWidth: "700px" }}
+              maxRows={4}
+                sx={{ 
+                  maxWidth: "750px",
+                  '& textarea': {
+                    minHeight: '85px !important',
+                    mazxHeight: '120px !important',
+                    }
+                  }}
             />
             <CustomTextField
               label="Masukan Jumlah porsi makanan"
               id="outlined-size-normal"
-              sx={{ maxWidth: "700px" }}
+              sx={{ maxWidth: "750px" }}
               placeholder="ex: 1 piring / 1 gelas"
             />
             <Box className="itemButtonFood">
@@ -62,8 +68,24 @@ export default function NutritionPage() {
               </CustomButton>
             </Box>
           </Container>
+          <Box className="containerResult">
+            <Box className="itemResult">
+              <Box className="itemTextResult">
+               <Typography sx={{fontWeight: '600', fontSize: '20px', color: "#d9376e"}}>Hasil Analisis</Typography>
+               <Typography sx={{fontWeight: '550', fontSize: '22px'}}>Makanan dengan bahan-bahan dan <br /> jumlah porsi tersebut memiliki 1500 kalori</Typography>
+              </Box>
+              <Box className="itemButtonPrint">
+                <CustomButton sx={{width: '100%', padding: '10px 0 10px 0', borderRadius: '3px', backgroundColor: '#272343', color: '#fffffe'}}>Print Hasil</CustomButton>
+              </Box>
+              <Box className="itemButtonResult">
+                <CustomButton sx={{padding: '10px 40px 10px 40px', borderRadius: '3px' }}>Edit Bahan-bahan</CustomButton>
+                <CustomButton sx={{padding: '10px 40px 10px 40px', borderRadius: '3px' }}>Hapus Bahan-bahan</CustomButton>
+              </Box>
+            </Box>
+
+          </Box>
         </Container>
-        <Box className="itemTutorial">
+        <Box className="containerTutorial">
           <CardTutorial/>
         </Box>
       </Container>

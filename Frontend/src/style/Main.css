@@ -6,6 +6,7 @@
   --text-color-second: #fffcf2;
   --item-card: #272343;
   --body-card: #fffffe;
+  --button-color: #272343;
   --button-text: #272343;
   --accent-color: #eff0f3;
   --base-two-color: #fffffe;
@@ -20,6 +21,7 @@
   --text-card: #0a090f;
   --item-card: #0f0e17;
   --body-card: #272343;
+  --button-color: #272343;
   --button-text: #fffffe;
   --accent-color: #0a090f;
   --base-two-color: #0a090f;
@@ -72,7 +74,6 @@ body {
   margin-top: 20px;
   margin-bottom: 50px;
 }
-
 .containerCards {
   margin: 50px 0 50px 0;
   padding: 20px 0 40px 0;
@@ -101,7 +102,6 @@ body {
   justify-content: center;
   gap: 20px;
 }
-
 .containerFooter {
   /* border: 1px solid red; */
   padding: 25px 20px 25px 20px;
@@ -113,42 +113,136 @@ body {
 
 .containerNutrition {
   display: flex;
+  margin: 20px;
+  /* align-items: stretch; */
 }
-
 .containerFood {
   display: flex;
   justify-content: left;
-  align-items: flex-start;
-  margin: 10px 0 10px 0;
+  flex-direction: column;
+  /* align-items: stretch; */
+  margin: 20px;
   background-color: var(--base-two-color);
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   border-radius: 3px;
   border: 2px solid var(--text-color);
   margin-left: 0 !important;
   margin-right: auto !important;
+  /* min-height: fit-content; */
+}
+.itemFood {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--base-two-color);
+  gap: 20px;
+  border-radius: 3px;
+  margin: 20px;
+  padding: 20px 0 20px 0;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  width: 100%; 
+  /* min-height: min-content; */
+}
+.itemButtonFood {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 750px;
+  padding: 20px;
+  /* width: 100%;  */
+  /* margin: 0 auto; */
 }
 
+.containerTutorial {
+  margin: 10px 0 10px 0;
+  /* flex-shrink: 0;  */
+}
 .itemCardsTutorial {
   display: flex;
   flex-direction: column;
   margin: 30px;
   gap: 20px;
 }
-
-.itemFood {
+.contentCardsTutorial {
   display: flex;
   flex-direction: column;
-  background-color: var(--body-input-color);
-  gap: 20px;
-  border-radius: 3px;
-  margin: 20px 0 20px 0;
-  padding: 30px 0 30px 0;
-  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  align-items: center;
+  text-align: center;
 }
 
-.itemButtonFood {
+
+.containerResult {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  margin: 0px 0 20px 0;
+  /* border: 1px solid red; */
+}
+.itemResult {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  padding: 0 10px 10px 0;
+  gap: 15px;
+}
+.itemButtonPrint {
+  /* border: 1px solid red; */
+  display: flex;
   align-items: center;
-  max-width: 700px;
+  justify-content: center;
+  text-align: center;
+  /* margin: 0 10px 0 10px; */
+}
+.itemTextResult {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* gap: 5px; */
+}
+.itemButtonResult {
+  display: flex;
+  justify-content: space-between;
+  /* margin: 0 10px 0 10px; */
+}
+
+
+.containerAuth {
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+  gap: 20px;
+  min-width: 500px;
+  min-height: max-content;
+  border-radius: 3px;
+  background-color: var(--accent-color);
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+.titleAuth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* border: 1px solid red; */
   padding: 20px;
+}
+.itemFormAuth {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* border: 1px solid blue; */
+}
+.headerForm {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 5px
+}
+.contentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 15px; */
 }

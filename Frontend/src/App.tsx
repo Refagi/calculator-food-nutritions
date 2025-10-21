@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import { Login, Register, SendVerifyEmail, VerifyEmail } from '@/pages/auth/index';
-// import AuthLayout from '@/layouts/AuthLayout';
+import AuthLayout from '@/layouts/AuthLayout';
 import ProtectedRoute from '@/middlewares/ProtectRoute';
 import MainPage from '@/pages/main/MainPage';
 import NutritionPage from './pages/main/NutritionPage';
@@ -13,17 +13,15 @@ const App = () => {
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
-          {/* <Route element={<AuthLayout/>}> */}
+          <Route path='/auth' element={<AuthLayout/>}>
               {/* <Route path="/login" element={<Login />} /> */}
               {/* <Route path="/register" element={<Register />} /> */}
               {/* <Route path="/send-verification-email" element={<SendVerifyEmail />} /> */}
               {/* <Route path="/v1/auth/verify-email" element={<VerifyEmail />} /> */}
-          {/* </Route> */}
+          </Route>
 
          <Route>
            <Route path='/' element={<MainPage/>}/>
-         </Route>
-         <Route>
            <Route path='/food' element={<NutritionPage/>}></Route>
          </Route>
         </Routes>
