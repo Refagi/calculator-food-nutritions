@@ -31,7 +31,8 @@ export default function NutritionPage() {
             <CustomTextField
               label="Masukan nama makanan"
               id="outlined-size-normal"
-              sx={{ maxWidth: "750px" }}
+              required
+              sx={{ maxWidth: "750px"}}
             />
             <CustomTextField
               label="Masukan Bahan-Bahan makanan"
@@ -50,8 +51,9 @@ export default function NutritionPage() {
             />
             <CustomTextField
               label="Masukan Jumlah porsi makanan"
+              required
               id="outlined-size-normal"
-              sx={{ maxWidth: "750px" }}
+              sx={{ maxWidth: "750px"}}
               placeholder="ex: 1 piring / 1 gelas"
             />
             <Box className="itemButtonFood">

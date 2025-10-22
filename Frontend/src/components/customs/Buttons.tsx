@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import "@/style/Main.css";
 
 const CustomButton = styled(Button)({
-  textTransform: "capitalize",
+  textTransform: "none",
   color: 'var(--text-color)',
   fontWeight: 700,
   padding: '0 20px 0 20px',
