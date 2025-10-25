@@ -46,7 +46,8 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
     status: httpStatus.OK,
     message: 'Get food with details successfully',
     data: {
-      ...food,
+      name: food.name,
+      image_url: food.image_url,
       details: detailNutritions ,
     },
   });

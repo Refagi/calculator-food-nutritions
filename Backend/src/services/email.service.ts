@@ -39,13 +39,13 @@ const sendResetPasswordEmail = async (to: string, token: string): Promise<void> 
 };
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const verificationUrl = `http://localhost:3000/v1/auth/verify-email?tokens=${token}`;
+  const verificationUrl = `${config.FE}/v1/auth/verify-email?tokens=${token}`;
   const mailOptions = {
     from: config.email.from,
     to: email,
-    subject: 'Verify Your Email - Brongz Todo',
+    subject: 'Verify Your Email - Calculator Food Nutritions',
     html: `
-      <!DOCTYPE html>
+     <!DOCTYPE html>
       <html lang="en">
       <head>
         <meta charset="UTF-8" />
@@ -54,10 +54,10 @@ export const sendVerificationEmail = async (email: string, token: string) => {
         <style>
           body {
             font-family: 'Montserrat', Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #fffffe;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: #2d334a;
           }
           .container {
             max-width: 600px;
@@ -66,6 +66,12 @@ export const sendVerificationEmail = async (email: string, token: string) => {
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
           }
           h2 {
             font-size: 24px;
@@ -85,7 +91,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
             font-size: 16px;
             font-weight: 600;
             color: #ffffff;
-            background-color: #3498db;
+            background-color: #272343;
             text-decoration: none;
             border-radius: 5px;
             text-align: center;
@@ -93,22 +99,18 @@ export const sendVerificationEmail = async (email: string, token: string) => {
             display: block;
             width: fit-content;
           }
-          .quote {
-            font-size: 18px;
-            font-style: italic;
-            color: #7f8c8d;
-            text-align: center;
-            margin-top: 20px;
-          }
         </style>
       </head>
       <body>
         <div class="container">
-          <h2>Verification Your Email</h2>
-          <p>Click the button below to verify your email address for Calculator-Food.</p>
+          <div class="title">
+            <img src="../../public/logo.png" alt="logo" width="30px" height="30px" style="border-radius: 20px;">
+            <h2><i>Calculator Food Nutritions</i></h2>
+          </div>
+          <h2>Please Verify Your Email</h2>
+          <p>Your account is almost ready. Verify your email address to complete the setup proccess</p>
           <a href="${verificationUrl}" class="button">Verify Email</a>
           <p>If you did not create an account, please ignore this email.</p>
-          <div class="quote">"A list of tasks you need, without the hassle you don't want.!"</div>
         </div>
       </body>
       </html>

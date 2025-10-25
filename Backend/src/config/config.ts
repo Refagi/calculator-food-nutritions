@@ -11,6 +11,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().trim().min(1, { message: 'DATABASE_URL is required' }),
   DIRECT_URL: z.string().trim().optional(),
   DATABASE_URL_TESTING: z.string().trim().optional(),
+  FRONTEND_URL: z.string(),
   JWT_SECRET: z.string().trim().min(1, { message: 'JWT_SECRET is required' }),
   JWT_ACCESS_EXPIRATION_MINUTES: z.coerce.number().default(30),
   JWT_REFRESH_EXPIRATION_DAYS: z.coerce.number().default(30),
@@ -58,6 +59,7 @@ export default {
   database: {
     url: getDatabaseUrl()
   },
+  FE: envVars.FRONTEND_URL,
   jwt: {
     secret: envVars.JWT_SECRET,
     accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,

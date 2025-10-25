@@ -35,7 +35,7 @@ app.use(xssSentinize);
 
 app.use(
   cors({
-    // origin: allowedOrigins,
+    origin: 'http://localhost:5000',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

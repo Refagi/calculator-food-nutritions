@@ -13,6 +13,7 @@ router.post('/logout', authController.logout);
 router.post('/refresh-token', authController.refreshToken);
 router.post('/send-verification-email', auth, authController.sendVerificationEmail);
 router.get('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
+router.get('/protectAuth', authController.protectAuth);
 
 router.get(
   '/google',

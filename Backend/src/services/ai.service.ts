@@ -69,17 +69,25 @@ Kalori: ${dataNutritions.calories} kcal
 Karbohidrat: ${dataNutritions.carbs} g
 Lemak: ${dataNutritions.fat} g
 Protein: ${dataNutritions.protein} g
-sebanyak ${dataNutritions.portion}`;
+sebanyak ${dataNutritions.portion}
+jumlah kalori, karbohidrat, lemak, protein adalah hasil dari per 100 gram makanan
+`;
 
   const ingredientInfo = dataNutritions.ingredients && dataNutritions.ingredients.length > 0
-    ? `\nMakanan ini dibuat dari: ${Array.isArray(dataNutritions.ingredients) ? dataNutritions.ingredients.join(', ') : dataNutritions.ingredients}`
+    ? `\nMakanan ini dibuat dengan bahan - bahan: ${Array.isArray(dataNutritions.ingredients) ? dataNutritions.ingredients.join(', ') : dataNutritions.ingredients}`
     : '';
 
   return `${baseInfo}${ingredientInfo}
-
+hitung ulang jumlah ${dataNutritions.calories}, ${dataNutritions.carbs}, ${dataNutritions.fat}, ${dataNutritions.protein},
+sesuai dengan bahan - bahan ${dataNutritions.ingredients} kalau ada (optional)
+perthitungan di hitung per porsi dari jumlah porsi yaitu ${dataNutritions.portion}
 Buatkan detail nutrisi lengkap untuk makanan ini sesuai schema Prisma berikut:
 
 model FoodNutritionDetail {
+  calories   Float?
+  protein    Float?
+  carbs      Float?
+  fat        Float?
   fiber      Float?
   sugar      Float?
   cholesterol Float?
@@ -97,6 +105,10 @@ model FoodNutritionDetail {
 Kamu **hanya boleh membalas dengan JSON valid** sesuai contoh ini, tanpa tambahan teks, tanpa markdown, tanpa penjelasan:
 {
   "foodNutritionDetail": {
+    "calories": number,
+    "protein": number,
+    "carbs": number,
+    "fat": number,
     "fiber": number,
     "sugar": number,
     "cholesterol": number,

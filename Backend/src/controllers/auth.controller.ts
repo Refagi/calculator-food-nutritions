@@ -175,7 +175,7 @@ export const sendVerificationEmail = catchAsync(async (req: AuthRequest, res: Re
   await emailServices.sendVerificationEmail(req.user.email, verifyTokenDoc);
   res.send({
     status: httpStatus.OK,
-    message: `Verify email link has been sent to ${req.user.email}`,
+    message: `Verify email link has been sent to ${req.user.email} Please check your inbox!`,
     tokens: verifyTokenDoc
   });
 });
@@ -187,4 +187,41 @@ export const verifyEmail = catchAsync(async (req: AuthRequest, res: Response) =>
     status: httpStatus.OK,
     message: 'Email has been verification!'
   });
+});
+
+
+export const protectAuth = catchAsync(async (req: AuthRequest, res: Response) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'No refresh token provided!');
+  }
+
+  try {
+    const validToken = await tokenservices.verifyTokenProtectAuth(refreshToken, tokenTypes.REFRESH);
+
+    if (!validToken) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid Token!');
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (typeof validToken.exp !== 'number' || validToken.exp < currentTime) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, 'Refresh token expired!');
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: validToken.sub } });
+    if (!user) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, 'User not found!');
+    }
+
+    req.user = user;
+
+    res.status(httpStatus.OK).send({
+      status: httpStatus.OK,
+      message: 'Refresh token valid',
+      payload: { userId: user.id }
+    });
+  } catch (error) {
+    console.error('ProtectAuth error:', error);
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid refresh token!');
+  }
 });

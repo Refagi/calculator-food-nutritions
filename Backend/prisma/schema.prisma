@@ -58,6 +58,10 @@ model FoodNutritionDetail {
   id         String   @id @default(uuid())
   foodId     Int   @unique
   food       Food     @relation(fields: [foodId], references: [id], onDelete: Cascade)
+  calories   Float?
+  protein    Float?
+  carbs      Float?
+  fat        Float?
 
   // Makronutrien
   fiber      Float?
