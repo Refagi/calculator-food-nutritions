@@ -4,17 +4,58 @@ import { useNavigate } from "react-router-dom";
 import CustomTextField from "@/components/customs/Input";
 import PasswordInput from "@/components/customs/PasswordInput";
 import CustomButton from "@/components/customs/Buttons";
+import api from '@/services/apiAuth'
+import axios from "axios";
 import '@/style/Main.css';
+
+interface TypeRegister {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export default function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ name, email, password });
+    onSubmit({ name, email, password });
+  };
+
+  const onSubmit = async (data: TypeRegister) => {
+    setLoading(true);
+    setErrorMessage("");
+
+    try {
+      const response = await api.post("/auth/register", data);
+
+      if (response.status === 201) {
+        navigate("/send-verification-email");
+      } else {
+        throw new Error("Token Not Found!");
+      }
+    } catch (error: unknown) {
+      console.error("Register Error:", error);
+
+      if (axios.isAxiosError(error)) {
+        setErrorMessage(
+          error.response?.data?.message ||  error.response?.data?.error || "Failed to Register, Please try again"
+        );
+        return
+      } else if (error instanceof Error) {
+        setErrorMessage(error.message)
+      } else {
+        setErrorMessage("An unexpected error occurred");
+        return;
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,6 +67,12 @@ export default function Register() {
         <Typography sx={{ fontWeight: '400' }}>
           Enter your email to sign up for this app
         </Typography>
+
+      {errorMessage && (
+        <Typography color="error" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+          {errorMessage}
+        </Typography>
+      )}
       </Box>
 
       <Box 
@@ -71,7 +118,7 @@ export default function Register() {
               borderRadius: '3px'
             }}
           >
-            Sign up with Email
+            {loading ? 'Loading...' : 'Sign up with Email'}
           </CustomButton>
 
           <Typography sx={{ textAlign: 'center', mt: 2 }}>

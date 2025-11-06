@@ -1,10 +1,19 @@
-import { Box, Typography, Stack, Link, Checkbox, FormControlLabel } from "@mui/material"
+import { Box, Typography, Stack, Link } from "@mui/material"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomTextField from "@/components/customs/Input";
 import PasswordInput from "@/components/customs/PasswordInput";
 import CustomButton from "@/components/customs/Buttons";
+import axios from "axios";
+import api from "@/services/apiAuth";
+import { useAuth } from '@/context/AuthContext';
+
 import '@/style/Main.css';
+
+interface TypeLogin {
+  email: string
+  password: string;
+}
 
 const GoogleIcon = () => (
  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
@@ -14,13 +23,49 @@ const GoogleIcon = () => (
 
 export default function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ email, password, rememberMe });
+    onSubmit({ email, password });
+  };
+
+  const { login } = useAuth();
+
+  const onSubmit = async (data: TypeLogin) => {
+    setLoading(true);
+    setErrorMessage('');
+
+    try {
+      const response = await api.post("/auth/login", data);
+      const tokens = response.data.data?.tokens;
+      const userData = response.data.data?.user;
+      console.log('response: ', tokens)
+
+      if (tokens?.access && tokens?.refresh) {
+        login(userData.name, userData.userId)
+        navigate("/");
+      } else {
+        throw new Error("Token Not Found!");
+      }
+    } catch (error: unknown) {
+      console.error("Login Error:", error);
+
+      if (axios.isAxiosError(error)) {
+        setErrorMessage(
+          error.response?.data?.message || error.response?.data?.error || "Failed to Login, Please try again"
+        );
+      } else if (error instanceof Error) {
+        setErrorMessage(error.message)
+      } else {
+        setErrorMessage("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,6 +77,12 @@ export default function Login() {
         <Typography sx={{ fontWeight: '400',}}>
           Enter your credentials to access your account
         </Typography>
+
+      {errorMessage && (
+        <Typography color="error" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+          {errorMessage}
+        </Typography>
+      )}
       </Box>
 
       <Box 
@@ -41,7 +92,7 @@ export default function Login() {
           minWidth: '350px', 
           display: 'flex', 
           flexDirection: 'column', 
-          // gap: '20px'
+          gap: '20px'
         }}
       >
         <Stack spacing={2}>
@@ -60,25 +111,16 @@ export default function Login() {
           />
         </Stack>
 
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          marginBottom: '20px',
-        }}>
-          <FormControlLabel
-            control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}/>}
-            label="Remember me"/>
-        </Box>
-
         <Stack spacing={1.5}>
           <CustomButton 
-            type="submit" 
+            type="submit"
+            disabled={loading}
             sx={{
               padding: '10px 40px', 
               borderRadius: '3px'
             }}
           >
-            Sign in
+            {loading ? 'Loading...' : 'Sign in'}
           </CustomButton>
 
           <CustomButton 
@@ -89,7 +131,7 @@ export default function Login() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '10px'
+              gap: '10px',
             }}
           > 
             <GoogleIcon />

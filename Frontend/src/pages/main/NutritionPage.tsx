@@ -1,10 +1,15 @@
-import { useState } from "react";
-import NavbarMain from "@/components/Navbar";
-import { Container, Box, TextField, Typography } from "@mui/material";
+import { useState, useRef } from "react";
+import Navbar from "@/components/Navbar";
+import { Container, Box, Typography } from "@mui/material";
 import CustomTextField from "@/components/customs/Input";
 import "@/style/Main.css";
 import CustomButton from "@/components/customs/Buttons";
 import CardTutorial from "@/components/CardTutorial";
+import ResultCard from "@/components/ResultCard";
+import Notification from "@/components/Notifications";
+import api from "@/services/api";
+import { useReactToPrint } from "react-to-print"; 
+import axios from "axios";
 
 const exIngridient = `
   ex:
@@ -21,43 +26,176 @@ const exIngridient = `
   Kerupuk dan acar,
 `;
 
+interface DetailsNutritions {
+  id: string;
+  foodId: number;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+  sugar: number;
+  cholesterol: number;
+  sodium: number;
+  calcium: number;
+  iron: number;
+  pottasium: number;
+  magnesium: number;
+  vitaminA: number;
+  vitaminC: number;
+  vitaminD: number;
+  vitaminB12: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface NutritionResult {
+  name: string;
+  image_url: string;
+  portion: string;
+  ingredients: string[]
+  details: DetailsNutritions
+}
+
+interface PropsNotification {
+  open: boolean;
+  message: string;
+  severity: 'success' | 'error' | 'warning';
+}
+
 export default function NutritionPage() {
+  const [name, setFoodName] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [portion, setPortion] = useState("");
+  const [result, setResult] = useState<NutritionResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [notification, setNotification] = useState<PropsNotification>({open: false, message: '', severity: 'success'});
+  const printRef = useRef(null);
+
+  const handleAnalyzeFood = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMessage('');
+
+    if(!name && !portion) {
+      const message = 'The name of the food and the portion size must be filled in.';
+      setErrorMessage(message);
+      setNotification({
+      open: true,
+      message: message,
+      severity: 'warning',
+    });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const formatIngredients = ingredients.split(/\r?\n/).map(i => i.replace(/,$/, "").trim()).filter(i => i.length > 0);
+      const res = await api.post("/food/details", {name, formatIngredients, portion});
+      console.table('data food', res.data);
+      console.log('Details object:', res.data.datagh);
+
+      setResult(res.data.data);
+      setShowResult(true);
+      setNotification({
+      open: true,
+      message: res.data.messsage || 'Analyze food is suceess',
+      severity: 'success',
+    });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setErrorMessage(
+          error.response?.data?.message ||  error.response?.data?.error || "Failed to Register, Please try again"
+        );
+        return
+      } else if (error instanceof Error) {
+        setErrorMessage(error.message)
+      } else {
+        setErrorMessage("An unexpected error occurred");
+        return;
+      }
+      setNotification({
+      open: true,
+      message: errorMessage,
+      severity: 'error',
+    });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false, message: '' });
+  };
+
+  const handlePrint = useReactToPrint({
+    contentRef: printRef,
+    documentTitle: `Nutrition-${result?.name || 'Food'}`,
+    pageStyle: `
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    `,
+  });
   return (
     <>
-      <NavbarMain />
+      <Navbar />
       <Container className="containerNutrition">
         <Container className="containerFood" maxWidth="md">
-          <Container component="form" className="itemFood">
+          <Container component="form" className="itemFood" onSubmit={handleAnalyzeFood}>
             <CustomTextField
               label="Masukan nama makanan"
-              id="outlined-size-normal"
+              id="foodName"
+              name="foodName"
               required
-              sx={{ maxWidth: "750px"}}
+              value={name}
+              onChange={(e) => setFoodName(e.target.value)}
+              disabled={loading}
+              sx={{ maxWidth: "750px" }}
             />
             <CustomTextField
-              label="Masukan Bahan-Bahan makanan"
+              label="Masukan Bahan-Bahan makanan (opsional)"
               multiline
-              id="outlined-size-normal"
+              id="ingredients"
+              name="ingredients"
               placeholder={`${exIngridient}`}
               minRows={4}
               maxRows={4}
-                sx={{ 
-                  maxWidth: "750px",
-                  '& textarea': {
-                    minHeight: '85px !important',
-                    mazxHeight: '120px !important',
-                    }
-                  }}
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
+              disabled={loading}
+              sx={{
+                maxWidth: "750px",
+                "& textarea": {
+                  minHeight: "85px !important",
+                  mazxHeight: "120px !important",
+                },
+              }}
             />
             <CustomTextField
               label="Masukan Jumlah porsi makanan"
               required
-              id="outlined-size-normal"
-              sx={{ maxWidth: "750px"}}
+              id="portions"
+              name="portions"
+              sx={{ maxWidth: "750px" }}
               placeholder="ex: 1 piring / 1 gelas"
+              value={portion}
+              onChange={(e) => setPortion(e.target.value)}
+              disabled={loading}
             />
             <Box className="itemButtonFood">
               <CustomButton
+              type="submit"
+              disabled={loading}
                 sx={{
                   width: "300px",
                   padding: "10px 0 10px 0",
@@ -66,31 +204,72 @@ export default function NutritionPage() {
                   border: "2px solid var(--text-color)",
                 }}
               >
-                Analisis Makanan
+                {loading ? "Menganalisis..." : "Analisis Makanan"}
               </CustomButton>
             </Box>
           </Container>
+
+          {showResult && result && result.details && (
           <Box className="containerResult">
             <Box className="itemResult">
               <Box className="itemTextResult">
-               <Typography sx={{fontWeight: '600', fontSize: '20px', color: "#d9376e"}}>Hasil Analisis</Typography>
-               <Typography sx={{fontWeight: '550', fontSize: '22px'}}>Makanan dengan bahan-bahan dan <br /> jumlah porsi tersebut memiliki 1500 kalori</Typography>
+                <Typography
+                  sx={{ fontWeight: "600", fontSize: "20px", color: "#d9376e" }}
+                >
+                  Hasil Analisis
+                </Typography>
+                <Typography sx={{ fontWeight: "550", fontSize: "22px" }}>
+                  {result?.name} dengan bahan-bahan {result.ingredients} dan <br /> jumlah porsi {result.portion} 
+                  memiliki {result?.details.calories} kalori
+                </Typography>
               </Box>
               <Box className="itemButtonPrint">
-                <CustomButton sx={{width: '100%', padding: '10px 0 10px 0', borderRadius: '3px', backgroundColor: '#272343', color: '#fffffe'}}>Print Hasil</CustomButton>
+                <CustomButton
+                  sx={{
+                    width: "100%",
+                    padding: "10px 0 10px 0",
+                    borderRadius: "3px",
+                    backgroundColor: "#272343",
+                    color: "#fffffe",
+                  }}
+                  onClick={handlePrint}
+                >
+                  Print Hasil
+                </CustomButton>
               </Box>
               <Box className="itemButtonResult">
-                <CustomButton sx={{padding: '10px 40px 10px 40px', borderRadius: '3px' }}>Edit Bahan-bahan</CustomButton>
-                <CustomButton sx={{padding: '10px 40px 10px 40px', borderRadius: '3px' }}>Hapus Bahan-bahan</CustomButton>
+                <CustomButton
+                  sx={{ padding: "10px 20px 10px 20px", borderRadius: "3px" }}
+                >
+                  Edit Bahan-bahan
+                </CustomButton>
+                <CustomButton
+                  sx={{ padding: "10px 20px 10px 20px", borderRadius: "3px" }}
+                >
+                  Hapus Bahan-bahan
+                </CustomButton>
               </Box>
             </Box>
-
+            <div ref={printRef}>
+              <ResultCard result={result}/>
+            </div>
           </Box>
+          )}
         </Container>
         <Box className="containerTutorial">
-          <CardTutorial/>
+          <CardTutorial />
         </Box>
       </Container>
+
+      <Notification
+      open={notification.open}
+      message={notification.message}
+      severity={notification.severity}
+      onClose={handleCloseNotification}
+      vertical="bottom"
+      horizontal="center"
+      autoHideDuration={5000}
+      />
     </>
   );
 }

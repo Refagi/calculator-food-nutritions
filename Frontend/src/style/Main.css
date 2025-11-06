@@ -12,6 +12,7 @@
   --base-two-color: #fffffe;
   --input-color-food: #2d334a;
   --body-input-color: #fffcf2;
+  --result-card-hr: #272343;
 }
 
 .darkmode {
@@ -27,6 +28,7 @@
   --base-two-color: #0a090f;
   --input-color-food: #fffffe;
   --body-input-color: #0f0e17;
+  --result-card-hr: #fffcf2;
 }
 
 *, html {
@@ -41,6 +43,18 @@ body {
   color: var(--text-color);
   min-height: 100vh;
 
+}
+.hrOne {
+  height: 3px;
+  background-color: var(--text-color);
+  margin: 0 20px 0 20px;
+  border: none;
+}
+.hrTwo {
+  height: 5px;
+  background-color: var(--result-card-hr);
+  border: none;
+  margin: 5px 0 5px 0px;
 }
 
 .header {
@@ -123,9 +137,9 @@ body {
   /* align-items: stretch; */
   margin: 20px;
   background-color: var(--base-two-color);
-  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  /* box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em; */
   border-radius: 3px;
-  border: 2px solid var(--text-color);
+  border: 1px solid var(--text-color);
   margin-left: 0 !important;
   margin-right: auto !important;
   /* min-height: fit-content; */
@@ -173,6 +187,7 @@ body {
 .containerResult {
   display: flex;
   flex-direction: row;
+  gap: 70px;
   margin: 0px 0 20px 0;
   /* border: 1px solid red; */
 }
@@ -180,7 +195,6 @@ body {
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  /* align-items: flex-start; */
   padding: 0 10px 10px 0;
   gap: 15px;
 }
@@ -190,18 +204,51 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* margin: 0 10px 0 10px; */
 }
 .itemTextResult {
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  /* gap: 5px; */
 }
 .itemButtonResult {
   display: flex;
-  justify-content: space-between;
-  /* margin: 0 10px 0 10px; */
+  gap: 10px
+}
+
+
+.nutritionContainer {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid var(--result-card-hr);
+}
+.nutritionHeader {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.nutritionTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.nutritionTable td {
+  border-color: var(--result-card-hr);
+  /* vertical-align: top; */
+  padding: 5px 0 0 0;
+}
+.nutritionDivider td {
+  border-top: 4px solid var(--result-card-hr);
+  padding: 0;
+}
+.nutritionHeaderCell {
+  text-align: left;
+  padding-left: 0 !important;
+  width: 100%;
+}
+.nutritionValueCell {
+  text-align: right;
+  padding-right: 0 !important;
 }
 
 
@@ -212,7 +259,7 @@ body {
   justify-content: center;
   flex-direction: column;
   padding: 30px;
-  gap: 20px;
+  gap: 10px;
   min-width: 500px;
   min-height: max-content;
   border-radius: 3px;
@@ -225,7 +272,7 @@ body {
   justify-content: center;
   gap: 10px;
   /* border: 1px solid red; */
-  padding: 20px;
+  padding: 10px;
 }
 .itemFormAuth {
   display: flex;

@@ -47,6 +47,8 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
     message: 'Get food with details successfully',
     data: {
       name: food.name,
+      portion,
+      ingredients,
       image_url: food.image_url,
       details: detailNutritions ,
     },

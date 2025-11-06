@@ -84,22 +84,22 @@ perthitungan di hitung per porsi dari jumlah porsi yaitu ${dataNutritions.portio
 Buatkan detail nutrisi lengkap untuk makanan ini sesuai schema Prisma berikut:
 
 model FoodNutritionDetail {
-  calories   Float?
-  protein    Float?
-  carbs      Float?
-  fat        Float?
-  fiber      Float?
-  sugar      Float?
-  cholesterol Float?
-  sodium     Float?
-  calcium    Float?
-  iron       Float?
-  potassium  Float?
-  magnesium  Float?
-  vitaminA   Float?
-  vitaminC   Float?
-  vitaminD   Float?
-  vitaminB12 Float?
+  calories   Float? (kcal)
+  protein    Float? (g)
+  carbs      Float? (g)
+  fat        Float? (g)
+  fiber      Float? (g)
+  sugar      Float? (g)
+  cholesterol Float? (mg)
+  sodium     Float? (mg)
+  calcium    Float? (mg)
+  iron       Float? (mg)
+  potassium  Float? (mg)
+  magnesium  Float? (mg)
+  vitaminA   Float? (mikrogram)
+  vitaminC   Float? (mg)
+  vitaminD   Float? (mikrogram)
+  vitaminB12 Float? (mikrogram)
 }
 
 Kamu **hanya boleh membalas dengan JSON valid** sesuai contoh ini, tanpa tambahan teks, tanpa markdown, tanpa penjelasan:
