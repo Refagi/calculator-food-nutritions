@@ -66,7 +66,7 @@ export default function PasswordInput({ value, onChange }: PasswordProps) {
               onMouseUp={handleMouseUpPassword}
               edge="end"
             >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
+              {showPassword ? <Visibility /> :  <VisibilityOff />}
             </IconButton>
           </InputAdornment>
         }

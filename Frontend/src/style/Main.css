@@ -128,13 +128,11 @@ body {
 .containerNutrition {
   display: flex;
   margin: 20px;
-  /* align-items: stretch; */
 }
 .containerFood {
   display: flex;
   justify-content: left;
   flex-direction: column;
-  /* align-items: stretch; */
   margin: 20px;
   background-color: var(--base-two-color);
   /* box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em; */
@@ -142,7 +140,6 @@ body {
   border: 1px solid var(--text-color);
   margin-left: 0 !important;
   margin-right: auto !important;
-  /* min-height: fit-content; */
 }
 .itemFood {
   display: flex;
@@ -154,7 +151,6 @@ body {
   padding: 20px 0 20px 0;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   width: 100%; 
-  /* min-height: min-content; */
 }
 .itemButtonFood {
   display: flex;
@@ -212,7 +208,8 @@ body {
 }
 .itemButtonResult {
   display: flex;
-  gap: 10px
+  justify-content: space-around;
+  /* gap: 10px */
 }
 
 

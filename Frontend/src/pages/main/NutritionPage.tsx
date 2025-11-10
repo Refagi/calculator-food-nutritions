@@ -3,11 +3,13 @@ import Navbar from "@/components/Navbar";
 import { Container, Box, Typography } from "@mui/material";
 import CustomTextField from "@/components/customs/Input";
 import "@/style/Main.css";
+import EditIngredients from "@/components/EditIngredients";
 import CustomButton from "@/components/customs/Buttons";
 import CardTutorial from "@/components/CardTutorial";
 import ResultCard from "@/components/ResultCard";
 import Notification from "@/components/Notifications";
 import api from "@/services/api";
+import { type NutritionResult, type PropsNotification } from '@/types/typeDataNutritionPage'
 import { useReactToPrint } from "react-to-print"; 
 import axios from "axios";
 
@@ -26,43 +28,6 @@ const exIngridient = `
   Kerupuk dan acar,
 `;
 
-interface DetailsNutritions {
-  id: string;
-  foodId: number;
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  fiber: number;
-  sugar: number;
-  cholesterol: number;
-  sodium: number;
-  calcium: number;
-  iron: number;
-  pottasium: number;
-  magnesium: number;
-  vitaminA: number;
-  vitaminC: number;
-  vitaminD: number;
-  vitaminB12: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface NutritionResult {
-  name: string;
-  image_url: string;
-  portion: string;
-  ingredients: string[]
-  details: DetailsNutritions
-}
-
-interface PropsNotification {
-  open: boolean;
-  message: string;
-  severity: 'success' | 'error' | 'warning';
-}
-
 export default function NutritionPage() {
   const [name, setFoodName] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -70,35 +35,19 @@ export default function NutritionPage() {
   const [result, setResult] = useState<NutritionResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [notification, setNotification] = useState<PropsNotification>({open: false, message: '', severity: 'success'});
   const printRef = useRef(null);
 
   const handleAnalyzeFood = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMessage('');
-
-    if(!name && !portion) {
-      const message = 'The name of the food and the portion size must be filled in.';
-      setErrorMessage(message);
-      setNotification({
-      open: true,
-      message: message,
-      severity: 'warning',
-    });
-      setLoading(false);
-      return;
-    }
 
     try {
       const formatIngredients = ingredients.split(/\r?\n/).map(i => i.replace(/,$/, "").trim()).filter(i => i.length > 0);
-      const res = await api.post("/food/details", {name, formatIngredients, portion});
-      console.table('data food', res.data);
-      console.log('Details object:', res.data.datagh);
-
+      const res = await api.post("/food/details", {name, ingredients: formatIngredients, portion});
       setResult(res.data.data);
       setShowResult(true);
+      console.log('data bahan bahan: ', res.data.data)
       setNotification({
       open: true,
       message: res.data.messsage || 'Analyze food is suceess',
@@ -106,21 +55,28 @@ export default function NutritionPage() {
     });
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        setErrorMessage(
-          error.response?.data?.message ||  error.response?.data?.error || "Failed to Register, Please try again"
-        );
+        const message = error.response?.data?.message ||  error.response?.data?.error || "Failed to Register, Please try again"
+        setNotification({
+         open: true,
+         message,
+         severity: 'error',
+        });
         return
       } else if (error instanceof Error) {
-        setErrorMessage(error.message)
+        const message = error.message;
+        setNotification({
+          open: true,
+          message,
+          severity: 'error'
+        })
       } else {
-        setErrorMessage("An unexpected error occurred");
+        setNotification({
+          open: true,
+          message: 'An unexpected error occurred',
+          severity: 'error'
+        })
         return;
       }
-      setNotification({
-      open: true,
-      message: errorMessage,
-      severity: 'error',
-    });
     } finally {
       setLoading(false);
     }
@@ -162,6 +118,7 @@ export default function NutritionPage() {
               disabled={loading}
               sx={{ maxWidth: "750px" }}
             />
+            {result ? <EditIngredients result={result}/> :
             <CustomTextField
               label="Masukan Bahan-Bahan makanan (opsional)"
               multiline
@@ -180,7 +137,7 @@ export default function NutritionPage() {
                   mazxHeight: "120px !important",
                 },
               }}
-            />
+            />}
             <CustomTextField
               label="Masukan Jumlah porsi makanan"
               required
@@ -219,8 +176,7 @@ export default function NutritionPage() {
                   Hasil Analisis
                 </Typography>
                 <Typography sx={{ fontWeight: "550", fontSize: "22px" }}>
-                  {result?.name} dengan bahan-bahan {result.ingredients} dan <br /> jumlah porsi {result.portion} 
-                  memiliki {result?.details.calories} kalori
+                  {result?.name} dengan bahan-bahan {result.ingredients} dan <br /> jumlah porsi {result.portion} memiliki {result?.details.calories} kalori
                 </Typography>
               </Box>
               <Box className="itemButtonPrint">
@@ -239,12 +195,12 @@ export default function NutritionPage() {
               </Box>
               <Box className="itemButtonResult">
                 <CustomButton
-                  sx={{ padding: "10px 20px 10px 20px", borderRadius: "3px" }}
+                  sx={{ padding: "10px 30px 10px 30px", borderRadius: "3px" }}
                 >
                   Edit Bahan-bahan
                 </CustomButton>
                 <CustomButton
-                  sx={{ padding: "10px 20px 10px 20px", borderRadius: "3px" }}
+                  sx={{ padding: "10px 30px 10px 30px", borderRadius: "3px" }}
                 >
                   Hapus Bahan-bahan
                 </CustomButton>

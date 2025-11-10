@@ -8,7 +8,7 @@ const CustomTextField = styled(TextField)({
       borderColor: "var(--input-color-food)",
     },
     "&:hover fieldset": {
-      borderColor: "#bae8e8",
+      borderColor: "var(--input-color-food)",
     },
     "&.Mui-focused fieldset": {
       borderColor: "var(--input-color-food)",

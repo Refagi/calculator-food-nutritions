@@ -43,7 +43,6 @@ export default function Login() {
       const response = await api.post("/auth/login", data);
       const tokens = response.data.data?.tokens;
       const userData = response.data.data?.user;
-      console.log('response: ', tokens)
 
       if (tokens?.access && tokens?.refresh) {
         login(userData.name, userData.userId)

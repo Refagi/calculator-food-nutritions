@@ -1,36 +1,5 @@
 import { Box, Typography, TableContainer, Table, TableRow, TableBody, TableCell } from "@mui/material"
-
-
-interface DetailsNutritions {
-  id: string;
-  foodId: number;
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  fiber: number;
-  sugar: number;
-  cholesterol: number;
-  sodium: number;
-  calcium: number;
-  iron: number;
-  pottasium: number;
-  magnesium: number;
-  vitaminA: number;
-  vitaminC: number;
-  vitaminD: number;
-  vitaminB12: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface NutritionResult {
-  name: string;
-  image_url: string;
-  portion: string;
-  ingredients: string[]
-  details: DetailsNutritions
-}
+import { type NutritionResult } from "@/types/typeDataNutritionPage";
 
 interface PropsDetailNutritions {
   result: NutritionResult
