@@ -49,7 +49,7 @@ export default router;
  *                 type: string
  *                 example: "1 piring"
  *                 description: Porsi makanan
- *               ingridients:
+ *               ingredients:
  *                 type: array
  *                 items:
  *                   type: string
@@ -75,29 +75,38 @@ export default router;
  *                     id:
  *                       type: string
  *                       example: uuid-food-id
+ *                     portion:
+ *                       type: string
+ *                       example: 1 piring
  *                     name:
  *                       type: string
  *                       example: nasi goreng
- *                     calories:
- *                       type: number
- *                       example: 350
- *                     carbs:
- *                       type: number
- *                       example: 45
- *                     fat:
- *                       type: number
- *                       example: 12
- *                     protein:
- *                       type: number
- *                       example: 9
+ *                     ingredients:
+ *                       type: array
+ *                       example: ["nasi putih", "telur", "kecap", "ayam"]
  *                     details:
  *                       type: object
  *                       example:
- *                         vitaminA: "10%"
- *                         vitaminC: "8%"
- *                         fiber: "2g"
- *                         sodium: "500mg"
- *                         cholesterol: "50mg"
+ *                         id: "540ef2f1-ab36-47c5-990b-f134d354ccc"
+ *                         foodId: 860
+ *                         calories: 60
+ *                         protein: 0.10
+ *                         carbs: 25.5
+ *                         fat: 11
+ *                         vitaminA: 10
+ *                         vitaminC: 8
+ *                         vitaminD: 0.5
+ *                         vitaminB12: 1.5
+ *                         fiber: 2
+ *                         sugar: 12
+ *                         calcium: 50
+ *                         iron: 1.2
+ *                         pottasium: 300
+ *                         magnesium: 40
+ *                         sodium: 500
+ *                         cholesterol: 50
+ *                         createdAt: "2025-10-21T08:06:52.981Z"
+ *                         updatedAt: "2025-10-21T08:06:52.981Z"
  *       400:
  *         description: name food is required
  *       404:

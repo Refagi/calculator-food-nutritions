@@ -146,7 +146,7 @@ export const refreshToken = catchAsync(async (req: AuthRequest, res: Response) =
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'No refresh token provided!');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'No refresh token provided, Please to login!');
   }
   const token = await authServices.refreshToken(refreshToken);
   res.cookie('accessToken', token.access.token, {

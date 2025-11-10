@@ -9,7 +9,7 @@ export const createDetailNutritions = {
   body: z.object({
     name: z.string(),
     portion: z.number().or(z.string()),
-    ingridients: z.string().array().optional()
+    ingredients: z.string().array().optional()
   })
 };
 
