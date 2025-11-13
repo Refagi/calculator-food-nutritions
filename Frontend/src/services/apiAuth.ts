@@ -13,8 +13,6 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    console.log("Request:", config.method?.toUpperCase(), config.url);
-    console.log("Data:", config.data);
     return config;
   },
   (error) => {

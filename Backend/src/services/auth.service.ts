@@ -41,6 +41,7 @@ export const logout = async (tokens: string) => {
 
 export const refreshToken = async (tokens: string) => {
   try {
+    console.log('refresh console: ', tokens)
     const refreshTokenDoc = await tokenservices.verifyToken(tokens, tokenTypes.REFRESH);
 
     if (!refreshTokenDoc) {

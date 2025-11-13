@@ -6,6 +6,25 @@ import bcrypt from 'bcryptjs';
 import { CreateDetailNutritions, RequestGetNutritions } from '../models/index.js';
 import { equal } from 'assert';
 
+interface dataNutritions {
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+  sugar: number;
+  cholesterol: number;
+  sodium: number;
+  calcium: number;
+  iron: number;
+  potassium: number;
+  magnesium: number;
+  vitaminA: number;
+  vitaminC: number;
+  vitaminD: number;
+  vitaminB12: number;
+}
+
 export const getNutritions = async (option: RequestGetNutritions) => {
   const { name } = option;
   const food = await prisma.food.findFirst({
@@ -35,3 +54,30 @@ export const createDetailNutritions = async (foodId: number, details: CreateDeta
     },
   });
 };
+
+
+export const updateDetailNutritions = async (foodId: number, dataNutritions: dataNutritions) => {
+  await prisma.foodNutritionDetail.update({
+    where: {
+      foodId
+    },
+    data: {
+      calories: dataNutritions.calories,
+      protein: dataNutritions.protein,
+      carbs: dataNutritions.carbs,
+      fat: dataNutritions.fat,
+      fiber: dataNutritions.fiber,
+      sugar: dataNutritions.sugar,
+      cholesterol: dataNutritions.cholesterol,
+      sodium: dataNutritions.sodium,
+      calcium: dataNutritions.calcium,
+      iron: dataNutritions.iron,
+      potassium: dataNutritions.potassium,
+      magnesium: dataNutritions.magnesium,
+      vitaminA: dataNutritions.vitaminA,
+      vitaminC: dataNutritions.vitaminC,
+      vitaminD: dataNutritions.vitaminD,
+      vitaminB12: dataNutritions.vitaminB12
+    }
+  })
+}

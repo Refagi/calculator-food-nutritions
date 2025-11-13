@@ -35,6 +35,10 @@ export default function Login() {
 
   const { login } = useAuth();
 
+  const handleLoginGoogle = async () => {
+    window.location.href = `http://localhost:3000/v1/auth/google`;
+  }
+
   const onSubmit = async (data: TypeLogin) => {
     setLoading(true);
     setErrorMessage('');
@@ -124,6 +128,7 @@ export default function Login() {
 
           <CustomButton 
             type="button" 
+            onClick={handleLoginGoogle}
             sx={{
               padding: '10px 40px', 
               borderRadius: '3px',

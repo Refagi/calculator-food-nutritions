@@ -115,11 +115,7 @@ export const googleCallback = catchAsync(
         sameSite: 'lax',
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
-      res.send({
-        status: httpStatus.OK,
-        message: 'Login google is successfully',
-        data: { existingUser, tokens },
-      });
+       return res.redirect(`${process.env.FRONTEND_URL}/auth/google/callback`);
     } catch (err) {
       console.log('error login google', err);
       throw new ApiError(httpStatus.UNAUTHORIZED, 'failed login google!');
@@ -189,39 +185,26 @@ export const verifyEmail = catchAsync(async (req: AuthRequest, res: Response) =>
   });
 });
 
-
-export const protectAuth = catchAsync(async (req: AuthRequest, res: Response) => {
-  const refreshToken = req.cookies.refreshToken;
-  if (!refreshToken) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'No refresh token provided!');
-  }
-
+export const getCurrentUser = catchAsync(async (req: AuthRequest, res: Response) => {
   try {
-    const validToken = await tokenservices.verifyTokenProtectAuth(refreshToken, tokenTypes.REFRESH);
-
-    if (!validToken) {
-      throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid Token!');
+    const userId = req.user?.id;
+    if (!userId) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, "Not logged in");
     }
 
-    const currentTime = Math.floor(Date.now() / 1000);
-    if (typeof validToken.exp !== 'number' || validToken.exp < currentTime) {
-      throw new ApiError(httpStatus.UNAUTHORIZED, 'Refresh token expired!');
-    }
-
-    const user = await prisma.user.findUnique({ where: { id: validToken.sub } });
+    const user = await userServices.getUserById(userId);
     if (!user) {
-      throw new ApiError(httpStatus.UNAUTHORIZED, 'User not found!');
+      throw new ApiError(httpStatus.NOT_FOUND, "User not found");
     }
-
-    req.user = user;
 
     res.status(httpStatus.OK).send({
-      status: httpStatus.OK,
-      message: 'Refresh token valid',
-      payload: { userId: user.id }
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
     });
-  } catch (error) {
-    console.error('ProtectAuth error:', error);
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid refresh token!');
+  } catch (err) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid session");
   }
 });

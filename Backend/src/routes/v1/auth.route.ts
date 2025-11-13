@@ -13,7 +13,6 @@ router.post('/logout', authController.logout);
 router.post('/refresh-token', authController.refreshToken);
 router.post('/send-verification-email', auth, authController.sendVerificationEmail);
 router.get('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
-router.get('/protectAuth', authController.protectAuth);
 
 router.get(
   '/google',
@@ -22,9 +21,11 @@ router.get(
 
 router.get(
   '/google/callback',
-  passport.authenticate('google', { session: false }),
+  passport.authenticate('google', {session: false}),
   authController.googleCallback
 );
+
+router.get("/me", auth, authController.getCurrentUser);
 
 export default router;
 

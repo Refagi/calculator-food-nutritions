@@ -10,7 +10,7 @@ import '@/style/Main.css'
 
 export default function Navbar() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -22,7 +22,7 @@ export default function Navbar() {
       <Box component="header" className='header'>
       <Typography variant="subtitle1" sx={{fontWeight: 700,}}>Calculator Food Nutrition</Typography>
       <Box className='headerIcon'>
-        {isAuthenticated ? (<CustomButton onClick={handleLogout}>Logout</CustomButton>) : (<CustomButton onClick={() => navigate('/login')}>Login</CustomButton>)}
+        {isAuthenticated ? (<CustomButton onClick={handleLogout} disabled={loading}>Logout</CustomButton>) : (<CustomButton onClick={() => navigate('/login')}>Login</CustomButton>)}
         <IconButton onClick={toggleDarkMode}>
           {darkMode ? (<LightModeSharpIcon sx={{color: '#fffffe'}}/>) : (<DarkModeSharpIcon sx={{color: '#272343'}}/>)}
         </IconButton>

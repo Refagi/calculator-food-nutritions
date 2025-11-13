@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
 import api from '@/services/apiAuth'
 import axios from 'axios';
 
@@ -22,14 +21,13 @@ export default function AuthProvider ({ children }: { children: ReactNode }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setLoading(true)
-    const getName = localStorage.getItem('name');
-    const getUserId = localStorage.getItem('userId');
-
-    if(getName && getUserId) {
-      setNameUser(getName);
-      setUserId(getUserId);
-    }
+    setLoading(true) 
+    const getName = localStorage.getItem('name'); 
+    const getUserId = localStorage.getItem('userId'); 
+    if(getName && getUserId) { 
+      setNameUser(getName); 
+      setUserId(getUserId); 
+    } 
     setLoading(false);
   }, [])
 

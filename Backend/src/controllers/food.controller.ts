@@ -15,32 +15,33 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
     if (!food) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Food is not found');
     }
+    let dataFood = {
+      name: food.name,
+      calories: food.calories,
+      carbs: food.carbs,
+      fat: food.fat,
+      protein: food.protein,
+      portion,
+      ingredients,
+    };
     let detailNutritions = await foodServices.getDetailNutritions(food.id);
-
-    if (!detailNutritions) {
-      const dataFood = {
-        name: food.name,
-        calories: food.calories,
-        carbs: food.carbs,
-        fat: food.fat,
-        protein: food.protein,
-        portion: portion,
-        ingredients: ingredients || [],
-      };
-      let aiResponse = await aiServices.geminiApiRequest(dataFood);
-      if(!aiResponse) {
-        aiResponse = await aiServices.grokApiRequest(dataFood);
-      }
+    let aiResponse = await aiServices.geminiApiRequest(dataFood);
+    if (!aiResponse) {
+      aiResponse = await aiServices.grokApiRequest(dataFood);
+    }
 
     if (!aiResponse) {
       throw new ApiError(
-        httpStatus.SERVICE_UNAVAILABLE,
-        'Failed to get nutrition details from AI services'
-      );
+        httpStatus.SERVICE_UNAVAILABLE, 'Failed to get nutrition details from AI services');
+      }
+
+    if (!detailNutritions) {
+      await foodServices.createDetailNutritions(food.id, aiResponse);
+    } else {
+      await foodServices.updateDetailNutritions(food.id, aiResponse);
     }
 
-      detailNutritions = await foodServices.createDetailNutritions(food.id, aiResponse);
-    }
+    const updatedDetail = await foodServices.getDetailNutritions(food.id);
 
     res.status(httpStatus.OK).send({
     status: httpStatus.OK,
@@ -50,7 +51,7 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
       portion,
       ingredients,
       image_url: food.image_url,
-      details: detailNutritions ,
+      details: updatedDetail,
     },
   });
   }

@@ -2,9 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login, Register, SendVerifyEmail, VerifyEmail } from '@/pages/auth/index';
 import AuthLayout from '@/layouts/AuthLayout';
 import AuthProvider from '@/context/AuthContext';
-// import ProtectedRoute from '@/middlewares/ProtectRoute';
 import MainPage from '@/pages/main/MainPage';
 import NutritionPage from './pages/main/NutritionPage';
+import GoogleCallback from '@/pages/auth/AuthCallback';
 import { ThemeProvider } from '@/context/ThemeContext'
 import '@/style/Main.css'
 
@@ -22,6 +22,7 @@ const App = () => {
           </Route>
 
          <Route>
+           <Route path="/auth/google/callback" element={<GoogleCallback />} />
            <Route path='/' element={<MainPage/>}/>
            <Route path='/food' element={<NutritionPage/>}></Route>
          </Route>

@@ -40,6 +40,7 @@ export default router;
  *             required:
  *               - name
  *               - portion
+ *               - ingredients
  *             properties:
  *               name:
  *                 type: string

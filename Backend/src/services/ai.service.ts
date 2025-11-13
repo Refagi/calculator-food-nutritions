@@ -15,21 +15,23 @@ export const geminiApiRequest = async (dataNutritions: FormatDataNutrition) => {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     const prompt = promptText(dataNutritions);
-
     const result = await model.generateContent(prompt);
 
-    let res;
+    const rawText = await result.response.text();
+
+    const cleanedText = rawText
+      .replace(/```json\s*/gi, '')
+      .replace(/```/g, '')
+      .trim();
+
     try {
-      const rawText = await result.response.text();
-      res = JSON.parse(rawText);
+      const res = JSON.parse(cleanedText);
       console.log('result AI: ', res.foodNutritionDetail);
       return res.foodNutritionDetail;
     } catch (err) {
       console.error('Raw response:', await result.response.text());
       throw new ApiError(httpStatus.BAD_REQUEST, 'Response AI is not valid JSON.');
     }
-
-    return res.foodNutritionDetail;
   } catch (error: unknown) {
     console.log('error gemini request', error);
     throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to summon AI');
@@ -52,9 +54,13 @@ export const grokApiRequest = async (dataNutritions: FormatDataNutrition) => {
     ],
     model: 'meta-llama/llama-4-scout-17b-16e-instruct'
   });
-  let res;
   try {
-    res = JSON.parse(result.choices[0]?.message?.content || '');
+    const rawText = result.choices[0]?.message?.content || '';
+    const cleanedText = rawText
+    .replace(/```json\s*/gi, '')
+    .replace(/```/g, '')
+    .trim();
+    const res = JSON.parse(cleanedText);
     console.log('result AI: ', res.foodNutritionDetail);
     return res.foodNutritionDetail;
   } catch (error) {
@@ -73,11 +79,13 @@ sebanyak ${dataNutritions.portion}
 jumlah kalori, karbohidrat, lemak, protein adalah hasil dari per 100 gram makanan
 `;
 
-  const ingredientInfo = dataNutritions.ingredients && dataNutritions.ingredients.length > 0
-    ? `\nMakanan ini dibuat dengan bahan - bahan: ${Array.isArray(dataNutritions.ingredients) ? dataNutritions.ingredients.join(', ') : dataNutritions.ingredients}`
-    : '';
+const ingredientInfo = `\nMakanan ini dibuat dengan bahan - bahan: ${
+  Array.isArray(dataNutritions.ingredients)
+    ? dataNutritions.ingredients.join(', ')
+    : String(dataNutritions.ingredients)
+}`;
 
-  return `${baseInfo}${ingredientInfo}
+return `${baseInfo}${ingredientInfo}
 hitung ulang jumlah ${dataNutritions.calories}, ${dataNutritions.carbs}, ${dataNutritions.fat}, ${dataNutritions.protein},
 sesuai dengan bahan - bahan ${dataNutritions.ingredients} kalau ada (optional)
 perthitungan di hitung per porsi dari jumlah porsi yaitu ${dataNutritions.portion}

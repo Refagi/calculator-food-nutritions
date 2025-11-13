@@ -46,6 +46,7 @@ export default function NutritionPage() {
       const formatIngredients = ingredients.split(/\r?\n/).map(i => i.replace(/,$/, "").trim()).filter(i => i.length > 0);
       const res = await api.post("/food/details", {name, ingredients: formatIngredients, portion});
       setResult(res.data.data);
+      console.log('print ingredient: ', res.data.data.ingredients)
       setShowResult(true);
       console.log('data bahan bahan: ', res.data.data)
       setNotification({
@@ -176,7 +177,7 @@ export default function NutritionPage() {
                   Hasil Analisis
                 </Typography>
                 <Typography sx={{ fontWeight: "550", fontSize: "22px" }}>
-                  {result?.name} dengan bahan-bahan {result.ingredients} dan <br /> jumlah porsi {result.portion} memiliki {result?.details.calories} kalori
+                  {result?.name} dengan bahan-bahan tersebut dengan jumlah porsi {result.portion} <br /> memiliki {result?.details.calories} kalori
                 </Typography>
               </Box>
               <Box className="itemButtonPrint">
