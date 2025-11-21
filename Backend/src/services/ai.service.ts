@@ -26,15 +26,15 @@ export const geminiApiRequest = async (dataNutritions: FormatDataNutrition) => {
 
     try {
       const res = JSON.parse(cleanedText);
-      console.log('result AI: ', res.foodNutritionDetail);
+      console.log('result AI Gemini: ', res.foodNutritionDetail);
       return res.foodNutritionDetail;
     } catch (err) {
-      console.error('Raw response:', await result.response.text());
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Response AI is not valid JSON.');
+      console.error('Gemini - Invalid JSON response:', rawText);
+      return null;
     }
   } catch (error: unknown) {
-    console.log('error gemini request', error);
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to summon AI');
+    console.log('Gemini request failed:', error);
+    return null;
   }
 };
 
@@ -61,10 +61,10 @@ export const grokApiRequest = async (dataNutritions: FormatDataNutrition) => {
     .replace(/```/g, '')
     .trim();
     const res = JSON.parse(cleanedText);
-    console.log('result AI: ', res.foodNutritionDetail);
+    console.log('result AI Groq: ', res.foodNutritionDetail);
     return res.foodNutritionDetail;
   } catch (error) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Response AI is not valid JSON.');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Response AI Groq is not valid JSON.');
   }
 };
 

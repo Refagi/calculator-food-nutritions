@@ -13,6 +13,7 @@
   --input-color-food: #2d334a;
   --body-input-color: #fffcf2;
   --result-card-hr: #272343;
+  --button-delete-border: #ef233c;
 }
 
 .darkmode {
@@ -29,6 +30,7 @@
   --input-color-food: #fffffe;
   --body-input-color: #0f0e17;
   --result-card-hr: #fffcf2;
+  --button-delete-border: #fffffe;
 }
 
 *, html {
@@ -185,31 +187,25 @@ body {
   flex-direction: row;
   gap: 70px;
   margin: 0px 0 20px 0;
-  /* border: 1px solid red; */
 }
 .itemResult {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   padding: 0 10px 10px 0;
   gap: 15px;
 }
-.itemButtonPrint {
-  /* border: 1px solid red; */
-  display: flex;
+.itemButtonPrint {  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 .itemTextResult {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
 }
 .itemButtonResult {
   display: flex;
   justify-content: space-around;
-  /* gap: 10px */
 }
 
 
@@ -219,6 +215,7 @@ body {
   flex-direction: column;
   padding: 10px;
   border: 1px solid var(--result-card-hr);
+  color: var(--text-color);
 }
 .nutritionHeader {
   display: flex;
@@ -231,7 +228,6 @@ body {
 }
 .nutritionTable td {
   border-color: var(--result-card-hr);
-  /* vertical-align: top; */
   padding: 5px 0 0 0;
 }
 .nutritionDivider td {
@@ -242,10 +238,12 @@ body {
   text-align: left;
   padding-left: 0 !important;
   width: 100%;
+  color: var(--text-color) !important;
 }
 .nutritionValueCell {
   text-align: right;
   padding-right: 0 !important;
+  color: var(--text-color)  !important;
 }
 
 

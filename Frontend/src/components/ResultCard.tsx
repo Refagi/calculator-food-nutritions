@@ -1,5 +1,6 @@
 import { Box, Typography, TableContainer, Table, TableRow, TableBody, TableCell } from "@mui/material"
 import { type NutritionResult } from "@/types/typeDataNutritionPage";
+import '@/style/Main.css';
 
 interface PropsDetailNutritions {
   result: NutritionResult
@@ -110,10 +111,10 @@ export default function ResultCard ({result}: PropsDetailNutritions) {
           </TableRow>
           <TableRow>
             <TableCell className="nutritionHeaderCell">
-              <Typography sx={{fontSize: '14px', fontWeight: '500'}}>Pottasium</Typography>
+              <Typography sx={{fontSize: '14px', fontWeight: '500'}}>Potassium</Typography>
             </TableCell>
             <TableCell className="nutritionValueCell">
-              <Typography sx={{fontSize: '14px', fontWeight: '400'}} >{result.details.pottasium}mg</Typography>
+              <Typography sx={{fontSize: '14px', fontWeight: '400'}} >{result.details.potassium}mg</Typography>
             </TableCell>
           </TableRow>
           <TableRow>

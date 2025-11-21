@@ -25,9 +25,20 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
       ingredients,
     };
     let detailNutritions = await foodServices.getDetailNutritions(food.id);
-    let aiResponse = await aiServices.geminiApiRequest(dataFood);
+    let  aiResponse = null;
+    try {
+      console.log('Trying Gemini API...');
+      aiResponse = await aiServices.geminiApiRequest(dataFood);
+    } catch (error) {
+      console.log('Gemini failed, falling back to Groq...');
+    }
     if (!aiResponse) {
-      aiResponse = await aiServices.grokApiRequest(dataFood);
+      try {
+        console.log('Trying Groq API...');
+        aiResponse = await aiServices.grokApiRequest(dataFood);
+      } catch (error) {
+        console.log('Groq also failed:', error);
+      }
     }
 
     if (!aiResponse) {

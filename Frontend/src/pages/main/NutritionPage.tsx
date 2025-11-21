@@ -44,11 +44,10 @@ export default function NutritionPage() {
 
     try {
       const formatIngredients = ingredients.split(/\r?\n/).map(i => i.replace(/,$/, "").trim()).filter(i => i.length > 0);
-      const res = await api.post("/food/details", {name, ingredients: formatIngredients, portion});
+      const formatName = name.toLowerCase()
+      const res = await api.post("/food/details", {name: formatName, ingredients: formatIngredients, portion});
       setResult(res.data.data);
-      console.log('print ingredient: ', res.data.data.ingredients)
       setShowResult(true);
-      console.log('data bahan bahan: ', res.data.data)
       setNotification({
       open: true,
       message: res.data.messsage || 'Analyze food is suceess',
@@ -87,6 +86,14 @@ export default function NutritionPage() {
     setNotification({ ...notification, open: false, message: '' });
   };
 
+  const handleClearInput = () => {
+    setFoodName("");
+    setIngredients("");
+    setPortion("");
+    setResult(null);
+    setShowResult(false);
+  }
+
   const handlePrint = useReactToPrint({
     contentRef: printRef,
     documentTitle: `Nutrition-${result?.name || 'Food'}`,
@@ -121,7 +128,8 @@ export default function NutritionPage() {
             />
             {result ? <EditIngredients result={result}/> :
             <CustomTextField
-              label="Masukan Bahan-Bahan makanan (opsional)"
+              label="Masukan Bahan-Bahan makanan"
+              required
               multiline
               id="ingredients"
               name="ingredients"
@@ -150,6 +158,7 @@ export default function NutritionPage() {
               onChange={(e) => setPortion(e.target.value)}
               disabled={loading}
             />
+            {(!showResult && !result) && (
             <Box className="itemButtonFood">
               <CustomButton
               type="submit"
@@ -165,6 +174,7 @@ export default function NutritionPage() {
                 {loading ? "Menganalisis..." : "Analisis Makanan"}
               </CustomButton>
             </Box>
+            )}
           </Container>
 
           {showResult && result && result.details && (
@@ -196,11 +206,7 @@ export default function NutritionPage() {
               </Box>
               <Box className="itemButtonResult">
                 <CustomButton
-                  sx={{ padding: "10px 30px 10px 30px", borderRadius: "3px" }}
-                >
-                  Edit Bahan-bahan
-                </CustomButton>
-                <CustomButton
+                onClick={handleClearInput}
                   sx={{ padding: "10px 30px 10px 30px", borderRadius: "3px" }}
                 >
                   Hapus Bahan-bahan

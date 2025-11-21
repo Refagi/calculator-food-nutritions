@@ -11,7 +11,7 @@ export interface DetailsNutritions {
   sodium: number;
   calcium: number;
   iron: number;
-  pottasium: number;
+  potassium: number;
   magnesium: number;
   vitaminA: number;
   vitaminC: number;

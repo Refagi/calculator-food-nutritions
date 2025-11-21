@@ -33,7 +33,7 @@ const Notification = ({
         sx={{
           width: '100%',
           bgcolor: 'var(--button-text)',
-          color: severity === 'success' ? '#e8e9ed' : severity === 'error' ? '#e8e9ed' : undefined,
+          color: severity === 'success' ? '#e8e9ed' : severity === 'error' ? '#ef233c' : undefined,
         }}
       >
         {message}
