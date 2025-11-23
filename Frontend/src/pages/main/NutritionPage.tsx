@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
-import { Container, Box, Typography } from "@mui/material";
+import { Container, Box, Typography} from "@mui/material";
 import CustomTextField from "@/components/customs/Input";
 import "@/style/Main.css";
 import EditIngredients from "@/components/EditIngredients";
@@ -186,8 +186,8 @@ export default function NutritionPage() {
                 >
                   Hasil Analisis
                 </Typography>
-                <Typography sx={{ fontWeight: "550", fontSize: "22px" }}>
-                  {result?.name} dengan bahan-bahan tersebut dengan jumlah porsi {result.portion} <br /> memiliki {result?.details.calories} kalori
+                <Typography sx={{ fontWeight: "500", fontSize: "20px" }}>
+                {result.portion} {result?.name} <br /> memiliki {result?.details.calories} kalori
                 </Typography>
               </Box>
               <Box className="itemButtonPrint">
@@ -211,6 +211,22 @@ export default function NutritionPage() {
                 >
                   Hapus Bahan-bahan
                 </CustomButton>
+              </Box>
+
+              <Box sx={{marginTop: '10px'}}>
+              <Typography sx={{ fontWeight: "550", fontSize: "16px",}}>
+                Kebutuhan Kalori Harian
+              </Typography>
+              <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>
+                Rata-rata kebutuhan kalori per hari: <br />
+                 ● <b>Laki-laki</b>: 2.200–2.800 kkal <br />
+                 ● <b>Perempuan</b>: 1.800–2.200 kkal <br/>
+                Namun kebutuhan ini dipengaruhi oleh: <br />
+                 ● Usia <br />
+                 ● Tinggi dan Berat Badan <br />
+                 ● Tingkat aktivitas (sedentary / ringan / sedang / berat) <br />
+                 ● Tujuan (defisit, maintenance, surplus)
+                </Typography>
               </Box>
             </Box>
             <div ref={printRef}>

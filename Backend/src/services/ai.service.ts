@@ -69,7 +69,7 @@ export const grokApiRequest = async (dataNutritions: FormatDataNutrition) => {
 };
 
 const promptText = (dataNutritions: FormatDataNutrition) => {
-  const baseInfo = `Saya memiliki informasi makanan berikut:
+const baseInfo = `Saya memiliki informasi makanan berikut:
 Nama makanan: ${dataNutritions.name}
 Kalori: ${dataNutritions.calories} kcal
 Karbohidrat: ${dataNutritions.carbs} g
@@ -87,7 +87,7 @@ const ingredientInfo = `\nMakanan ini dibuat dengan bahan - bahan: ${
 
 return `${baseInfo}${ingredientInfo}
 hitung ulang jumlah ${dataNutritions.calories}, ${dataNutritions.carbs}, ${dataNutritions.fat}, ${dataNutritions.protein},
-sesuai dengan bahan - bahan ${dataNutritions.ingredients} kalau ada (optional)
+sesuai dengan bahan - bahan ${dataNutritions.ingredients}
 perthitungan di hitung per porsi dari jumlah porsi yaitu ${dataNutritions.portion}
 Buatkan detail nutrisi lengkap untuk makanan ini sesuai schema Prisma berikut:
 
@@ -110,7 +110,7 @@ model FoodNutritionDetail {
   vitaminB12 Float? (mikrogram)
 }
 
-Kamu **hanya boleh membalas dengan JSON valid** sesuai contoh ini, tanpa tambahan teks, tanpa markdown, tanpa penjelasan:
+Kamu hanya boleh membalas dengan JSON valid sesuai contoh ini, tanpa tambahan teks, tanpa markdown, tanpa penjelasan:
 {
   "foodNutritionDetail": {
     "calories": number,
@@ -132,6 +132,6 @@ Kamu **hanya boleh membalas dengan JSON valid** sesuai contoh ini, tanpa tambaha
   }
 }
 
-Isi nilai-nilai nutrisi dengan perkiraan yang realistis sesuai makanan tersebut.
+Isi nilai-nilai nutrisi dengan perkiraan yang realistis sesuai makanan tersebut dan sesuai satuan dari masing-masing nutrisi makanan tersebut.
 Semua angka gunakan tipe number, boleh desimal.`;
 };

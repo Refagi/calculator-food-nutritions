@@ -13,7 +13,7 @@
   --input-color-food: #2d334a;
   --body-input-color: #fffcf2;
   --result-card-hr: #272343;
-  --button-delete-border: #ef233c;
+  --table-head: #272343;
 }
 
 .darkmode {
@@ -30,7 +30,7 @@
   --input-color-food: #fffffe;
   --body-input-color: #0f0e17;
   --result-card-hr: #fffcf2;
-  --button-delete-border: #fffffe;
+  --table-head: #272343;
 }
 
 *, html {
@@ -108,6 +108,15 @@ body {
   text-align: center;
 }
 
+.containerTableInfo {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 10px 50px 10px 50px;
+  align-items: center;
+  justify-content: center;
+}
 
 .containerStart {
   margin: 50px 0 50px 0;
@@ -119,7 +128,6 @@ body {
   gap: 20px;
 }
 .containerFooter {
-  /* border: 1px solid red; */
   padding: 25px 20px 25px 20px;
   display: flex;
   justify-content: center;
@@ -137,7 +145,6 @@ body {
   flex-direction: column;
   margin: 20px;
   background-color: var(--base-two-color);
-  /* box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em; */
   border-radius: 3px;
   border: 1px solid var(--text-color);
   margin-left: 0 !important;
@@ -160,13 +167,10 @@ body {
   align-items: center;
   max-width: 750px;
   padding: 20px;
-  /* width: 100%;  */
-  /* margin: 0 auto; */
 }
 
 .containerTutorial {
   margin: 10px 0 10px 0;
-  /* flex-shrink: 0;  */
 }
 .itemCardsTutorial {
   display: flex;
@@ -210,7 +214,7 @@ body {
 
 
 .nutritionContainer {
-  min-width: 300px;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -223,7 +227,7 @@ body {
   gap: 5px;
 }
 .nutritionTable {
-  width: 100%;
+  min-width: 100%;
   border-collapse: collapse;
 }
 .nutritionTable td {
@@ -237,11 +241,15 @@ body {
 .nutritionHeaderCell {
   text-align: left;
   padding-left: 0 !important;
-  width: 100%;
   color: var(--text-color) !important;
 }
+.nutritionName {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 .nutritionValueCell {
-  text-align: right;
+  text-align: right !important;
   padding-right: 0 !important;
   color: var(--text-color)  !important;
 }

@@ -3,6 +3,7 @@ import CardBenefits from "@/components/CardsBenefits";
 import Navbar from "@/components/Navbar";
 import CustomButton from "@/components/customs/Buttons";
 import { useNavigate } from "react-router-dom";
+import { TableInfoNutrientsOne, TableInfoNutrientsTwo } from "@/components/TableInfoNutrients";
 import "@/style/Main.css";
 
 export default function MainPage() {
@@ -35,6 +36,16 @@ export default function MainPage() {
         </Typography>
         <CardBenefits />
       </Container>
+
+      <Box className="containerTableInfo">
+        <Typography variant="h5" sx={{ textAlign: "center", fontWeight: 700 }}>
+          Standar Kebutuhan Harian Nutrisi
+        </Typography>
+        <Box sx={{display: 'flex', flexDirection: 'row', gap: '30px'}}>
+          <TableInfoNutrientsOne/>
+          <TableInfoNutrientsTwo/>
+        </Box>
+      </Box>
 
       <Box className="containerStart" component="div">
         <Typography variant="h5" sx={{ textAlign: "center", fontWeight: 700 }}>
