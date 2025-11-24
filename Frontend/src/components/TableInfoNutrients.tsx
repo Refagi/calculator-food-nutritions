@@ -30,9 +30,17 @@ const rowsTwo = [
   createData('vitaminB12', `${2.4}µg`),
 ]
 
+const rowsThree = [
+  createData('<= 5%', `Rendah (sedikit mengandung nutrisi)`),
+  createData('>= 20%', `Tinggi (banyak mengandung nutrisi)`),
+  createData('> 100%', `Melebihi kebutuhan harian`),
+]
+
 export function TableInfoNutrientsOne() {
   return (
-    <TableContainer component={Paper} sx={{maxWidth: '400px', borderRadius: '12px', boxShadow: 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em'}}>
+    <TableContainer component={Paper} sx={{maxWidth: '400px', borderRadius: '12px', boxShadow: 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em',
+      backgroundColor: 'var(--table-body)'
+    }}>
       <Table size="small">
         <TableHead>
           <TableRow sx={{ backgroundColor: 'var(--table-head)' }}>
@@ -55,7 +63,9 @@ export function TableInfoNutrientsOne() {
 
 export function TableInfoNutrientsTwo() {
   return (
-    <TableContainer component={Paper} sx={{maxWidth: '400px', borderRadius: '12px', boxShadow: 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em'}}>
+    <TableContainer component={Paper} sx={{maxWidth: '400px', borderRadius: '12px', boxShadow: 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em',
+      backgroundColor: 'var(--table-body)'
+    }}>
       <Table size="small">
         <TableHead>
           <TableRow sx={{ backgroundColor: 'var(--table-head)' }}>
@@ -65,6 +75,31 @@ export function TableInfoNutrientsTwo() {
         </TableHead>
         <TableBody>
           {rowsTwo.map((row) => (
+            <TableRow key={row.nutrition}>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a',}}>{row.nutrition}</TableCell>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a', }}>{row.value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+
+export function TableInfoDV() {
+  return (
+    <TableContainer component={Paper} sx={{maxWidth: '400px', marginTop: '20px', borderRadius: '12px', boxShadow: 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em',
+      backgroundColor: 'var(--table-body)'
+    }}>
+      <Table size="small">
+        <TableHead>
+          <TableRow sx={{ backgroundColor: 'var(--table-head)' }}>
+            <TableCell sx={{ color: 'var(--text-color-second)', fontWeight: 'bold', padding: '10px', textAlign: 'center'}}>% DV</TableCell>
+            <TableCell sx={{ color: 'var(--text-color-second)', fontWeight: 'bold', padding: '10px', textAlign: 'center' }}>Artinya</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rowsThree.map((row) => (
             <TableRow key={row.nutrition}>
               <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a',}}>{row.nutrition}</TableCell>
               <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a', }}>{row.value}</TableCell>

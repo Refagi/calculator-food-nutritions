@@ -9,7 +9,8 @@ import CardTutorial from "@/components/CardTutorial";
 import ResultCard from "@/components/ResultCard";
 import Notification from "@/components/Notifications";
 import api from "@/services/api";
-import { type NutritionResult, type PropsNotification } from '@/types/typeDataNutritionPage'
+import { type NutritionResult, type PropsNotification } from '@/types/typeDataNutritionPage';
+import { TableInfoDV } from "@/components/TableInfoNutrients";
 import { useReactToPrint } from "react-to-print"; 
 import axios from "axios";
 
@@ -187,7 +188,7 @@ export default function NutritionPage() {
                   Hasil Analisis
                 </Typography>
                 <Typography sx={{ fontWeight: "500", fontSize: "20px" }}>
-                {result.portion} {result?.name} <br /> memiliki {result?.details.calories} kalori
+                {result.portion} {result?.name}  memiliki {result?.details.calories} kalori
                 </Typography>
               </Box>
               <Box className="itemButtonPrint">
@@ -216,19 +217,24 @@ export default function NutritionPage() {
               <Box sx={{marginTop: '10px'}}>
               <Typography sx={{ fontWeight: "550", fontSize: "16px",}}>
                 Kebutuhan Kalori Harian
-              </Typography>
-              <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>
+              </Typography> 
+              <Typography sx={{ fontWeight: "500", fontSize: "16px" }}>
                 Rata-rata kebutuhan kalori per hari: <br />
                  ● <b>Laki-laki</b>: 2.200–2.800 kkal <br />
-                 ● <b>Perempuan</b>: 1.800–2.200 kkal <br/>
+                 ● <b>Perempuan</b>: 1.800–2.200 kkal <br/> 
                 Namun kebutuhan ini dipengaruhi oleh: <br />
                  ● Usia <br />
                  ● Tinggi dan Berat Badan <br />
-                 ● Tingkat aktivitas (sedentary / ringan / sedang / berat) <br />
+                 ● Tingkat aktivitas (ringan / sedang / berat) <br />
                  ● Tujuan (defisit, maintenance, surplus)
                 </Typography>
               </Box>
+
+              <Box>
+                <TableInfoDV/>
+              </Box>
             </Box>
+            <Box className="midElement"></Box>
             <div ref={printRef}>
               <ResultCard result={result}/>
             </div>

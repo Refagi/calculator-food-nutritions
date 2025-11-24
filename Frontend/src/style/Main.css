@@ -4,6 +4,7 @@
   --base-color: #fffffe;
   --text-color: #2d334a;
   --text-color-second: #fffcf2;
+  --text-notification: #fffffe;
   --item-card: #272343;
   --body-card: #fffffe;
   --button-color: #272343;
@@ -14,12 +15,14 @@
   --body-input-color: #fffcf2;
   --result-card-hr: #272343;
   --table-head: #272343;
+  --table-body: #fffffe;
 }
 
 .darkmode {
   --base-color: #0f0e17;
   --text-color: #fffffe;
   --text-color-second: #fffcf2;
+  --text-notification: #2d334a;
   --text-card: #0a090f;
   --item-card: #0f0e17;
   --body-card: #272343;
@@ -31,6 +34,7 @@
   --body-input-color: #0f0e17;
   --result-card-hr: #fffcf2;
   --table-head: #272343;
+  --table-body: #eff0f3;
 }
 
 *, html {
@@ -170,7 +174,13 @@ body {
 }
 
 .containerTutorial {
+  display: flex;
   margin: 10px 0 10px 0;
+  position: sticky;
+  top: 10px;
+  align-self: flex-start;
+  z-index: 10;
+  /* border: 1px solid red; */
 }
 .itemCardsTutorial {
   display: flex;
@@ -189,7 +199,7 @@ body {
 .containerResult {
   display: flex;
   flex-direction: row;
-  gap: 70px;
+  gap: 10px;
   margin: 0px 0 20px 0;
 }
 .itemResult {
@@ -197,8 +207,10 @@ body {
   flex-direction: column;
   padding: 0 10px 10px 0;
   gap: 15px;
+  min-width: 400px;
 }
-.itemButtonPrint {  display: flex;
+.itemButtonPrint {  
+  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -213,8 +225,13 @@ body {
 }
 
 
+.midElement {
+  margin: 0px 16px 0 16px;
+  padding:25px;
+}
+
 .nutritionContainer {
-  max-width: 500px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -227,7 +244,7 @@ body {
   gap: 5px;
 }
 .nutritionTable {
-  min-width: 100%;
+  min-width: 50%;
   border-collapse: collapse;
 }
 .nutritionTable td {
@@ -256,7 +273,6 @@ body {
 
 
 .containerAuth {
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
