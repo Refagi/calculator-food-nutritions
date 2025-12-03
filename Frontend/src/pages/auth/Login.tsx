@@ -7,8 +7,8 @@ import CustomButton from "@/components/customs/Buttons";
 import axios from "axios";
 import api from "@/services/apiAuth";
 import { useAuth } from '@/context/AuthContext';
-
 import '@/style/Main.css';
+import '@/style/MainResponsive.css';
 
 interface TypeLogin {
   email: string
@@ -91,12 +91,7 @@ export default function Login() {
       <Box 
         component='form' 
         onSubmit={handleSubmit}
-        sx={{
-          minWidth: '350px', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: '20px'
-        }}
+        className="contentForm"
       >
         <Stack spacing={2}>
           <CustomTextField 

@@ -7,6 +7,7 @@ import CustomButton from "@/components/customs/Buttons";
 import api from '@/services/apiAuth'
 import axios from "axios";
 import '@/style/Main.css';
+import '@/style/MainResponsive.css';
 
 interface TypeRegister {
   name: string;
@@ -78,12 +79,7 @@ export default function Register() {
       <Box 
         component='form' 
         onSubmit={handleSubmit}
-        sx={{
-          minWidth: '350px', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: '20px'
-        }}
+        className="contentForm"
       >
         <Stack spacing={2}>
           <CustomTextField 

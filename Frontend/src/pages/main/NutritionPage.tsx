@@ -214,7 +214,7 @@ export default function NutritionPage() {
                 </CustomButton>
               </Box>
 
-              <Box sx={{marginTop: '10px'}}>
+              <Box className='descriptionResult'>
               <Typography sx={{ fontWeight: "550", fontSize: "16px",}}>
                 Kebutuhan Kalori Harian
               </Typography> 
@@ -234,8 +234,9 @@ export default function NutritionPage() {
                 <TableInfoDV/>
               </Box>
             </Box>
+
             <Box className="midElement"></Box>
-            <div ref={printRef}>
+            <div ref={printRef} className='containerTableResult'>
               <ResultCard result={result}/>
             </div>
           </Box>

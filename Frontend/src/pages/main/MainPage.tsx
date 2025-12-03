@@ -41,7 +41,7 @@ export default function MainPage() {
         <Typography variant="h5" sx={{ textAlign: "center", fontWeight: 700 }}>
           Standar Kebutuhan Harian Nutrisi
         </Typography>
-        <Box sx={{display: 'flex', flexDirection: 'row', gap: '30px'}}>
+        <Box className="contentTableInfo">
           <TableInfoNutrientsOne/>
           <TableInfoNutrientsTwo/>
         </Box>

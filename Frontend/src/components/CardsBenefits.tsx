@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Box, Card, CardContent, CardActionArea, Typography } from "@mui/material";
-import '@/style/Main.css'
+import '@/style/Main.css';
+import '@/style/MainResponsive.css';
 
 const cardContents = [
   {

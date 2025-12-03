@@ -1,5 +1,3 @@
-
-
 :root {
   --base-color: #fffffe;
   --text-color: #2d334a;
@@ -113,13 +111,17 @@ body {
 }
 
 .containerTableInfo {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin: 10px 50px 10px 50px;
   align-items: center;
   justify-content: center;
+}
+.contentTableInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }
 
 .containerStart {
@@ -137,6 +139,7 @@ body {
   justify-content: center;
   text-align: center;
 }
+
 
 
 .containerNutrition {
@@ -163,7 +166,7 @@ body {
   margin: 20px;
   padding: 20px 0 20px 0;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
-  width: 100%; 
+  width: 100%;
 }
 .itemButtonFood {
   display: flex;
@@ -180,7 +183,6 @@ body {
   top: 10px;
   align-self: flex-start;
   z-index: 10;
-  /* border: 1px solid red; */
 }
 .itemCardsTutorial {
   display: flex;
@@ -215,14 +217,9 @@ body {
   justify-content: center;
   text-align: center;
 }
-.itemTextResult {
-  display: flex;
-  flex-direction: column;
-}
-.itemButtonResult {
-  display: flex;
-  justify-content: space-around;
-}
+.itemTextResult {display: flex; flex-direction: column;}
+.itemButtonResult {display: flex; justify-content: space-around;}
+.descriptionResult { margin-top: 10px;}
 
 
 .midElement {
@@ -230,6 +227,11 @@ body {
   padding:25px;
 }
 
+.containerTableResult {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .nutritionContainer {
   max-width: 300px;
   display: flex;
@@ -277,9 +279,9 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 30px;
+  padding: 50px;
   gap: 10px;
-  min-width: 500px;
+  min-width: 250px;
   min-height: max-content;
   border-radius: 3px;
   background-color: var(--accent-color);
@@ -290,17 +292,14 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  /* border: 1px solid red; */
   padding: 10px;
 }
 .itemFormAuth {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /* border: 1px solid blue; */
 }
 .headerForm {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -309,6 +308,7 @@ body {
 .contentForm {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  /* gap: 15px; */
+  gap: 15px;
+  min-width: 300px;
+  width: 350px;
 }

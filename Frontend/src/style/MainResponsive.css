@@ -1,0 +1,420 @@
+@media (max-width: 992px) {
+  .containerAuth {
+    padding: 80px;
+  }
+  .titleAuth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .itemFormAuth {
+    width: 450px;
+  }
+  .contentForm {
+    width: 450px;
+  }
+  .header {
+    padding: 30px 20px 30px 20px;
+  }
+  .header .MuiTypography-subtitle1 {
+    font-size: 20px;
+  }
+  .headerDesc {
+    text-align: center;
+    padding: 15px;
+  }
+  .headerDesc .MuiTypography-subtitle1 {
+    font-size: 20px;
+  }
+  .containerCards h5 {
+    font-size: 32px;
+  }
+  .itemCards {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .itemCards .MuiCard-root {
+    height: 230px;
+    width: 330px;
+  }
+  .contentCards .MuiTypography-h5 {
+    font-size: 26px;
+  }
+  .contentCards .MuiTypography-body2 {
+    font-size: 18px;
+  }
+  .containerTableInfo h5 {
+    font-size: 30px;
+  }
+  .containerStart h5 {
+    font-size: 30px;
+  }
+  .containerStart button {
+    padding: 7px 20px 7px 20px;
+  }
+
+  .containerNutrition {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .containerFood {
+    display: flex;
+    justify-content: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .containerTutorial {
+    position: static;
+    z-index: 0;
+    align-self: auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .itemCardsTutorial {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .itemCardsTutorial .MuiCard-root {
+    width: 300px;
+  }
+
+  .containerResult {
+    gap: 0px;
+  }
+  .itemResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .itemButtonPrint button{ width: 200px;}
+}
+
+
+
+@media (max-width: 768px) {
+  .containerAuth {
+    padding: 60px;
+  }
+  .titleAuth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+  }
+  .itemFormAuth {
+    width: 450px;
+  }
+  .contentForm {
+    width: 450px;
+  }
+  .header {
+    padding: 25px 15px 25px 15px;
+  }
+  .header .MuiTypography-subtitle1 {
+    font-size: 20px;
+  }
+  .headerIcon button {
+    padding: 5px 20px 5px 20px !important;
+    font-size: 14px;
+  }
+  .headerDesc {
+    text-align: center;
+    padding: 15px;
+  }
+  .headerDesc h2 {
+    font-size: 30px;
+  }
+  .headerDesc .MuiTypography-subtitle1 {
+    font-size: 18px;
+  }
+  .containerCards h5 {
+    font-size: 30px;
+  }
+  .itemCards {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .itemCards .MuiCard-root {
+    max-height: 230px;
+    max-width: 330px;
+  }
+  .contentCards .MuiTypography-h5 {
+    font-size: 24px;
+  }
+  .contentCards .MuiTypography-body2 {
+    font-size: 18px;
+  }
+  .containerTableInfo h5 {
+    font-size: 30px;
+  }
+  .containerStart h5 {
+    font-size: 30px;
+  }
+  .containerStart button {
+    padding: 7px 20px 7px 20px;
+  }
+
+
+  .containerNutrition {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .containerTutorial {
+    position: static;
+    z-index: 0;
+    align-self: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .containerResult {
+    flex-direction: column;
+    margin: 5px;
+    gap: 0px;
+  }
+  .itemResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 10px;
+  }
+  .itemTextResult { text-align: center;}
+  .itemButtonPrint button{ width: 200px;}
+  .descriptionResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .descriptionResult .MuiTypography {
+    font-size: 120px;
+  }
+}
+
+
+@media (max-width: 576px) {
+  .containerAuth {
+    padding: 40px;
+  }
+  .titleAuth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  .itemFormAuth {
+    width: 400px;
+  }
+  .contentForm {
+    width: 400px;
+  }
+  .header {
+    padding: 25px 15px 25px 15px;
+  }
+  .header .MuiTypography-subtitle1 {
+    font-size: 18px;
+  }
+  .headerIcon button {
+    padding: 5px 20px 5px 20px !important;
+    font-size: 14px;
+  }
+  .headerDesc {
+    text-align: center;
+    padding: 10px;
+  }
+  .headerDesc h2 {
+    font-size: 26px;
+  }
+  .headerDesc .MuiTypography-subtitle1 {
+    font-size: 16px;
+  }
+  .containerCards h5 {
+    font-size: 26px;
+  }
+  .itemCards {
+    flex-wrap: wrap;
+  }
+  .contentCards .MuiTypography-h5 {
+    font-size: 22px;
+  }
+  .contentCards .MuiTypography-body2 {
+    font-size: 16px;
+  }
+  .containerTableInfo h5 {
+    font-size: 26px;
+  }
+  .contentTableInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  .containerStart h5 {
+    font-size: 26px;
+  }
+  .containerStart {
+    display: flex;
+    flex-direction: column;
+  }
+  .containerStart button {
+    padding: 5px 20px 5px 20px;
+  }
+
+
+  .containerNutrition {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .containerTutorial {
+    position: static;
+    z-index: 0;
+    align-self: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .containerResult {
+    flex-direction: column;
+    margin: 5px;
+    gap: 0px;
+  }
+  .itemResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 10px;
+  }
+  .itemTextResult { text-align: center;}
+  .itemButtonPrint button{ width: 200px;}
+  .descriptionResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .descriptionResult .MuiTypography {
+    font-size: 120px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .containerAuth {
+    padding: 20px;
+  }
+  .titleAuth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+  }
+  .itemFormAuth {
+    width: 300px;
+  }
+  .contentForm {
+    width: 300px;
+  }
+  .header {
+    padding: 20px 10px 20px 10px;
+  }
+  .header .MuiTypography-subtitle1 {
+    font-size: 14px;
+  }
+  .headerIcon button {
+    padding: 0px 10px 0px 10px !important;
+    font-size: 12px;
+  }
+  .headerDesc {
+    text-align: center;
+    padding: 10px;
+  }
+  .headerDesc h2 {
+    font-size: 22px;
+  }
+  .headerDesc .MuiTypography-subtitle1 {
+    font-size: 14px;
+  }
+  .containerCards h5 {
+    font-size: 22px;
+  }
+  .itemCards {
+    flex-wrap: wrap;
+  }
+  .contentCards .MuiTypography-h5 {
+    font-size: 20px;
+  }
+  .contentCards .MuiTypography-body2 {
+    font-size: 14px;
+  }
+  .containerTableInfo h5 {
+    font-size: 22px;
+  }
+  .contentTableInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  .containerStart h5 {
+    font-size: 22px;
+  }
+  .containerStart {
+    display: flex;
+    flex-direction: column;
+  }
+  .containerStart button {
+    padding: 3px 15px 3px 15px;
+  }
+
+
+  .containerNutrition {
+    display: flex;
+    flex-direction: column-reverse !important;
+  }
+
+  .containerTutorial {
+    position: static;
+    z-index: 0;
+  }
+  .itemCardsTutorial {
+    display: flex;
+    flex-direction: column;
+  }
+  .itemCardsTutorial .MuiCard-root {
+    width: 300px;
+  }
+
+  .containerResult {
+    flex-direction: column;
+    margin: 5px;
+    gap: 0px;
+  }
+  .itemResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 10px;
+  }
+  .itemTextResult { text-align: center;}
+  .itemButtonPrint button{ width: 200px;}
+  .descriptionResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .descriptionResult .MuiTypography {
+    font-size: 120px;
+  }
+}

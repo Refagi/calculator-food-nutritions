@@ -1,6 +1,7 @@
-import { Container, Box, Typography, Stack, Button, Link } from "@mui/material"
+import { Container, Box, Typography } from "@mui/material"
 import { Outlet } from 'react-router-dom';
-import '@/style/Main.css'
+import '@/style/Main.css';
+import '@/style/MainResponsive.css'
 
 
 
