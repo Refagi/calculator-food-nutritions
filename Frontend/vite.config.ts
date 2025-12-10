@@ -8,8 +8,13 @@ export default defineConfig({
   plugins: [react(), tsConfigPath()],
   server: {
     port: 5000,
+    // host: '0.0.0.0',
     proxy: {
-      '/v1': 'http://localhost:3000'
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/v1')
+      }
     }
   },
 })

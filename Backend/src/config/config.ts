@@ -7,7 +7,7 @@ dotenv.config({ path: path.join(__dirname, '../../.env') });
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['production', 'development', 'test']).default('development'),
-  PORT: z.coerce.number().default(5500),
+  PORT: z.coerce.number().default(3000),
   DATABASE_URL: z.string().trim().min(1, { message: 'DATABASE_URL is required' }),
   DIRECT_URL: z.string().trim().optional(),
   DATABASE_URL_TESTING: z.string().trim().optional(),

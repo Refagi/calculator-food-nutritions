@@ -1,5 +1,5 @@
-import { useEffect, useState, } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom'
 import { Box, Typography, CircularProgress } from '@mui/material';
 import api from '@/services/apiAuth';
 import axios from 'axios';
@@ -9,16 +9,20 @@ export default function VerifyEmail() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [searchParams] = useSearchParams();
+  const hasVerified = useRef(false);
 
 
   useEffect(() => {
     const verify = async () => {
+      if (hasVerified.current) return;
+
       const token = searchParams.get('tokens');
       if (!token) {
         setStatus('error')
         setMessage('Token not found');
         return
       }
+      hasVerified.current = true
       setStatus('loading');
 
       try {

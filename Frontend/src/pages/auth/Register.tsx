@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import CustomTextField from "@/components/customs/Input";
 import PasswordInput from "@/components/customs/PasswordInput";
 import CustomButton from "@/components/customs/Buttons";
+import Notification from "@/components/Notifications";
+import { type PropsNotification } from "@/types/typeDataNutritionPage";
 import api from '@/services/apiAuth'
 import axios from "axios";
 import '@/style/Main.css';
@@ -21,7 +23,11 @@ export default function Register() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [notification, setNotification] = useState<PropsNotification>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +36,6 @@ export default function Register() {
 
   const onSubmit = async (data: TypeRegister) => {
     setLoading(true);
-    setErrorMessage("");
 
     try {
       const response = await api.post("/auth/register", data);
@@ -38,25 +43,47 @@ export default function Register() {
       if (response.status === 201) {
         navigate("/send-verification-email");
       } else {
-        throw new Error("Token Not Found!");
+        setNotification({
+          open: true,
+          message: "FORBIDDEN, Token Not Found!",
+          severity: "error",
+        });
+        return;
       }
     } catch (error: unknown) {
-      console.error("Register Error:", error);
-
       if (axios.isAxiosError(error)) {
-        setErrorMessage(
-          error.response?.data?.message ||  error.response?.data?.error || "Failed to Register, Please try again"
-        );
+        const message =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Failed to Register, Please try again";
+        setNotification({
+          open: true,
+          message,
+          severity: "error",
+        });
         return
       } else if (error instanceof Error) {
-        setErrorMessage(error.message)
+        setNotification({
+          open: true,
+          message: error.message,
+          severity: "error",
+        });
+        return
       } else {
-        setErrorMessage("An unexpected error occurred");
+        setNotification({
+          open: true,
+          message: "An unexpected error occurred",
+          severity: "error",
+        });
         return;
       }
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false, message: "" });
   };
 
   return (
@@ -68,12 +95,6 @@ export default function Register() {
         <Typography sx={{ fontWeight: '400' }}>
           Enter your email to sign up for this app
         </Typography>
-
-      {errorMessage && (
-        <Typography color="error" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
-          {errorMessage}
-        </Typography>
-      )}
       </Box>
 
       <Box 
@@ -135,6 +156,16 @@ export default function Register() {
           </Typography>
         </Stack>
       </Box>
+
+     <Notification
+        open={notification.open}
+        message={notification.message}
+        severity={notification.severity}
+        onClose={handleCloseNotification}
+        vertical="bottom"
+        horizontal="center"
+        autoHideDuration={5000}
+      />
     </Box>
   )
 }

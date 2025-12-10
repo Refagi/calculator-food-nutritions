@@ -39,7 +39,9 @@ const sendResetPasswordEmail = async (to: string, token: string): Promise<void> 
 };
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const verificationUrl = `${config.FE}/v1/auth/verify-email?tokens=${token}`;
+  const verificationUrl = `${config.FE}/verify-email?tokens=${token}`;
+  console.log('🔍 DEBUG - config.FE:', config.FE);
+  console.log('🔍 DEBUG - verificationUrl:', verificationUrl);
   const mailOptions = {
     from: config.email.from,
     to: email,

@@ -7,6 +7,8 @@ import CustomButton from "@/components/customs/Buttons";
 import axios from "axios";
 import api from "@/services/apiAuth";
 import { useAuth } from '@/context/AuthContext';
+import Notification from "@/components/Notifications";
+import { type PropsNotification } from "@/types/typeDataNutritionPage";
 import '@/style/Main.css';
 import '@/style/MainResponsive.css';
 
@@ -24,9 +26,13 @@ const GoogleIcon = () => (
 export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notification, setNotification] = useState<PropsNotification>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +47,6 @@ export default function Login() {
 
   const onSubmit = async (data: TypeLogin) => {
     setLoading(true);
-    setErrorMessage('');
 
     try {
       const response = await api.post("/auth/login", data);
@@ -52,23 +57,48 @@ export default function Login() {
         login(userData.name, userData.userId)
         navigate("/");
       } else {
-        throw new Error("Token Not Found!");
+         setNotification({
+          open: true,
+          message: "FORBIDDEN, Token Not Found!",
+          severity: "error",
+        });
+        return;
       }
     } catch (error: unknown) {
       console.error("Login Error:", error);
 
       if (axios.isAxiosError(error)) {
-        setErrorMessage(
-          error.response?.data?.message || error.response?.data?.error || "Failed to Login, Please try again"
-        );
+        const message =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Failed to Register, Please try again";
+        setNotification({
+          open: true,
+          message,
+          severity: "error",
+        });
+        return
       } else if (error instanceof Error) {
-        setErrorMessage(error.message)
+        setNotification({
+          open: true,
+          message: error.message,
+          severity: "error",
+        });
       } else {
-        setErrorMessage("An unexpected error occurred");
+        setNotification({
+          open: true,
+          message: "An unexpected error occurred",
+          severity: "error",
+        });
+        return;
       }
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false, message: "" });
   };
 
   return (
@@ -80,12 +110,6 @@ export default function Login() {
         <Typography sx={{ fontWeight: '400',}}>
           Enter your credentials to access your account
         </Typography>
-
-      {errorMessage && (
-        <Typography color="error" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
-          {errorMessage}
-        </Typography>
-      )}
       </Box>
 
       <Box 
@@ -155,6 +179,16 @@ export default function Login() {
           </Typography>
         </Stack>
       </Box>
+
+      <Notification
+        open={notification.open}
+        message={notification.message}
+        severity={notification.severity}
+        onClose={handleCloseNotification}
+        vertical="bottom"
+        horizontal="center"
+        autoHideDuration={5000}
+      />
     </Box>
   )
 }

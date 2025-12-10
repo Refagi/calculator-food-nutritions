@@ -72,8 +72,7 @@ export default function NutritionPage() {
       if (axios.isAxiosError(error)) {
         const message =
           error.response?.data?.message ||
-          error.response?.data?.error ||
-          "Failed to Register, Please try again";
+          error.response?.data?.error
         setNotification({
           open: true,
           message,
