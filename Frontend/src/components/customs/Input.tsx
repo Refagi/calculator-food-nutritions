@@ -13,6 +13,13 @@ const CustomTextField = styled(TextField)({
     "&.Mui-focused fieldset": {
       borderColor: "var(--input-color-food)",
     },
+
+    "& input:-webkit-autofill": {
+      WebkitBoxShadow: "0 0 0px 1000px var(--base-color) inset",
+      WebkitTextFillColor: "var(--input-color-food)",
+      caretColor: "var(--input-color-food)",
+      borderRadius: "inherit",
+    },
   },
   "& .MuiInputLabel-root": {
     color: "var(--input-color-food)",

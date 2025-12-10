@@ -1,4 +1,4 @@
-import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper } from "@mui/material";
+import { Table, TableCell, TableContainer } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import '@/style/Main.css';
 

@@ -51,8 +51,8 @@ export function TableInfoNutrientsOne() {
         <TableBody>
           {rowsOne.map((row) => (
             <TableRow key={row.nutrition}>
-              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a',}}>{row.nutrition}</TableCell>
-              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a', }}>{row.value}</TableCell>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: 'var(--text-color)',}}>{row.nutrition}</TableCell>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: 'var(--text-color)', }}>{row.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -76,8 +76,8 @@ export function TableInfoNutrientsTwo() {
         <TableBody>
           {rowsTwo.map((row) => (
             <TableRow key={row.nutrition}>
-              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a',}}>{row.nutrition}</TableCell>
-              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a', }}>{row.value}</TableCell>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: 'var(--text-color)',}}>{row.nutrition}</TableCell>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: 'var(--text-color)', }}>{row.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -101,8 +101,8 @@ export function TableInfoDV() {
         <TableBody>
           {rowsThree.map((row) => (
             <TableRow key={row.nutrition}>
-              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a',}}>{row.nutrition}</TableCell>
-              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: '#2d334a', }}>{row.value}</TableCell>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: 'var(--text-color)',}}>{row.nutrition}</TableCell>
+              <TableCell sx={{ padding: '10px', fontWeight: 500, textAlign: 'center', color: 'var(--text-color)', }}>{row.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>

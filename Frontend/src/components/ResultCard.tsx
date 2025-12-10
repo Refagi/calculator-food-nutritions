@@ -1,7 +1,7 @@
 import { Box, Typography, TableContainer, Table, TableRow, TableBody, TableCell } from "@mui/material"
 import { type NutritionResult } from "@/types/typeDataNutritionPage";
 import '@/style/Main.css';
-import { formatDV, getCategoryDV } from '@/utils/calculateDV';
+import { formatDV } from '@/utils/calculateDV';
 
 interface PropsDetailNutritions {
   result: NutritionResult

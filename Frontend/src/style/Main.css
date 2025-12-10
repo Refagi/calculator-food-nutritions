@@ -32,7 +32,7 @@
   --body-input-color: #0f0e17;
   --result-card-hr: #fffcf2;
   --table-head: #272343;
-  --table-body: #eff0f3;
+  --table-body: #0a090f;
 }
 
 *, html {
@@ -235,12 +235,10 @@ body {
   position: absolute;
   left: -9999px;
   top: 0;
-  /* border: 1px solid red; */
 }
 
 @media print {
 .containerPrint {
-  /* position: static !important; */
   left: 0 !important;
   margin: 0 !important;
 }

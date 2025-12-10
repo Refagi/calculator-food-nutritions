@@ -63,7 +63,9 @@ export default function VerifyEmail() {
         </Typography>
       </Box>
 
-      {status === 'loading' && <CircularProgress sx={{ my: 2 }} />}
+      <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        {status === 'loading' && <CircularProgress sx={{ my: 2 }} />}
+      </Box>
 
       {(status === 'success' || status === 'error')}
     </Box>
