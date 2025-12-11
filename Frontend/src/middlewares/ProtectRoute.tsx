@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet} from 'react-router-dom';
-import { CircularProgress, Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import axios from 'axios';
 import api from '@/services/api';
 

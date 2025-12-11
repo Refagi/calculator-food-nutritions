@@ -1,4 +1,6 @@
-import { Container, Box, Typography } from "@mui/material"
+import Container from "@mui/material/Container"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
 import { Outlet } from 'react-router-dom';
 import '@/style/Main.css';
 import '@/style/MainResponsive.css'

@@ -1,4 +1,7 @@
-import { Box, Typography, Stack, Link } from "@mui/material"
+import Box from "@mui/material/Box";
+import Typography from '@mui/material/Typography';
+import Stack from "@mui/material/Stack";
+import Link from "@mui/material/Link";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomTextField from "@/components/customs/Input";

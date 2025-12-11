@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom'
-import { Box, Typography, CircularProgress } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import api from '@/services/apiAuth';
 import axios from 'axios';
 import '@/style/Main.css'

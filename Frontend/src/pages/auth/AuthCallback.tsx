@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import api from '@/services/apiAuth';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
 export default function GoogleCallback() {
   const navigate = useNavigate();

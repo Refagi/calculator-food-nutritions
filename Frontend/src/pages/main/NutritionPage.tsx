@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
-import { Container, Box, Typography } from "@mui/material";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import CustomTextField from "@/components/customs/Input";
 import "@/style/Main.css";
 import EditIngredients from "@/components/EditIngredients";

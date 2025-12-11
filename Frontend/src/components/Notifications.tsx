@@ -1,4 +1,6 @@
-import { Snackbar, Alert, type SnackbarOrigin } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import { type SnackbarOrigin } from '@mui/material';
 import '@/style/Main.css';
 
 interface NotificationProps extends SnackbarOrigin {

@@ -1,4 +1,10 @@
-import { Box, Typography, TableContainer, Table, TableRow, TableBody, TableCell } from "@mui/material"
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import TableRow from "@mui/material/TableRow";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
 import { type NutritionResult } from "@/types/typeDataNutritionPage";
 import '@/style/Main.css';
 import { formatDV } from '@/utils/calculateDV';

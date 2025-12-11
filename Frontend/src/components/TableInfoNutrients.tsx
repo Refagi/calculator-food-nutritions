@@ -1,4 +1,10 @@
-import {TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper} from '@mui/material';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import Paper from '@mui/material/Paper';
 import '@/style/Main.css'
 
 function createData(
