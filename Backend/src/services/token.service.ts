@@ -4,9 +4,12 @@ import httpStatus from 'http-status';
 import config from '../config/config.js';
 import { JwtPayload } from '../models/index.js';
 import { tokenTypes } from '../config/token.js';
+import { Prisma } from '../generated/prisma/client';
 import prisma from '../../prisma/client.js';
-import { Token, User } from '@prisma/client';
 import { ApiError } from '../utils/ApiErrors.js';
+
+type User = Prisma.UserGetPayload<{}>;
+type Token = Prisma.TokenGetPayload<{}>;
 
 export const generateToken = async (userId: string, expires: Moment, type: string, secret: string = config.jwt.secret) => {
   const payload: JwtPayload= {

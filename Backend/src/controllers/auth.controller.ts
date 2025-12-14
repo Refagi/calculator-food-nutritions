@@ -92,16 +92,8 @@ export const googleCallback = catchAsync(
       if (!req.user || !req.user.id) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Google login failed');
       }
-      const existingUser = await userServices.getUserById(req.user.id);
 
-      if (!existingUser) {
-        throw new ApiError(
-          httpStatus.UNAUTHORIZED,
-          'You dont have an account yet, please register!'
-        );
-      }
-
-      const tokens = await tokenservices.generateAuthTokens(existingUser.id);
+      const tokens = await tokenservices.generateAuthTokens(req.user.id);
       res.cookie('accessToken', tokens.access.token, {
         httpOnly: true, // Prevent XSS attacks
         secure: process.env.NODE_ENV === 'production',
@@ -115,6 +107,11 @@ export const googleCallback = catchAsync(
         sameSite: 'lax',
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
+      const existingUser = await userServices.getUserById(req.user.id);
+      await prisma.user.update({
+        where: {id: existingUser.id},
+        data: {isEmailVerified: true}
+      })
        return res.redirect(`${process.env.FRONTEND_URL}/auth/google/callback`);
     } catch (err) {
       console.log('error login google', err);
@@ -193,9 +190,6 @@ export const getCurrentUser = catchAsync(async (req: AuthRequest, res: Response)
     }
 
     const user = await userServices.getUserById(userId);
-    if (!user) {
-      throw new ApiError(httpStatus.NOT_FOUND, "User not found");
-    }
 
     res.status(httpStatus.OK).send({
       data: {

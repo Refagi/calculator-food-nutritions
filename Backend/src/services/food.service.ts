@@ -4,7 +4,6 @@ import prisma from '../../prisma/client.js';
 import { ApiError } from '../utils/ApiErrors.js';
 import bcrypt from 'bcryptjs';
 import { CreateDetailNutritions, RequestGetNutritions } from '../models/index.js';
-import { equal } from 'assert';
 
 interface dataNutritions {
   calories: number;

@@ -2,12 +2,12 @@
   "compilerOptions": {
     /* Output */
     "outDir": "./dist",
-    "rootDir": ".",
+    "rootDir": "./",
 
     /* Module Resolution */
     "module": "esnext",              /* Supaya sesuai dengan "type": "module" di package.json */
     "moduleResolution": "node",  /* Paling cocok untuk Node.js ESM */
-    "target": "es2022",              /* Fitur modern JS */
+    "target": "es2023",              /* Fitur modern JS */
     "esModuleInterop": true,         /* Biar bisa import default dari CommonJS */
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
@@ -24,7 +24,7 @@
   },
   "include": [
     "src",
-    "prisma",
+    "prisma", "prisma/client.ts"
   ],
   "exclude": ["node_modules", "dist"],
   "ts-node": {

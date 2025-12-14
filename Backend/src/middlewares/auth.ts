@@ -3,7 +3,10 @@ import httpStatus from 'http-status';
 import { ApiError } from '../utils/ApiErrors.js';
 import { Request, Response, NextFunction } from 'express';
 import { AuthRequest } from '../models/index.js';
-import { User } from '@prisma/client';
+import { Prisma } from '../generated/prisma/client';
+
+type User = Prisma.UserGetPayload<{}>;
+type Token = Prisma.TokenGetPayload<{}>;
 
 export const attachTokenFromCookiesOrHeader = (req: Request) => {
   const cookieToken = req.cookies?.accessToken;

@@ -25,7 +25,8 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
   GEMINI_KEY: z.string(),
-  GROQ_KEY: z.string()
+  GROQ_KEY: z.string(),
+  MAX_REQUEST_AI: z.coerce.number().default(5)
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
@@ -87,5 +88,6 @@ export default {
   },
   groq: {
     key: envVars.GROQ_KEY
-  }
+  },
+  maxRequestAI: envVars.MAX_REQUEST_AI
 };

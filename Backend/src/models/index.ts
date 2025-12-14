@@ -1,5 +1,9 @@
 import { Request } from 'express';
-import { User } from '@prisma/client';
+import { Prisma } from '../generated/prisma/client';
+import prisma from '../../prisma/client.js';
+
+type User = Prisma.UserGetPayload<{}>;
+type Token = Prisma.TokenGetPayload<{}>;
 
 export type BaseUserInput = Pick<User, "name" | "email" | "password">;
 

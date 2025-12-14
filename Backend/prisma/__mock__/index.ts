@@ -1,4 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../src/generated/prisma/client";;
+import prisma from "../client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { execSync } from "child_process";
 import { join } from "path";
 import { describe, test, expect, beforeEach, beforeAll, afterAll, vi } from 'vitest';
@@ -20,8 +22,8 @@ console.log('Test url: ', url);
 
 process.env.DATABASE_URL = url;
 
-export const prisma = new PrismaClient({
-  datasources: { db: { url } },
+const adapter = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: url }),
 });
 
 beforeAll(async () => {
@@ -35,11 +37,11 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await prisma.token.deleteMany();
-  await prisma.user.deleteMany();
+  await adapter.token.deleteMany();
+  await adapter.user.deleteMany();
 });
 
 afterAll(async () => {
-  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS testingDb CASCADE`);
-  await prisma.$disconnect();
+  await adapter.$executeRawUnsafe(`DROP SCHEMA IF EXISTS testingDb CASCADE`);
+  await adapter.$disconnect();
 });

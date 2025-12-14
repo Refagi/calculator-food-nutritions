@@ -12,6 +12,7 @@ import passport from 'passport';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
+import limiter from './middlewares/rateLimiter.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -60,6 +61,10 @@ app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 passport.use('google', googleStrategy);
 
+if (config.env === 'production') {
+  app.use('/v1/auth', limiter);
+}
+
 app.use('/v1', routes);
 swaggerDocs(app, 3000);
 
@@ -68,7 +73,6 @@ app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Hello from Express + TypeScript + ESM!' });
 });
 
-// convert error to ApiError, if needed
 app.use(errorConverter);
 
 // handle error

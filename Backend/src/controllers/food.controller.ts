@@ -6,6 +6,7 @@ import { Response, Request, NextFunction } from 'express';
 import { AuthRequest } from '../models/index.js';
 
 export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: Response) => {
+    await userServices.CheckRequest(req.user.id);
     const { name, portion, ingredients } = req.body;
     if (!name) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'name food is required');
@@ -45,6 +46,8 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
       throw new ApiError(
         httpStatus.SERVICE_UNAVAILABLE, 'Failed to get nutrition details from AI services');
       }
+
+    await userServices.incrementRequest(req.user.id);
 
     if (!detailNutritions) {
       await foodServices.createDetailNutritions(food.id, aiResponse);

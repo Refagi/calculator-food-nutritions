@@ -67,10 +67,6 @@ export const verifyEmail = async (tokens: string) => {
 
   const getUser = await userServices.getUserById(verifyEmailTokenDoc.userId);
 
-  if (!getUser) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found!');
-  }
-
   await prisma.token.deleteMany({
     where: { userId: getUser.id, type: tokenTypes.VERIFY_EMAIL }
   });

@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import config from '../config/config.js';
 import { logger } from '../config/logger.js';
 import { ApiError } from '../utils/ApiErrors.js';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../generated/prisma/client.js';
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
 
