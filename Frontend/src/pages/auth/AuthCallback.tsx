@@ -17,7 +17,7 @@ export default function GoogleCallback() {
         const userData = response.data.data;
 
         if (userData) {
-          login(userData.name, userData.id);
+          login(userData.name);
           navigate('/');
         } else {
           throw new Error('User data not found');

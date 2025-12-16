@@ -193,7 +193,6 @@ export const getCurrentUser = catchAsync(async (req: AuthRequest, res: Response)
 
     res.status(httpStatus.OK).send({
       data: {
-        id: user.id,
         name: user.name,
         email: user.email,
       },

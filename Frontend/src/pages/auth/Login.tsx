@@ -57,7 +57,7 @@ export default function Login() {
       const userData = response.data.data?.user;
 
       if (tokens?.access && tokens?.refresh) {
-        login(userData.name, userData.userId)
+        login(userData.name);
         navigate("/");
       } else {
          setNotification({

@@ -3,10 +3,9 @@ import api from '@/services/apiAuth'
 import axios from 'axios';
 
 interface TypeAuthContext {
-  nameUser: string
-  userId: string;
+  nameUser?: string;
   isAuthenticated: boolean;
-  login: (name: string, userId: string) => void;
+  login: (name: string) => void;
   logout: () => Promise<void>;
   loading: boolean;
   errorMessage: string;
@@ -16,26 +15,21 @@ const AuthContext = createContext<TypeAuthContext | undefined>(undefined);
 
 export default function AuthProvider ({ children }: { children: ReactNode }) {
   const [nameUser, setNameUser] = useState('');
-  const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setLoading(true) 
-    const getName = localStorage.getItem('name'); 
-    const getUserId = localStorage.getItem('userId'); 
-    if(getName && getUserId) { 
-      setNameUser(getName); 
-      setUserId(getUserId); 
+    setLoading(true)
+    const getNameUser = localStorage.getItem('nameUser');
+    if(getNameUser) { 
+      setNameUser(getNameUser)
     } 
     setLoading(false);
   }, [])
 
-  const login = (nameUser: string, userId: string) => {
-    localStorage.setItem('name', nameUser);
-    localStorage.setItem('userId', userId);
+  const login = (nameUser: string) => {
+    localStorage.setItem('nameUser', nameUser)
     setNameUser(nameUser);
-    setUserId(userId);
   }
 
   const logout = async () => {
@@ -45,7 +39,6 @@ export default function AuthProvider ({ children }: { children: ReactNode }) {
       await api.post('/auth/logout');
       localStorage.clear();
       setNameUser('');
-      setUserId('');
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         setErrorMessage(error.response?.data?.message || "Logout failed");
@@ -61,7 +54,6 @@ export default function AuthProvider ({ children }: { children: ReactNode }) {
     <AuthContext.Provider
     value={{
       nameUser,
-      userId,
       isAuthenticated: !!nameUser,
       login,
       logout,
