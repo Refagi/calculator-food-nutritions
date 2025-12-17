@@ -27,6 +27,7 @@ model User {
   resetRequestAt    DateTime?
   googleId        String?  @unique
   tokens          Token[]
+  foodNutritionsRequests FoodNutritionsRequest[]
 }
 
 model Token {
@@ -84,6 +85,21 @@ model FoodNutritionDetail {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  foodNutritionsRequests FoodNutritionsRequest[]
 
   @@map("food_nutrition_details")
+}
+
+model FoodNutritionsRequest {
+  id                     String   @id @default(uuid())
+  userId                 String   @unique
+  User                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  foodNutritionsDetailId String   @unique
+  FoodNutritionDetail    FoodNutritionDetail @relation(fields: [foodNutritionsDetailId], references: [id], onDelete: Cascade)
+  foodName               String
+  ingredients            String[]
+  ingredientsHashed      String   @unique
+  portion                Int
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 }
