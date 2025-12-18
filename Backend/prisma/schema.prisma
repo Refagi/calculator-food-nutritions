@@ -24,10 +24,10 @@ model User {
   updatedAt       DateTime @updatedAt
   isEmailVerified Boolean  @default(false)
   aiRequestCount  Int      @default(0)
-  resetRequestAt    DateTime?
+  resetRequestAt  DateTime?
   googleId        String?  @unique
   tokens          Token[]
-  foodNutritionsRequests FoodNutritionsRequest[]
+  reqeusts        FoodNutritionsRequest[]
 }
 
 model Token {
@@ -59,13 +59,18 @@ model Food {
 }
 
 model FoodNutritionDetail {
-  id       String @id @default(uuid())
-  foodId   Int    @unique
-  food     Food   @relation(fields: [foodId], references: [id], onDelete: Cascade)
-  calories Float?
-  protein  Float?
-  carbs    Float?
-  fat      Float?
+  id          String @id @default(uuid())
+  foodId      Int
+  Food        Food   @relation(fields: [foodId], references: [id], onDelete: Cascade)
+  foodName    String
+  ingredients String[]
+  portion     Int
+  inputHash   String @unique
+
+  calories    Float?
+  protein     Float?
+  carbs       Float?
+  fat         Float?
 
   // Makronutrien
   fiber       Float?
@@ -85,21 +90,21 @@ model FoodNutritionDetail {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  foodNutritionsRequests FoodNutritionsRequest[]
+  requests FoodNutritionsRequest[]
 
+  @@index([foodId])
   @@map("food_nutrition_details")
 }
 
 model FoodNutritionsRequest {
   id                     String   @id @default(uuid())
-  userId                 String   @unique
+  userId                 String
   User                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  foodNutritionsDetailId String   @unique
-  FoodNutritionDetail    FoodNutritionDetail @relation(fields: [foodNutritionsDetailId], references: [id], onDelete: Cascade)
-  foodName               String
-  ingredients            String[]
-  ingredientsHashed      String   @unique
-  portion                Int
+  detailId               String
+  Detail                 FoodNutritionDetail @relation(fields: [detailId], references: [id], onDelete: Cascade)
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
+
+  @@index([userId])
+  @@map("food_nutrition_details_requests")
 }

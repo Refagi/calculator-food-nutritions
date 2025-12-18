@@ -16,6 +16,9 @@ export const errorConverter = (err: any, _req: Request, _res: Response, next: Ne
 
       logger.info('handleApiError');
       error = new ApiError(statusCode, message, false, err.stack);
+    } else if (err instanceof Prisma.PrismaClientValidationError) {
+      logger.info('handlePrismaValidationError');
+      error = handlePrismaError(err);
     } else if (err instanceof Prisma.PrismaClientKnownRequestError) {
       // Handling Prisma Error
       logger.info('handlePrismaError');
@@ -30,17 +33,27 @@ export const errorConverter = (err: any, _req: Request, _res: Response, next: Ne
   next(error);
 };
 
-const handlePrismaError = (err: Prisma.PrismaClientKnownRequestError): ApiError => {
-  switch (err.code) {
+const handlePrismaError = (err: Prisma.PrismaClientValidationError | Prisma.PrismaClientKnownRequestError): ApiError => {
+  // Handle validation errors
+  if (err instanceof Prisma.PrismaClientValidationError) {
+    return new ApiError(httpStatus.BAD_REQUEST, 'Invalid nutrition data. Please check your input.', true, err.stack);
+  }
+
+  // Handle known request errors
+  const knownError = err as Prisma.PrismaClientKnownRequestError;
+  switch (knownError.code) {
     case 'P2002':
       // Handling duplicate key errors
-      return new ApiError(httpStatus.BAD_REQUEST, `Duplicate field value: ${err.meta?.target}`, false, err.stack);
+      return new ApiError(httpStatus.CONFLICT, `Data already exists.`, true, err.stack);
     case 'P2014':
       // Handling invalid ID errors
-      return new ApiError(httpStatus.BAD_REQUEST, `Invalid ID: ${err.meta?.target}`, false, err.stack);
+      return new ApiError(httpStatus.BAD_REQUEST, `Invalid ID`, true, err.stack);
     case 'P2003':
       // Handling invalid data errors
-      return new ApiError(httpStatus.BAD_REQUEST, `Invalid input data: ${err.meta?.target}`, false, err.stack);
+      return new ApiError(httpStatus.BAD_REQUEST, `Invalid input data.`, true, err.stack);
+    case 'P2025':
+      // Handling record not found errors
+      return new ApiError(httpStatus.NOT_FOUND, `Data not found.`, true, err.stack);
     default:
       // Handling all other errors
       return new ApiError(httpStatus.INTERNAL_SERVER_ERROR, `Something went wrong: ${err.message}`, false, err.stack);

@@ -36,7 +36,7 @@ export interface RequestGetNutritions {
 }
 
 export interface FormatDataNutrition {
-  name: string;
+  foodName: string;
   calories: number | null;
   carbs: number | null;
   fat: number | null;

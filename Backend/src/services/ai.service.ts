@@ -70,7 +70,7 @@ export const grokApiRequest = async (dataNutritions: FormatDataNutrition) => {
 
 const promptText = (dataNutritions: FormatDataNutrition) => {
 const baseInfo = `Saya memiliki informasi makanan berikut:
-Nama makanan: ${dataNutritions.name}
+Nama makanan: ${dataNutritions.foodName}
 Kalori: ${dataNutritions.calories} kcal
 Karbohidrat: ${dataNutritions.carbs} g
 Lemak: ${dataNutritions.fat} g
@@ -92,6 +92,9 @@ perthitungan di hitung per porsi dari jumlah porsi yaitu ${dataNutritions.portio
 Buatkan detail nutrisi lengkap untuk makanan ini sesuai schema Prisma berikut:
 
 model FoodNutritionDetail {
+  foodName   String
+  ingredients String[]
+  portion    Int
   calories   Float? (kcal)
   protein    Float? (g)
   carbs      Float? (g)

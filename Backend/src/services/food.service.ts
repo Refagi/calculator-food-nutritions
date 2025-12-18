@@ -2,27 +2,8 @@ import httpStatus from 'http-status';
 import { tokenservices, emailServices, userServices } from './index.js';
 import prisma from '../../prisma/client.js';
 import { ApiError } from '../utils/ApiErrors.js';
-import bcrypt from 'bcryptjs';
+import CryptoJS from 'crypto-js';
 import { CreateDetailNutritions, RequestGetNutritions } from '../models/index.js';
-
-interface dataNutritions {
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  fiber: number;
-  sugar: number;
-  cholesterol: number;
-  sodium: number;
-  calcium: number;
-  iron: number;
-  potassium: number;
-  magnesium: number;
-  vitaminA: number;
-  vitaminC: number;
-  vitaminD: number;
-  vitaminB12: number;
-}
 
 export const getNutritions = async (option: RequestGetNutritions) => {
   const { name } = option;
@@ -37,46 +18,43 @@ export const getNutritions = async (option: RequestGetNutritions) => {
   return food;
 };
 
-export const getDetailNutritions = async (foodId: number) => {
+export const getDetailNutritions = async (inputHash: string) => {
   const food = await prisma.foodNutritionDetail.findUnique({
-    where: {foodId},
+    where: {inputHash},
   })
   return food
 };
 
 
-export const createDetailNutritions = async (foodId: number, details: CreateDetailNutritions) => {
+export const createDetailNutritions = async (foodId: number, foodName: string, portion: number,inputHash: string, ingredients: string[], details: CreateDetailNutritions) => {
   return prisma.foodNutritionDetail.create({
     data: {
       foodId,
+      foodName,
+      portion,
+      ingredients,
+      inputHash,
       ...details,
     },
   });
 };
 
+export const generateFoodRequestHash = (foodName: string, ingredients: string[], portion: number) => {
+  const normalizedIngredients = JSON.stringify({
+    foodName: foodName.trim().toLocaleLowerCase(),
+    ingredients: ingredients.map(ingr => ingr.trim().toLowerCase()).sort().join(','),
+    portion
+  });
+  let hashed = CryptoJS.SHA256(normalizedIngredients)
+  return hashed.toString(CryptoJS.enc.Hex);
+}
 
-export const updateDetailNutritions = async (foodId: number, dataNutritions: dataNutritions) => {
-  await prisma.foodNutritionDetail.update({
-    where: {
-      foodId
-    },
+
+export const createFoodDetailRequest = async (userId: string, detailId: string) => {
+  return prisma.foodNutritionsRequest.create({
     data: {
-      calories: dataNutritions.calories,
-      protein: dataNutritions.protein,
-      carbs: dataNutritions.carbs,
-      fat: dataNutritions.fat,
-      fiber: dataNutritions.fiber,
-      sugar: dataNutritions.sugar,
-      cholesterol: dataNutritions.cholesterol,
-      sodium: dataNutritions.sodium,
-      calcium: dataNutritions.calcium,
-      iron: dataNutritions.iron,
-      potassium: dataNutritions.potassium,
-      magnesium: dataNutritions.magnesium,
-      vitaminA: dataNutritions.vitaminA,
-      vitaminC: dataNutritions.vitaminC,
-      vitaminD: dataNutritions.vitaminD,
-      vitaminB12: dataNutritions.vitaminB12
+      userId,
+      detailId
     }
   })
 }

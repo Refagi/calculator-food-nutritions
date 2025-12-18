@@ -7,46 +7,44 @@ import { AuthRequest } from '../models/index.js';
 
 export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: Response) => {
     await userServices.CheckRequest(req.user.id);
-    const { name, portion, ingredients } = req.body;
-    if (!name) {
+    const { foodName, portion, ingredients } = req.body;
+    if (!foodName) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'name food is required');
     }
-    const food = await foodServices.getNutritions({ name });
+    const food = await foodServices.getNutritions({ name: foodName });
 
     if (!food) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Food is not found');
     }
-    let dataFood = {
-      name: food.name,
-      calories: food.calories,
-      carbs: food.carbs,
-      fat: food.fat,
-      protein: food.protein,
-      portion,
-      ingredients,
-    };
-    let detailNutritions = await foodServices.getDetailNutritions(food.id);
-    let  aiResponse = null;
-    
-    aiResponse = await aiServices.geminiApiRequest(dataFood);
-    if (!aiResponse) {
-      aiResponse = await aiServices.grokApiRequest(dataFood);
-    }
 
-    if (!aiResponse) {
+    let createHashInput = foodServices.generateFoodRequestHash(foodName, ingredients, portion)
+    let detailNutritions = await foodServices.getDetailNutritions(createHashInput);
+
+    if(!detailNutritions) {
+        let dataFood = {
+          foodName: food.name,
+          calories: food.calories,
+          carbs: food.carbs,
+          fat: food.fat,
+          protein: food.protein,
+          portion,
+          ingredients,
+        };
+
+      let  aiResponse = await aiServices.geminiApiRequest(dataFood) ?? await aiServices.grokApiRequest(dataFood);
+
+      if (!aiResponse) {
       throw new ApiError(
         httpStatus.SERVICE_UNAVAILABLE, 'Failed to get nutrition details from AI services');
       }
 
-    await userServices.incrementRequest(req.user.id);
-
-    if (!detailNutritions) {
-      await foodServices.createDetailNutritions(food.id, aiResponse);
-    } else {
-      await foodServices.updateDetailNutritions(food.id, aiResponse);
+      detailNutritions = await foodServices.createDetailNutritions(food.id, foodName, portion, createHashInput, ingredients, aiResponse);
     }
 
-    const updatedDetail = await foodServices.getDetailNutritions(food.id);
+    await Promise.all([
+      foodServices.createFoodDetailRequest(req.user.id, detailNutritions.id),
+      userServices.incrementRequest(req.user.id)
+    ])
 
     res.status(httpStatus.OK).send({
     status: httpStatus.OK,
@@ -56,7 +54,7 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
       portion,
       ingredients,
       image_url: food.image_url,
-      details: updatedDetail,
+      details: detailNutritions,
     },
   });
   }

@@ -59,7 +59,7 @@ export default function NutritionPage() {
         .filter((i) => i.length > 0);
       const formatName = name.toLowerCase();
       const res = await api.post("/food/details", {
-        name: formatName,
+        foodName: formatName,
         ingredients: formatIngredients,
         portion,
       });
@@ -74,7 +74,7 @@ export default function NutritionPage() {
       if (axios.isAxiosError(error)) {
         const message =
           error.response?.data?.message ||
-          error.response?.data?.error
+          error.response?.data?.error || 'Something went wrong. Please try again.';
         setNotification({
           open: true,
           message,
@@ -82,7 +82,7 @@ export default function NutritionPage() {
         });
         return;
       } else if (error instanceof Error) {
-        const message = error.message;
+        const message = error.message || 'Something went wrong. Please try again.';
         setNotification({
           open: true,
           message,
