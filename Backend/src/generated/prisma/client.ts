@@ -59,8 +59,3 @@ export type Food = Prisma.FoodModel
  * 
  */
 export type FoodNutritionDetail = Prisma.FoodNutritionDetailModel
-/**
- * Model FoodNutritionsRequest
- * 
- */
-export type FoodNutritionsRequest = Prisma.FoodNutritionsRequestModel

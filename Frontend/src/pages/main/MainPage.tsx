@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import CustomButton from "@/components/customs/Buttons";
 import { useNavigate } from "react-router-dom";
 import { TableInfoNutrientsOne, TableInfoNutrientsTwo } from "@/components/TableInfoNutrients";
-import "@/style/Main.css";
+import "@/styles/Main.css";
 
 export default function MainPage() {
   const navigate = useNavigate();

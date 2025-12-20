@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import styled from '@emotion/styled';
-import '@/style/Main.css'
+import '@/styles/Main.css'
 
 const CustomOutlinedInput = styled(OutlinedInput)({
   "& .MuiOutlinedInput-notchedOutline": {

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CustomButton from "@/components/customs/Buttons";
 import axios from "axios";
 import api from "@/services/apiAuth";
-import '@/style/Main.css';
+import '@/styles/Main.css';
 
 
 export default function SendVerifyEmail() {

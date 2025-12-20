@@ -6,7 +6,7 @@ import MainPage from '@/pages/main/MainPage';
 import NutritionPage from './pages/main/NutritionPage';
 import GoogleCallback from '@/pages/auth/AuthCallback';
 import { ThemeProvider } from '@/context/ThemeContext'
-import '@/style/Main.css'
+import '@/styles/Main.css'
 
 const App = () => {
   return (

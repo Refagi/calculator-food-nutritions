@@ -4,8 +4,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import Typography from "@mui/material/Typography";
-import '@/style/Main.css';
-import '@/style/MainResponsive.css';
+import '@/styles/Main.css';
+import '@/styles/MainResponsive.css';
 
 const cardContents = [
   {

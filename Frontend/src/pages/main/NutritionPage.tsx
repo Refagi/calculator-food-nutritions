@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CustomTextField from "@/components/customs/Input";
-import "@/style/Main.css";
+import "@/styles/Main.css";
 import EditIngredients from "@/components/EditIngredients";
 import CustomButton from "@/components/customs/Buttons";
 import CardTutorial from "@/components/CardTutorial";
@@ -115,7 +115,7 @@ export default function NutritionPage() {
 
   const handlePrint = useReactToPrint({
     contentRef: printRef,
-    documentTitle: `Nutrition-${result?.name || "Food"}`,
+    documentTitle: `Nutrition-${result?.foodName || "Food"}`,
     pageStyle: `
       @page {
         size: A4;
@@ -217,9 +217,12 @@ export default function NutritionPage() {
                     Hasil Analisis
                   </Typography>
                   <Typography sx={{ fontWeight: "500", fontSize: "20px" }}>
-                    {result.portion} {result?.name} memiliki{" "}
+                    {result.portion} {result?.foodName} memiliki{" "}
                     {result?.details.calories} kalori
                   </Typography>
+                <Box className="itemImageResult">
+                  <img src={result?.image_url} alt={result?.foodName} width={400} height={200}/>
+                </Box>
                 </Box>
                 <Box className="itemButtonPrint">
                   <CustomButton
@@ -242,22 +245,6 @@ export default function NutritionPage() {
                   >
                     Hapus Bahan-bahan
                   </CustomButton>
-                </Box>
-
-                <Box className="descriptionResult">
-                  <Typography sx={{ fontWeight: "550", fontSize: "16px" }}>
-                    Kebutuhan Kalori Harian
-                  </Typography>
-                  <Typography sx={{ fontWeight: "500", fontSize: "16px" }}>
-                    Rata-rata kebutuhan kalori per hari: <br />●{" "}
-                    <b>Laki-laki</b>: 2.200–2.800 kkal <br />● <b>Perempuan</b>:
-                    1.800–2.200 kkal <br />
-                    Namun kebutuhan ini dipengaruhi oleh: <br />
-                    ● Usia <br />
-                    ● Tinggi dan Berat Badan <br />
-                    ● Tingkat aktivitas (ringan / sedang / berat) <br />● Tujuan
-                    (defisit, maintenance, surplus)
-                  </Typography>
                 </Box>
 
                 <Box>
@@ -292,7 +279,7 @@ export default function NutritionPage() {
                         color: "var(--text-color)",
                       }}
                     >
-                    {result.portion} {result?.name} memiliki{" "}
+                    {result.portion} {result?.foodName} memiliki{" "}
                     {result?.details.calories} kalori.
                     </Typography>
                   </Box>

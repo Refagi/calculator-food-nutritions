@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, type ReactNode } from 'react';
 import { createTheme, ThemeProvider as MuiThemeProvider  } from '@mui/material';
-import '@/style/Main.css'
+import '@/styles/Main.css'
 
 const theme = createTheme({
   typography: {

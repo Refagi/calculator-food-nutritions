@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import api from '@/services/apiAuth';
 import axios from 'axios';
-import '@/style/Main.css'
+import '@/styles/Main.css'
 
 export default function VerifyEmail() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');

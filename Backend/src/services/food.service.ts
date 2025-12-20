@@ -26,7 +26,7 @@ export const getDetailNutritions = async (inputHash: string) => {
 };
 
 
-export const createDetailNutritions = async (foodId: number, foodName: string, portion: number,inputHash: string, ingredients: string[], details: CreateDetailNutritions) => {
+export const createDetailNutritions = async (foodId: number, foodName: string, portion: string, inputHash: string, ingredients: string[], details: CreateDetailNutritions) => {
   return prisma.foodNutritionDetail.create({
     data: {
       foodId,
@@ -47,14 +47,4 @@ export const generateFoodRequestHash = (foodName: string, ingredients: string[],
   });
   let hashed = CryptoJS.SHA256(normalizedIngredients)
   return hashed.toString(CryptoJS.enc.Hex);
-}
-
-
-export const createFoodDetailRequest = async (userId: string, detailId: string) => {
-  return prisma.foodNutritionsRequest.create({
-    data: {
-      userId,
-      detailId
-    }
-  })
 }

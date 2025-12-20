@@ -1,7 +1,7 @@
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { type SnackbarOrigin } from '@mui/material';
-import '@/style/Main.css';
+import '@/styles/Main.css';
 
 interface NotificationProps extends SnackbarOrigin {
   open: boolean;

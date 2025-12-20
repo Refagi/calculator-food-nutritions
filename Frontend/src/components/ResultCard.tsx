@@ -6,7 +6,7 @@ import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import { type NutritionResult } from "@/types/typeDataNutritionPage";
-import '@/style/Main.css';
+import '@/styles/Main.css';
 import { formatDV } from '@/utils/calculateDV';
 
 interface PropsDetailNutritions {
@@ -20,7 +20,7 @@ export default function ResultCard ({result}: PropsDetailNutritions) {
       <Typography sx={{fontSize: '20px', fontWeight: '700'}}>Nutrition facts</Typography>
       <Box className='nutritionHeader'>
         <Typography sx={{fontSize: '14px', fontWeight: '700'}}>Name of food: </Typography>
-        <Typography sx={{fontSize: '14px', fontWeight: '400'}}>{result.name}</Typography>
+        <Typography sx={{fontSize: '14px', fontWeight: '400'}}>{result.foodName}</Typography>
       </Box>
       <Box className='nutritionHeader'>
         <Typography sx={{fontSize: '14px', fontWeight: '700'}}>Portion: </Typography>

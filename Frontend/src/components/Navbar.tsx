@@ -8,7 +8,7 @@ import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import CustomButton from '@/components/customs/Buttons'
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from "react-router-dom";
-import '@/style/Main.css'
+import '@/styles/Main.css'
 
 export default function Navbar() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);

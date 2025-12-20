@@ -5,7 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
-import '@/style/Main.css'
+import '@/styles/Main.css'
 
 function createData(
   nutrition: string,

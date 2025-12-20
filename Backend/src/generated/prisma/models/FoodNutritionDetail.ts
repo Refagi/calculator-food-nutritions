@@ -28,7 +28,6 @@ export type AggregateFoodNutritionDetail = {
 
 export type FoodNutritionDetailAvgAggregateOutputType = {
   foodId: number | null
-  portion: number | null
   calories: number | null
   protein: number | null
   carbs: number | null
@@ -49,7 +48,6 @@ export type FoodNutritionDetailAvgAggregateOutputType = {
 
 export type FoodNutritionDetailSumAggregateOutputType = {
   foodId: number | null
-  portion: number | null
   calories: number | null
   protein: number | null
   carbs: number | null
@@ -72,7 +70,7 @@ export type FoodNutritionDetailMinAggregateOutputType = {
   id: string | null
   foodId: number | null
   foodName: string | null
-  portion: number | null
+  portion: string | null
   inputHash: string | null
   calories: number | null
   protein: number | null
@@ -98,7 +96,7 @@ export type FoodNutritionDetailMaxAggregateOutputType = {
   id: string | null
   foodId: number | null
   foodName: string | null
-  portion: number | null
+  portion: string | null
   inputHash: string | null
   calories: number | null
   protein: number | null
@@ -151,7 +149,6 @@ export type FoodNutritionDetailCountAggregateOutputType = {
 
 export type FoodNutritionDetailAvgAggregateInputType = {
   foodId?: true
-  portion?: true
   calories?: true
   protein?: true
   carbs?: true
@@ -172,7 +169,6 @@ export type FoodNutritionDetailAvgAggregateInputType = {
 
 export type FoodNutritionDetailSumAggregateInputType = {
   foodId?: true
-  portion?: true
   calories?: true
   protein?: true
   carbs?: true
@@ -362,7 +358,7 @@ export type FoodNutritionDetailGroupByOutputType = {
   foodId: number
   foodName: string
   ingredients: string[]
-  portion: number
+  portion: string
   inputHash: string
   calories: number | null
   protein: number | null
@@ -412,7 +408,7 @@ export type FoodNutritionDetailWhereInput = {
   foodId?: Prisma.IntFilter<"FoodNutritionDetail"> | number
   foodName?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   ingredients?: Prisma.StringNullableListFilter<"FoodNutritionDetail">
-  portion?: Prisma.IntFilter<"FoodNutritionDetail"> | number
+  portion?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   inputHash?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   calories?: Prisma.FloatNullableFilter<"FoodNutritionDetail"> | number | null
   protein?: Prisma.FloatNullableFilter<"FoodNutritionDetail"> | number | null
@@ -433,7 +429,6 @@ export type FoodNutritionDetailWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"FoodNutritionDetail"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FoodNutritionDetail"> | Date | string
   Food?: Prisma.XOR<Prisma.FoodScalarRelationFilter, Prisma.FoodWhereInput>
-  requests?: Prisma.FoodNutritionsRequestListRelationFilter
 }
 
 export type FoodNutritionDetailOrderByWithRelationInput = {
@@ -462,7 +457,6 @@ export type FoodNutritionDetailOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   Food?: Prisma.FoodOrderByWithRelationInput
-  requests?: Prisma.FoodNutritionsRequestOrderByRelationAggregateInput
 }
 
 export type FoodNutritionDetailWhereUniqueInput = Prisma.AtLeast<{
@@ -474,7 +468,7 @@ export type FoodNutritionDetailWhereUniqueInput = Prisma.AtLeast<{
   foodId?: Prisma.IntFilter<"FoodNutritionDetail"> | number
   foodName?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   ingredients?: Prisma.StringNullableListFilter<"FoodNutritionDetail">
-  portion?: Prisma.IntFilter<"FoodNutritionDetail"> | number
+  portion?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   calories?: Prisma.FloatNullableFilter<"FoodNutritionDetail"> | number | null
   protein?: Prisma.FloatNullableFilter<"FoodNutritionDetail"> | number | null
   carbs?: Prisma.FloatNullableFilter<"FoodNutritionDetail"> | number | null
@@ -494,7 +488,6 @@ export type FoodNutritionDetailWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"FoodNutritionDetail"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FoodNutritionDetail"> | Date | string
   Food?: Prisma.XOR<Prisma.FoodScalarRelationFilter, Prisma.FoodWhereInput>
-  requests?: Prisma.FoodNutritionsRequestListRelationFilter
 }, "id" | "inputHash">
 
 export type FoodNutritionDetailOrderByWithAggregationInput = {
@@ -537,7 +530,7 @@ export type FoodNutritionDetailScalarWhereWithAggregatesInput = {
   foodId?: Prisma.IntWithAggregatesFilter<"FoodNutritionDetail"> | number
   foodName?: Prisma.StringWithAggregatesFilter<"FoodNutritionDetail"> | string
   ingredients?: Prisma.StringNullableListFilter<"FoodNutritionDetail">
-  portion?: Prisma.IntWithAggregatesFilter<"FoodNutritionDetail"> | number
+  portion?: Prisma.StringWithAggregatesFilter<"FoodNutritionDetail"> | string
   inputHash?: Prisma.StringWithAggregatesFilter<"FoodNutritionDetail"> | string
   calories?: Prisma.FloatNullableWithAggregatesFilter<"FoodNutritionDetail"> | number | null
   protein?: Prisma.FloatNullableWithAggregatesFilter<"FoodNutritionDetail"> | number | null
@@ -563,7 +556,7 @@ export type FoodNutritionDetailCreateInput = {
   id?: string
   foodName: string
   ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
+  portion: string
   inputHash: string
   calories?: number | null
   protein?: number | null
@@ -584,7 +577,6 @@ export type FoodNutritionDetailCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   Food: Prisma.FoodCreateNestedOneWithoutFoodDetailsInput
-  requests?: Prisma.FoodNutritionsRequestCreateNestedManyWithoutDetailInput
 }
 
 export type FoodNutritionDetailUncheckedCreateInput = {
@@ -592,7 +584,7 @@ export type FoodNutritionDetailUncheckedCreateInput = {
   foodId: number
   foodName: string
   ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
+  portion: string
   inputHash: string
   calories?: number | null
   protein?: number | null
@@ -612,14 +604,13 @@ export type FoodNutritionDetailUncheckedCreateInput = {
   vitaminB12?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  requests?: Prisma.FoodNutritionsRequestUncheckedCreateNestedManyWithoutDetailInput
 }
 
 export type FoodNutritionDetailUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   foodName?: Prisma.StringFieldUpdateOperationsInput | string
   ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
+  portion?: Prisma.StringFieldUpdateOperationsInput | string
   inputHash?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -640,7 +631,6 @@ export type FoodNutritionDetailUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Food?: Prisma.FoodUpdateOneRequiredWithoutFoodDetailsNestedInput
-  requests?: Prisma.FoodNutritionsRequestUpdateManyWithoutDetailNestedInput
 }
 
 export type FoodNutritionDetailUncheckedUpdateInput = {
@@ -648,7 +638,7 @@ export type FoodNutritionDetailUncheckedUpdateInput = {
   foodId?: Prisma.IntFieldUpdateOperationsInput | number
   foodName?: Prisma.StringFieldUpdateOperationsInput | string
   ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
+  portion?: Prisma.StringFieldUpdateOperationsInput | string
   inputHash?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -668,7 +658,6 @@ export type FoodNutritionDetailUncheckedUpdateInput = {
   vitaminB12?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  requests?: Prisma.FoodNutritionsRequestUncheckedUpdateManyWithoutDetailNestedInput
 }
 
 export type FoodNutritionDetailCreateManyInput = {
@@ -676,7 +665,7 @@ export type FoodNutritionDetailCreateManyInput = {
   foodId: number
   foodName: string
   ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
+  portion: string
   inputHash: string
   calories?: number | null
   protein?: number | null
@@ -702,7 +691,7 @@ export type FoodNutritionDetailUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   foodName?: Prisma.StringFieldUpdateOperationsInput | string
   ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
+  portion?: Prisma.StringFieldUpdateOperationsInput | string
   inputHash?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -729,7 +718,7 @@ export type FoodNutritionDetailUncheckedUpdateManyInput = {
   foodId?: Prisma.IntFieldUpdateOperationsInput | number
   foodName?: Prisma.StringFieldUpdateOperationsInput | string
   ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
+  portion?: Prisma.StringFieldUpdateOperationsInput | string
   inputHash?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -798,7 +787,6 @@ export type FoodNutritionDetailCountOrderByAggregateInput = {
 
 export type FoodNutritionDetailAvgOrderByAggregateInput = {
   foodId?: Prisma.SortOrder
-  portion?: Prisma.SortOrder
   calories?: Prisma.SortOrder
   protein?: Prisma.SortOrder
   carbs?: Prisma.SortOrder
@@ -871,7 +859,6 @@ export type FoodNutritionDetailMinOrderByAggregateInput = {
 
 export type FoodNutritionDetailSumOrderByAggregateInput = {
   foodId?: Prisma.SortOrder
-  portion?: Prisma.SortOrder
   calories?: Prisma.SortOrder
   protein?: Prisma.SortOrder
   carbs?: Prisma.SortOrder
@@ -888,11 +875,6 @@ export type FoodNutritionDetailSumOrderByAggregateInput = {
   vitaminC?: Prisma.SortOrder
   vitaminD?: Prisma.SortOrder
   vitaminB12?: Prisma.SortOrder
-}
-
-export type FoodNutritionDetailScalarRelationFilter = {
-  is?: Prisma.FoodNutritionDetailWhereInput
-  isNot?: Prisma.FoodNutritionDetailWhereInput
 }
 
 export type FoodNutritionDetailCreateNestedManyWithoutFoodInput = {
@@ -946,25 +928,11 @@ export type FoodNutritionDetailUpdateingredientsInput = {
   push?: string | string[]
 }
 
-export type FoodNutritionDetailCreateNestedOneWithoutRequestsInput = {
-  create?: Prisma.XOR<Prisma.FoodNutritionDetailCreateWithoutRequestsInput, Prisma.FoodNutritionDetailUncheckedCreateWithoutRequestsInput>
-  connectOrCreate?: Prisma.FoodNutritionDetailCreateOrConnectWithoutRequestsInput
-  connect?: Prisma.FoodNutritionDetailWhereUniqueInput
-}
-
-export type FoodNutritionDetailUpdateOneRequiredWithoutRequestsNestedInput = {
-  create?: Prisma.XOR<Prisma.FoodNutritionDetailCreateWithoutRequestsInput, Prisma.FoodNutritionDetailUncheckedCreateWithoutRequestsInput>
-  connectOrCreate?: Prisma.FoodNutritionDetailCreateOrConnectWithoutRequestsInput
-  upsert?: Prisma.FoodNutritionDetailUpsertWithoutRequestsInput
-  connect?: Prisma.FoodNutritionDetailWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.FoodNutritionDetailUpdateToOneWithWhereWithoutRequestsInput, Prisma.FoodNutritionDetailUpdateWithoutRequestsInput>, Prisma.FoodNutritionDetailUncheckedUpdateWithoutRequestsInput>
-}
-
 export type FoodNutritionDetailCreateWithoutFoodInput = {
   id?: string
   foodName: string
   ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
+  portion: string
   inputHash: string
   calories?: number | null
   protein?: number | null
@@ -984,14 +952,13 @@ export type FoodNutritionDetailCreateWithoutFoodInput = {
   vitaminB12?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  requests?: Prisma.FoodNutritionsRequestCreateNestedManyWithoutDetailInput
 }
 
 export type FoodNutritionDetailUncheckedCreateWithoutFoodInput = {
   id?: string
   foodName: string
   ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
+  portion: string
   inputHash: string
   calories?: number | null
   protein?: number | null
@@ -1011,7 +978,6 @@ export type FoodNutritionDetailUncheckedCreateWithoutFoodInput = {
   vitaminB12?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  requests?: Prisma.FoodNutritionsRequestUncheckedCreateNestedManyWithoutDetailInput
 }
 
 export type FoodNutritionDetailCreateOrConnectWithoutFoodInput = {
@@ -1048,7 +1014,7 @@ export type FoodNutritionDetailScalarWhereInput = {
   foodId?: Prisma.IntFilter<"FoodNutritionDetail"> | number
   foodName?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   ingredients?: Prisma.StringNullableListFilter<"FoodNutritionDetail">
-  portion?: Prisma.IntFilter<"FoodNutritionDetail"> | number
+  portion?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   inputHash?: Prisma.StringFilter<"FoodNutritionDetail"> | string
   calories?: Prisma.FloatNullableFilter<"FoodNutritionDetail"> | number | null
   protein?: Prisma.FloatNullableFilter<"FoodNutritionDetail"> | number | null
@@ -1070,135 +1036,11 @@ export type FoodNutritionDetailScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"FoodNutritionDetail"> | Date | string
 }
 
-export type FoodNutritionDetailCreateWithoutRequestsInput = {
-  id?: string
-  foodName: string
-  ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
-  inputHash: string
-  calories?: number | null
-  protein?: number | null
-  carbs?: number | null
-  fat?: number | null
-  fiber?: number | null
-  sugar?: number | null
-  cholesterol?: number | null
-  sodium?: number | null
-  calcium?: number | null
-  iron?: number | null
-  potassium?: number | null
-  magnesium?: number | null
-  vitaminA?: number | null
-  vitaminC?: number | null
-  vitaminD?: number | null
-  vitaminB12?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  Food: Prisma.FoodCreateNestedOneWithoutFoodDetailsInput
-}
-
-export type FoodNutritionDetailUncheckedCreateWithoutRequestsInput = {
-  id?: string
-  foodId: number
-  foodName: string
-  ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
-  inputHash: string
-  calories?: number | null
-  protein?: number | null
-  carbs?: number | null
-  fat?: number | null
-  fiber?: number | null
-  sugar?: number | null
-  cholesterol?: number | null
-  sodium?: number | null
-  calcium?: number | null
-  iron?: number | null
-  potassium?: number | null
-  magnesium?: number | null
-  vitaminA?: number | null
-  vitaminC?: number | null
-  vitaminD?: number | null
-  vitaminB12?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type FoodNutritionDetailCreateOrConnectWithoutRequestsInput = {
-  where: Prisma.FoodNutritionDetailWhereUniqueInput
-  create: Prisma.XOR<Prisma.FoodNutritionDetailCreateWithoutRequestsInput, Prisma.FoodNutritionDetailUncheckedCreateWithoutRequestsInput>
-}
-
-export type FoodNutritionDetailUpsertWithoutRequestsInput = {
-  update: Prisma.XOR<Prisma.FoodNutritionDetailUpdateWithoutRequestsInput, Prisma.FoodNutritionDetailUncheckedUpdateWithoutRequestsInput>
-  create: Prisma.XOR<Prisma.FoodNutritionDetailCreateWithoutRequestsInput, Prisma.FoodNutritionDetailUncheckedCreateWithoutRequestsInput>
-  where?: Prisma.FoodNutritionDetailWhereInput
-}
-
-export type FoodNutritionDetailUpdateToOneWithWhereWithoutRequestsInput = {
-  where?: Prisma.FoodNutritionDetailWhereInput
-  data: Prisma.XOR<Prisma.FoodNutritionDetailUpdateWithoutRequestsInput, Prisma.FoodNutritionDetailUncheckedUpdateWithoutRequestsInput>
-}
-
-export type FoodNutritionDetailUpdateWithoutRequestsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  foodName?: Prisma.StringFieldUpdateOperationsInput | string
-  ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
-  inputHash?: Prisma.StringFieldUpdateOperationsInput | string
-  calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  carbs?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  fat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  fiber?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  sugar?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  cholesterol?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  sodium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  calcium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  iron?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  potassium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  magnesium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminA?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminD?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminB12?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Food?: Prisma.FoodUpdateOneRequiredWithoutFoodDetailsNestedInput
-}
-
-export type FoodNutritionDetailUncheckedUpdateWithoutRequestsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  foodId?: Prisma.IntFieldUpdateOperationsInput | number
-  foodName?: Prisma.StringFieldUpdateOperationsInput | string
-  ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
-  inputHash?: Prisma.StringFieldUpdateOperationsInput | string
-  calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  carbs?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  fat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  fiber?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  sugar?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  cholesterol?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  sodium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  calcium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  iron?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  potassium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  magnesium?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminA?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminD?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  vitaminB12?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type FoodNutritionDetailCreateManyFoodInput = {
   id?: string
   foodName: string
   ingredients?: Prisma.FoodNutritionDetailCreateingredientsInput | string[]
-  portion: number
+  portion: string
   inputHash: string
   calories?: number | null
   protein?: number | null
@@ -1224,7 +1066,7 @@ export type FoodNutritionDetailUpdateWithoutFoodInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   foodName?: Prisma.StringFieldUpdateOperationsInput | string
   ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
+  portion?: Prisma.StringFieldUpdateOperationsInput | string
   inputHash?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1244,14 +1086,13 @@ export type FoodNutritionDetailUpdateWithoutFoodInput = {
   vitaminB12?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  requests?: Prisma.FoodNutritionsRequestUpdateManyWithoutDetailNestedInput
 }
 
 export type FoodNutritionDetailUncheckedUpdateWithoutFoodInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   foodName?: Prisma.StringFieldUpdateOperationsInput | string
   ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
+  portion?: Prisma.StringFieldUpdateOperationsInput | string
   inputHash?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1271,14 +1112,13 @@ export type FoodNutritionDetailUncheckedUpdateWithoutFoodInput = {
   vitaminB12?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  requests?: Prisma.FoodNutritionsRequestUncheckedUpdateManyWithoutDetailNestedInput
 }
 
 export type FoodNutritionDetailUncheckedUpdateManyWithoutFoodInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   foodName?: Prisma.StringFieldUpdateOperationsInput | string
   ingredients?: Prisma.FoodNutritionDetailUpdateingredientsInput | string[]
-  portion?: Prisma.IntFieldUpdateOperationsInput | number
+  portion?: Prisma.StringFieldUpdateOperationsInput | string
   inputHash?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   protein?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1300,35 +1140,6 @@ export type FoodNutritionDetailUncheckedUpdateManyWithoutFoodInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-
-/**
- * Count Type FoodNutritionDetailCountOutputType
- */
-
-export type FoodNutritionDetailCountOutputType = {
-  requests: number
-}
-
-export type FoodNutritionDetailCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  requests?: boolean | FoodNutritionDetailCountOutputTypeCountRequestsArgs
-}
-
-/**
- * FoodNutritionDetailCountOutputType without action
- */
-export type FoodNutritionDetailCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the FoodNutritionDetailCountOutputType
-   */
-  select?: Prisma.FoodNutritionDetailCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * FoodNutritionDetailCountOutputType without action
- */
-export type FoodNutritionDetailCountOutputTypeCountRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FoodNutritionsRequestWhereInput
-}
 
 
 export type FoodNutritionDetailSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1357,8 +1168,6 @@ export type FoodNutritionDetailSelect<ExtArgs extends runtime.Types.Extensions.I
   createdAt?: boolean
   updatedAt?: boolean
   Food?: boolean | Prisma.FoodDefaultArgs<ExtArgs>
-  requests?: boolean | Prisma.FoodNutritionDetail$requestsArgs<ExtArgs>
-  _count?: boolean | Prisma.FoodNutritionDetailCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foodNutritionDetail"]>
 
 export type FoodNutritionDetailSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1447,8 +1256,6 @@ export type FoodNutritionDetailSelectScalar = {
 export type FoodNutritionDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "foodId" | "foodName" | "ingredients" | "portion" | "inputHash" | "calories" | "protein" | "carbs" | "fat" | "fiber" | "sugar" | "cholesterol" | "sodium" | "calcium" | "iron" | "potassium" | "magnesium" | "vitaminA" | "vitaminC" | "vitaminD" | "vitaminB12" | "createdAt" | "updatedAt", ExtArgs["result"]["foodNutritionDetail"]>
 export type FoodNutritionDetailInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Food?: boolean | Prisma.FoodDefaultArgs<ExtArgs>
-  requests?: boolean | Prisma.FoodNutritionDetail$requestsArgs<ExtArgs>
-  _count?: boolean | Prisma.FoodNutritionDetailCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FoodNutritionDetailIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Food?: boolean | Prisma.FoodDefaultArgs<ExtArgs>
@@ -1461,14 +1268,13 @@ export type $FoodNutritionDetailPayload<ExtArgs extends runtime.Types.Extensions
   name: "FoodNutritionDetail"
   objects: {
     Food: Prisma.$FoodPayload<ExtArgs>
-    requests: Prisma.$FoodNutritionsRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     foodId: number
     foodName: string
     ingredients: string[]
-    portion: number
+    portion: string
     inputHash: string
     calories: number | null
     protein: number | null
@@ -1883,7 +1689,6 @@ readonly fields: FoodNutritionDetailFieldRefs;
 export interface Prisma__FoodNutritionDetailClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Food<T extends Prisma.FoodDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoodDefaultArgs<ExtArgs>>): Prisma.Prisma__FoodClient<runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  requests<T extends Prisma.FoodNutritionDetail$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoodNutritionDetail$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoodNutritionsRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1917,7 +1722,7 @@ export interface FoodNutritionDetailFieldRefs {
   readonly foodId: Prisma.FieldRef<"FoodNutritionDetail", 'Int'>
   readonly foodName: Prisma.FieldRef<"FoodNutritionDetail", 'String'>
   readonly ingredients: Prisma.FieldRef<"FoodNutritionDetail", 'String[]'>
-  readonly portion: Prisma.FieldRef<"FoodNutritionDetail", 'Int'>
+  readonly portion: Prisma.FieldRef<"FoodNutritionDetail", 'String'>
   readonly inputHash: Prisma.FieldRef<"FoodNutritionDetail", 'String'>
   readonly calories: Prisma.FieldRef<"FoodNutritionDetail", 'Float'>
   readonly protein: Prisma.FieldRef<"FoodNutritionDetail", 'Float'>
@@ -2330,30 +2135,6 @@ export type FoodNutritionDetailDeleteManyArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many FoodNutritionDetails to delete.
    */
   limit?: number
-}
-
-/**
- * FoodNutritionDetail.requests
- */
-export type FoodNutritionDetail$requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the FoodNutritionsRequest
-   */
-  select?: Prisma.FoodNutritionsRequestSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the FoodNutritionsRequest
-   */
-  omit?: Prisma.FoodNutritionsRequestOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FoodNutritionsRequestInclude<ExtArgs> | null
-  where?: Prisma.FoodNutritionsRequestWhereInput
-  orderBy?: Prisma.FoodNutritionsRequestOrderByWithRelationInput | Prisma.FoodNutritionsRequestOrderByWithRelationInput[]
-  cursor?: Prisma.FoodNutritionsRequestWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FoodNutritionsRequestScalarFieldEnum | Prisma.FoodNutritionsRequestScalarFieldEnum[]
 }
 
 /**

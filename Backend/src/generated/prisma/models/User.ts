@@ -257,7 +257,6 @@ export type UserWhereInput = {
   resetRequestAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   googleId?: Prisma.StringNullableFilter<"User"> | string | null
   tokens?: Prisma.TokenListRelationFilter
-  reqeusts?: Prisma.FoodNutritionsRequestListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -272,7 +271,6 @@ export type UserOrderByWithRelationInput = {
   resetRequestAt?: Prisma.SortOrderInput | Prisma.SortOrder
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   tokens?: Prisma.TokenOrderByRelationAggregateInput
-  reqeusts?: Prisma.FoodNutritionsRequestOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -290,7 +288,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   aiRequestCount?: Prisma.IntFilter<"User"> | number
   resetRequestAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   tokens?: Prisma.TokenListRelationFilter
-  reqeusts?: Prisma.FoodNutritionsRequestListRelationFilter
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -339,7 +336,6 @@ export type UserCreateInput = {
   resetRequestAt?: Date | string | null
   googleId?: string | null
   tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
-  reqeusts?: Prisma.FoodNutritionsRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -354,7 +350,6 @@ export type UserUncheckedCreateInput = {
   resetRequestAt?: Date | string | null
   googleId?: string | null
   tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
-  reqeusts?: Prisma.FoodNutritionsRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -369,7 +364,6 @@ export type UserUpdateInput = {
   resetRequestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
-  reqeusts?: Prisma.FoodNutritionsRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -384,7 +378,6 @@ export type UserUncheckedUpdateInput = {
   resetRequestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
-  reqeusts?: Prisma.FoodNutritionsRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -520,20 +513,6 @@ export type UserUpdateOneRequiredWithoutTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTokensInput, Prisma.UserUpdateWithoutTokensInput>, Prisma.UserUncheckedUpdateWithoutTokensInput>
 }
 
-export type UserCreateNestedOneWithoutReqeustsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReqeustsInput, Prisma.UserUncheckedCreateWithoutReqeustsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReqeustsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutReqeustsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReqeustsInput, Prisma.UserUncheckedCreateWithoutReqeustsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReqeustsInput
-  upsert?: Prisma.UserUpsertWithoutReqeustsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReqeustsInput, Prisma.UserUpdateWithoutReqeustsInput>, Prisma.UserUncheckedUpdateWithoutReqeustsInput>
-}
-
 export type UserCreateWithoutTokensInput = {
   id?: string
   name: string
@@ -545,7 +524,6 @@ export type UserCreateWithoutTokensInput = {
   aiRequestCount?: number
   resetRequestAt?: Date | string | null
   googleId?: string | null
-  reqeusts?: Prisma.FoodNutritionsRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTokensInput = {
@@ -559,7 +537,6 @@ export type UserUncheckedCreateWithoutTokensInput = {
   aiRequestCount?: number
   resetRequestAt?: Date | string | null
   googleId?: string | null
-  reqeusts?: Prisma.FoodNutritionsRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTokensInput = {
@@ -589,7 +566,6 @@ export type UserUpdateWithoutTokensInput = {
   aiRequestCount?: Prisma.IntFieldUpdateOperationsInput | number
   resetRequestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reqeusts?: Prisma.FoodNutritionsRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTokensInput = {
@@ -603,79 +579,6 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   aiRequestCount?: Prisma.IntFieldUpdateOperationsInput | number
   resetRequestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reqeusts?: Prisma.FoodNutritionsRequestUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutReqeustsInput = {
-  id?: string
-  name: string
-  email: string
-  password: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  isEmailVerified?: boolean
-  aiRequestCount?: number
-  resetRequestAt?: Date | string | null
-  googleId?: string | null
-  tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutReqeustsInput = {
-  id?: string
-  name: string
-  email: string
-  password: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  isEmailVerified?: boolean
-  aiRequestCount?: number
-  resetRequestAt?: Date | string | null
-  googleId?: string | null
-  tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutReqeustsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutReqeustsInput, Prisma.UserUncheckedCreateWithoutReqeustsInput>
-}
-
-export type UserUpsertWithoutReqeustsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutReqeustsInput, Prisma.UserUncheckedUpdateWithoutReqeustsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutReqeustsInput, Prisma.UserUncheckedCreateWithoutReqeustsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutReqeustsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutReqeustsInput, Prisma.UserUncheckedUpdateWithoutReqeustsInput>
-}
-
-export type UserUpdateWithoutReqeustsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  aiRequestCount?: Prisma.IntFieldUpdateOperationsInput | number
-  resetRequestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutReqeustsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  aiRequestCount?: Prisma.IntFieldUpdateOperationsInput | number
-  resetRequestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -685,12 +588,10 @@ export type UserUncheckedUpdateWithoutReqeustsInput = {
 
 export type UserCountOutputType = {
   tokens: number
-  reqeusts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tokens?: boolean | UserCountOutputTypeCountTokensArgs
-  reqeusts?: boolean | UserCountOutputTypeCountReqeustsArgs
 }
 
 /**
@@ -710,13 +611,6 @@ export type UserCountOutputTypeCountTokensArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.TokenWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountReqeustsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FoodNutritionsRequestWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -730,7 +624,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   resetRequestAt?: boolean
   googleId?: boolean
   tokens?: boolean | Prisma.User$tokensArgs<ExtArgs>
-  reqeusts?: boolean | Prisma.User$reqeustsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -776,7 +669,6 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "createdAt" | "updatedAt" | "isEmailVerified" | "aiRequestCount" | "resetRequestAt" | "googleId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tokens?: boolean | Prisma.User$tokensArgs<ExtArgs>
-  reqeusts?: boolean | Prisma.User$reqeustsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -786,7 +678,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     tokens: Prisma.$TokenPayload<ExtArgs>[]
-    reqeusts: Prisma.$FoodNutritionsRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1194,7 +1085,6 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tokens<T extends Prisma.User$tokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  reqeusts<T extends Prisma.User$reqeustsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reqeustsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoodNutritionsRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1643,30 +1533,6 @@ export type User$tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.TokenScalarFieldEnum | Prisma.TokenScalarFieldEnum[]
-}
-
-/**
- * User.reqeusts
- */
-export type User$reqeustsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the FoodNutritionsRequest
-   */
-  select?: Prisma.FoodNutritionsRequestSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the FoodNutritionsRequest
-   */
-  omit?: Prisma.FoodNutritionsRequestOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FoodNutritionsRequestInclude<ExtArgs> | null
-  where?: Prisma.FoodNutritionsRequestWhereInput
-  orderBy?: Prisma.FoodNutritionsRequestOrderByWithRelationInput | Prisma.FoodNutritionsRequestOrderByWithRelationInput[]
-  cursor?: Prisma.FoodNutritionsRequestWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FoodNutritionsRequestScalarFieldEnum | Prisma.FoodNutritionsRequestScalarFieldEnum[]
 }
 
 /**

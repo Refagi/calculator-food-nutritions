@@ -387,8 +387,7 @@ export const ModelName = {
   User: 'User',
   Token: 'Token',
   Food: 'Food',
-  FoodNutritionDetail: 'FoodNutritionDetail',
-  FoodNutritionsRequest: 'FoodNutritionsRequest'
+  FoodNutritionDetail: 'FoodNutritionDetail'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "token" | "food" | "foodNutritionDetail" | "foodNutritionsRequest"
+    modelProps: "user" | "token" | "food" | "foodNutritionDetail"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -704,80 +703,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    FoodNutritionsRequest: {
-      payload: Prisma.$FoodNutritionsRequestPayload<ExtArgs>
-      fields: Prisma.FoodNutritionsRequestFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.FoodNutritionsRequestFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.FoodNutritionsRequestFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>
-        }
-        findFirst: {
-          args: Prisma.FoodNutritionsRequestFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.FoodNutritionsRequestFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>
-        }
-        findMany: {
-          args: Prisma.FoodNutritionsRequestFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>[]
-        }
-        create: {
-          args: Prisma.FoodNutritionsRequestCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>
-        }
-        createMany: {
-          args: Prisma.FoodNutritionsRequestCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.FoodNutritionsRequestCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>[]
-        }
-        delete: {
-          args: Prisma.FoodNutritionsRequestDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>
-        }
-        update: {
-          args: Prisma.FoodNutritionsRequestUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>
-        }
-        deleteMany: {
-          args: Prisma.FoodNutritionsRequestDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.FoodNutritionsRequestUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.FoodNutritionsRequestUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>[]
-        }
-        upsert: {
-          args: Prisma.FoodNutritionsRequestUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoodNutritionsRequestPayload>
-        }
-        aggregate: {
-          args: Prisma.FoodNutritionsRequestAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateFoodNutritionsRequest>
-        }
-        groupBy: {
-          args: Prisma.FoodNutritionsRequestGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FoodNutritionsRequestGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.FoodNutritionsRequestCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FoodNutritionsRequestCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -890,17 +815,6 @@ export const FoodNutritionDetailScalarFieldEnum = {
 } as const
 
 export type FoodNutritionDetailScalarFieldEnum = (typeof FoodNutritionDetailScalarFieldEnum)[keyof typeof FoodNutritionDetailScalarFieldEnum]
-
-
-export const FoodNutritionsRequestScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  detailId: 'detailId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type FoodNutritionsRequestScalarFieldEnum = (typeof FoodNutritionsRequestScalarFieldEnum)[keyof typeof FoodNutritionsRequestScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1094,7 +1008,6 @@ export type GlobalOmitConfig = {
   token?: Prisma.TokenOmit
   food?: Prisma.FoodOmit
   foodNutritionDetail?: Prisma.FoodNutritionDetailOmit
-  foodNutritionsRequest?: Prisma.FoodNutritionsRequestOmit
 }
 
 /* Types for Logging */

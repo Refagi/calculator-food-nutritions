@@ -5,9 +5,9 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import '@/style/Main.css'
+import '@/styles/Main.css'
 import { type NutritionResult } from '@/types/typeDataNutritionPage';
-import '@/style/Main.css';
+import '@/styles/Main.css';
 
 interface PropsDetailNutritions {
   result: NutritionResult

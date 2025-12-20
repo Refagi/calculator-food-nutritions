@@ -12,8 +12,8 @@ import api from "@/services/apiAuth";
 import { useAuth } from '@/context/AuthContext';
 import Notification from "@/components/Notifications";
 import { type PropsNotification } from "@/types/typeDataNutritionPage";
-import '@/style/Main.css';
-import '@/style/MainResponsive.css';
+import '@/styles/Main.css';
+import '@/styles/MainResponsive.css';
 
 interface TypeLogin {
   email: string

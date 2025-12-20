@@ -41,16 +41,13 @@ export const createDetailNutritions = catchAsync(async (req: AuthRequest, res: R
       detailNutritions = await foodServices.createDetailNutritions(food.id, foodName, portion, createHashInput, ingredients, aiResponse);
     }
 
-    await Promise.all([
-      foodServices.createFoodDetailRequest(req.user.id, detailNutritions.id),
-      userServices.incrementRequest(req.user.id)
-    ])
+    await userServices.incrementRequest(req.user.id);
 
     res.status(httpStatus.OK).send({
     status: httpStatus.OK,
     message: 'Get food with details successfully',
     data: {
-      name: food.name,
+      foodName: food.name,
       portion,
       ingredients,
       image_url: food.image_url,

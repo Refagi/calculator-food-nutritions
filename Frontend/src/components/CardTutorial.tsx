@@ -7,7 +7,7 @@ import {
   Typography,
   CardMedia
 } from "@mui/material";
-import "@/style/Main.css";
+import "@/styles/Main.css";
 
 const cardContents = [
   {

@@ -11,8 +11,8 @@ import Notification from "@/components/Notifications";
 import { type PropsNotification } from "@/types/typeDataNutritionPage";
 import api from '@/services/apiAuth'
 import axios from "axios";
-import '@/style/Main.css';
-import '@/style/MainResponsive.css';
+import '@/styles/Main.css';
+import '@/styles/MainResponsive.css';
 
 interface TypeRegister {
   name: string;

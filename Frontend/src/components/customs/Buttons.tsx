@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import "@/style/Main.css";
+import "@/styles/Main.css";
 
 const CustomButton = styled(Button)({
   textTransform: "none",

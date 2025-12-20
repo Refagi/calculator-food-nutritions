@@ -22,7 +22,7 @@ export interface DetailsNutritions {
 }
 
 export interface NutritionResult {
-  name: string;
+  foodName: string;
   image_url: string;
   portion: string;
   ingredients: string[]

@@ -41,7 +41,7 @@ export interface FormatDataNutrition {
   carbs: number | null;
   fat: number | null;
   protein: number | null;
-  portion: number | string;
+  portion: string;
   ingredients: string | string[];
 }
 
