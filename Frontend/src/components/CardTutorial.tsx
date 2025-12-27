@@ -13,19 +13,19 @@ const cardContents = [
   {
     id: 1,
     title: "1.",
-    img: "../../public/1.png",
+    img: "/1.png",
     description: "Masukan Nama, Bahan-bahan dan Porsi Makanan",
   },
   {
     id: 2,
     title: "2.",
-    img: "../../public/2.png",
+    img: "/2.png",
     description: "Click 'Analisis Makanan'",
   },
   {
     id: 3,
     title: "3.",
-    img: "../../public/3.png",
+    img: "/3.png",
     description: "Dapatkan Detail Nutritions",
   },
 ];

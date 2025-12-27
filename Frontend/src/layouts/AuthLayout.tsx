@@ -17,7 +17,7 @@ export default function AuthLayout () {
       }}>
         <Box className='containerAuth'>
           <Box className='titleAuth'>
-            <img src="../../public/logo.png" alt="logo" style={{maxWidth: '50px', borderRadius: '50px'}}/>
+            <img src="/logo.png" alt="logo" style={{maxWidth: '50px', borderRadius: '50px'}}/>
             <Typography sx={{fontWeight: '700', fontSize: '18px'}}>Calculator Food Nutritions</Typography>
           </Box>
           <Outlet/>
